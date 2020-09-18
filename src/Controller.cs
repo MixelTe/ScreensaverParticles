@@ -61,8 +61,8 @@ namespace ScreenSaverConections
 
 		private double _SpeedMax = 10;
 		private double _RotateSpeedMax = 0.2;
-		private int _TimeMin = 10;
-		private int _TimeMax = 10;
+		private int _TimeMin = 5;
+		private int _TimeMax = 50;
 
 
 		public CPoint(int x, int y, int width, int height)
