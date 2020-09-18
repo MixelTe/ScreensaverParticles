@@ -39,16 +39,16 @@ namespace ScreenSaverConections
 		}
 		private void SetFields()
 		{
-			SpeedUnD.Value = _Settings.Speed;
+			SpeedUnD.Value = _Settings.Density;
 		}
 		private void ResetFields()
 		{
-			SpeedUnD.Value = ScreensaverSettings.D_Speed;
+			SpeedUnD.Value = ScreensaverSettings.D_Density;
 		}
 
 		private void MaxLengthUnD_ValueChanged(object sender, EventArgs e)
 		{
-			_Settings.Speed = (int)SpeedUnD.Value;
+			_Settings.Density = (int)SpeedUnD.Value;
 		}
 
 

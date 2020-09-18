@@ -16,7 +16,11 @@ namespace ScreenSaverConections
 		public void Draw(Graphics g)
 		{
 			g.FillRectangle(Brushes.Black, _rcClient);
-			g.FillRectangle(Brushes.Blue, _game.Rect);
+			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+			foreach (var p in _game._CPoints)
+			{
+				if (p != null) p.Draw(g);
+			}
 		}
 
 

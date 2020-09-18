@@ -6,25 +6,25 @@ namespace ScreenSaverConections
 	class ScreensaverSettings
 	{
 		private static readonly string _KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaverConections";
-		public static int D_Speed = 1;
+		public static int D_Density = 8;
 
-		public int Speed = D_Speed;
+		public int Density = D_Density;
 
 
 		public void Save()
 		{
-			Registry.SetValue(_KeyName, "Speed", Speed);
+			Registry.SetValue(_KeyName, "Density", Density);
 		}
 		public void Load()
 		{
-			var speed = Registry.GetValue(_KeyName, "Speed", Speed);
+			var density = Registry.GetValue(_KeyName, "Density", Density);
 
-			if (speed != null) Speed = (int)speed;
+			if (density != null) Density = (int)density;
 		}
 
 		public override string ToString()
 		{
-			return "Speed: " + Speed;
+			return "Density: " + Density;
 		}
 	}
 }
