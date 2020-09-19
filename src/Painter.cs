@@ -17,7 +17,7 @@ namespace ScreenSaverConections
 		{
 			g.FillRectangle(Brushes.Black, _rcClient);
 			//using (var b = new SolidBrush(Color.FromArgb(10, 0, 0, 0)))
-			//using (var b = new SolidBrush(Color.FromArgb(10, 255, 255, 255)))
+			//using (var b = new SolidBrush(Color.FromArgb(20, 255, 255, 255)))
 			//using (var b = new SolidBrush(Color.FromArgb(20, 10, 10, 10)))
 			{
 				//g.FillRectangle(b, _rcClient);

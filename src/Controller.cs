@@ -121,15 +121,16 @@ namespace ScreenSaverConections
 		private readonly int _Height;
 		private readonly Random _Rnd;
 		private CPoint[] _PointsConected;
-		private CPoint[] _Points;
-		private SolidBrush _Brush;
+		private readonly CPoint[] _Points;
+		private readonly SolidBrush _Brush;
 
-		private static double _SpeedMax = 1;
-		private double _RotateSpeedMax = 0.1;
-		private int _DistanceMax = 150;
-		private int _DistanceShading = 100;
-		private int _TimeMin = 5;
-		private int _TimeMax = 50;
+		private readonly bool _DrawConections = true;
+		private readonly static double _SpeedMax = 10;
+		private readonly double _RotateSpeedMax = 0.1;
+		private readonly int _DistanceMax = 150;
+		private readonly int _DistanceShading = 100;
+		private readonly int _TimeMin = 5;
+		private readonly int _TimeMax = 50;
 
 
 		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points)
@@ -149,24 +150,27 @@ namespace ScreenSaverConections
 		{
 			ChangeSpeed();
 			Move();
-			_PointsConected = new CPoint[_Points.Length];
-			for (int i = 0; i < _Points.Length; i++)
+			if (_DrawConections)
 			{
-				var p = _Points[i];
-				if (p == this || p == null) continue;
-				var conected = false;
-				for (int o = 0; o < p._PointsConected.Length; o++)
+				_PointsConected = new CPoint[_Points.Length];
+				for (int i = 0; i < _Points.Length; i++)
 				{
-					if (p._PointsConected[o] == this)
+					var p = _Points[i];
+					if (p == this || p == null) continue;
+					var conected = false;
+					for (int o = 0; o < p._PointsConected.Length; o++)
 					{
-						conected = true;
-						break;
+						if (p._PointsConected[o] == this)
+						{
+							conected = true;
+							break;
+						}
 					}
-				}
-				if (conected) continue;
-				if (GetDistance(p._X, p._Y) <= Squared(_DistanceMax)) 
-				{
-					_PointsConected[i] = p;
+					if (conected) continue;
+					if (GetDistance(p._X, p._Y) <= Squared(_DistanceMax))
+					{
+						_PointsConected[i] = p;
+					}
 				}
 			}
 		}
@@ -212,26 +216,29 @@ namespace ScreenSaverConections
 
 		public void Draw(Graphics g)
 		{
-			var P = new PointF((float)_X, (float)_Y);
-			foreach (var p in _PointsConected)
+			if (_DrawConections)
 			{
-				if (p != null) 
+				var P = new PointF((float)_X, (float)_Y);
+				foreach (var p in _PointsConected)
 				{
-					using (var pen = new Pen(Color.Blue))
+					if (p != null)
 					{
-						var d = GetDistance(p._X, p._Y);
-						d = Math.Min(d, Squared(_DistanceMax));
-						d -= Squared(_DistanceShading);
-						if (d > 0)
+						using (var pen = new Pen(Color.Blue))
 						{
-							var a = d / (Squared(_DistanceMax) - Squared(_DistanceShading));
-							pen.Color = Color.FromArgb((int)((1d - a) * 256), Color.Blue);
+							var d = GetDistance(p._X, p._Y);
+							d = Math.Min(d, Squared(_DistanceMax));
+							d -= Squared(_DistanceShading);
+							if (d > 0)
+							{
+								var a = d / (Squared(_DistanceMax) - Squared(_DistanceShading));
+								pen.Color = Color.FromArgb((int)((1d - a) * 256), Color.Blue);
+							}
+							g.DrawLine(pen, P, new PointF((float)p._X, (float)p._Y));
 						}
-						g.DrawLine(pen, P, new PointF((float)p._X, (float)p._Y));
 					}
 				}
 			}
-			var r = 4;
+			var r = 8;
 			g.FillEllipse(_Brush, (float)(_X - r / 2), (float)(_Y - r / 2), r, r);
 		}
 
