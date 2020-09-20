@@ -4,16 +4,6 @@ using System.Drawing.Drawing2D;
 
 namespace ScreenSaverConections
 {
-	enum ColorStyle
-	{
-		All,
-		Red_Green,
-		Red_Blue,
-		Green_Red,
-		Green_Blue,
-		Blue_Red,
-		Blue_Green,
-	}
 	class Controller : IController
 	{
 		private readonly ScreensaverSettings _Settings;
@@ -27,7 +17,6 @@ namespace ScreenSaverConections
 		private readonly int _ColorMax = 160;
 		private readonly float _ColorLMin = 0.5f;
 		private readonly float _ColorLMax = 0.6f;
-		private readonly ColorStyle _ColorStyle = ColorStyle.Green_Blue;
 
 		public Controller(int width, int height, ScreensaverSettings settings)
 		{
@@ -67,53 +56,6 @@ namespace ScreenSaverConections
 			var l = _Rnd.Next((int)(_ColorLMin * 100), (int)(_ColorLMax * 100));
 			
 			return new HSL(h, 100, l).HSLToRGB().RGBToColor(255);
-		}
-		private Color GetColor1()
-		{
-			int r, g, b;
-			if (_ColorStyle == ColorStyle.Red_Blue)
-			{
-				r = _Rnd.Next(256);
-				b = _Rnd.Next(r);
-				g = _Rnd.Next(b);
-			}
-			else if (_ColorStyle == ColorStyle.Red_Green)
-			{
-				r = _Rnd.Next(256);
-				g = _Rnd.Next(r);
-				b = _Rnd.Next(g);
-			}
-			else if (_ColorStyle == ColorStyle.Green_Blue)
-			{
-				g = _Rnd.Next(256);
-				b = _Rnd.Next(g);
-				r = _Rnd.Next(b);
-			}
-			else if (_ColorStyle == ColorStyle.Green_Red)
-			{
-				g = _Rnd.Next(256);
-				r = _Rnd.Next(g);
-				b = _Rnd.Next(r);
-			}
-			else if (_ColorStyle == ColorStyle.Blue_Green)
-			{
-				b = _Rnd.Next(256);
-				g = _Rnd.Next(b);
-				r = _Rnd.Next(g);
-			}
-			else if (_ColorStyle == ColorStyle.Blue_Red)
-			{
-				b = _Rnd.Next(256);
-				r = _Rnd.Next(b);
-				g = _Rnd.Next(r);
-			}
-			else
-			{
-				r = _Rnd.Next(256);
-				g = _Rnd.Next(256);
-				b = _Rnd.Next(256);
-			}
-			return Color.FromArgb(r, g, b);
 		}
 
 		public void Dispose()
@@ -166,8 +108,10 @@ namespace ScreenSaverConections
 			_Rnd = rnd;
 			_Direction = rnd.Next(360) / 180d * Math.PI;
 			_Brush = new SolidBrush(color);
-			_Pen = new Pen(_ConnectionsColor);
-			_Pen.Width = _ConnectionsWidth;
+			_Pen = new Pen(_ConnectionsColor)
+			{
+				Width = _ConnectionsWidth
+			};
 			_Points = points;
 			_PointsConnected = new CPoint[points.Length];
 		}
@@ -270,6 +214,7 @@ namespace ScreenSaverConections
 		public void Dispose()
 		{
 			_Brush?.Dispose();
+			_Pen?.Dispose();
 		}
 	}
 }
