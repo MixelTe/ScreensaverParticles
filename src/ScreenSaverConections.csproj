@@ -68,6 +68,7 @@
     <Compile Include="Painter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ColorTransform.cs" />
     <Compile Include="ScreensaverController.cs" />
     <Compile Include="ScreensaverSettings.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -6,7 +6,7 @@ namespace ScreenSaverConections
 	class ScreensaverSettings
 	{
 		private static readonly string _KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaverConections";
-		public static int D_Density = 10;
+		public static int D_Density = 20;
 
 		public int Density = D_Density;
 

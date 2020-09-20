@@ -23,6 +23,10 @@ namespace ScreenSaverConections
 		private readonly Random _Rnd = new Random(1);
 
 		private readonly int _Density;
+		private readonly int _ColorMin = 60;
+		private readonly int _ColorMax = 160;
+		private readonly float _ColorLMin = 0.5f;
+		private readonly float _ColorLMax = 0.6f;
 		private readonly ColorStyle _ColorStyle = ColorStyle.Green_Blue;
 
 		public Controller(int width, int height, ScreensaverSettings settings)
@@ -32,8 +36,16 @@ namespace ScreenSaverConections
 			_Width = width;
 			_Height = height;
 			_CPoints = new CPoint[_Width * _Height / (500 * 500) * _Density];
+			CreateAll();
 		}
-		public void Update()
+		private void CreateAll()
+		{
+			for (int i = 0; i < _CPoints.Length; i++)
+			{
+				_CPoints[i] = new CPoint(_Rnd.Next(_Width), _Rnd.Next(_Height), _Width, _Height, _Rnd, GetColor(), _CPoints);
+			}
+		}
+			public void Update()
 		{
 			for (int i = 0; i < _CPoints.Length; i++)
 			{
@@ -50,6 +62,13 @@ namespace ScreenSaverConections
 			}
 		}
 		private Color GetColor()
+		{
+			var h = _Rnd.Next(_ColorMin, _ColorMax);
+			var l = _Rnd.Next((int)(_ColorLMin * 100), (int)(_ColorLMax * 100));
+			
+			return new HSL(h, 100, l).HSLToRGB().RGBToColor(255);
+		}
+		private Color GetColor1()
 		{
 			int r, g, b;
 			if (_ColorStyle == ColorStyle.Red_Blue)
@@ -125,10 +144,11 @@ namespace ScreenSaverConections
 		private readonly SolidBrush _Brush;
 
 		private readonly bool _DrawConections = true;
-		private readonly static double _SpeedMax = 10;
-		private readonly double _RotateSpeedMax = 0.1;
+		private readonly static double _SpeedMax = 5;
+		private readonly double _RotateSpeedMax = 0.05;
 		private readonly int _DistanceMax = 150;
 		private readonly int _DistanceShading = 100;
+		private readonly float _LineAlpha = 0.8f;
 		private readonly int _TimeMin = 5;
 		private readonly int _TimeMax = 50;
 
@@ -140,7 +160,7 @@ namespace ScreenSaverConections
 			_Width = width;
 			_Height = height;
 			_Rnd = rnd;
-			_Direction = new Random().Next(360) / 180d * Math.PI;
+			_Direction = rnd.Next(360) / 180d * Math.PI;
 			_Brush = new SolidBrush(color);
 			_Points = points;
 			_PointsConected = new CPoint[points.Length];
@@ -228,11 +248,14 @@ namespace ScreenSaverConections
 							var d = GetDistance(p._X, p._Y);
 							d = Math.Min(d, Squared(_DistanceMax));
 							d -= Squared(_DistanceShading);
+							var A = 255;
 							if (d > 0)
 							{
 								var a = d / (Squared(_DistanceMax) - Squared(_DistanceShading));
-								pen.Color = Color.FromArgb((int)((1d - a) * 256), Color.Blue);
+								A = (int)((1d - a) * 256);
 							}
+							A = (int)(A * _LineAlpha);
+							pen.Color = Color.FromArgb(A, Color.Blue);
 							g.DrawLine(pen, P, new PointF((float)p._X, (float)p._Y));
 						}
 					}
