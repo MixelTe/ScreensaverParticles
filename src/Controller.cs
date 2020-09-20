@@ -142,8 +142,10 @@ namespace ScreenSaverConections
 		private CPoint[] _PointsConnected;
 		private readonly CPoint[] _Points;
 		private readonly SolidBrush _Brush;
+		private readonly Pen _Pen;
 
 		private readonly bool _DrawConections = true;
+		private readonly Color _ConnectionsColor = Color.Blue;
 		private readonly int _ConnectionsWidth = 1;
 		private readonly int _PointRadius = 8;
 		private readonly static double _SpeedMax = 5;
@@ -164,6 +166,8 @@ namespace ScreenSaverConections
 			_Rnd = rnd;
 			_Direction = rnd.Next(360) / 180d * Math.PI;
 			_Brush = new SolidBrush(color);
+			_Pen = new Pen(_ConnectionsColor);
+			_Pen.Width = _ConnectionsWidth;
 			_Points = points;
 			_PointsConnected = new CPoint[points.Length];
 		}
@@ -245,22 +249,18 @@ namespace ScreenSaverConections
 				{
 					if (p != null)
 					{
-						using (var pen = new Pen(Color.Blue))
+						var d = GetDistance(p._X, p._Y);
+						d = Math.Min(d, Squared(_DistanceMax));
+						d -= Squared(_DistanceShading);
+						var A = 255;
+						if (d > 0)
 						{
-							pen.Width = _ConnectionsWidth;
-							var d = GetDistance(p._X, p._Y);
-							d = Math.Min(d, Squared(_DistanceMax));
-							d -= Squared(_DistanceShading);
-							var A = 255;
-							if (d > 0)
-							{
-								var a = d / (Squared(_DistanceMax) - Squared(_DistanceShading));
-								A = (int)((1d - a) * 256);
-							}
-							A = (int)(A * _LineAlpha);
-							pen.Color = Color.FromArgb(A, Color.Blue);
-							g.DrawLine(pen, P, new PointF((float)p._X, (float)p._Y));
+							var a = d / (Squared(_DistanceMax) - Squared(_DistanceShading));
+							A = (int)((1d - a) * 256);
 						}
+						A = (int)(A * _LineAlpha);
+						_Pen.Color = Color.FromArgb(A, _ConnectionsColor);
+						g.DrawLine(_Pen, P, new PointF((float)p._X, (float)p._Y));
 					}
 				}
 			}
