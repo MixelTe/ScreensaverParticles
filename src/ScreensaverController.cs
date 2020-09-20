@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace ScreenSaverConections
 		private bool _Paused;
 		private IDrawingBuffer _DrawingBuffer;
 		private readonly FPS _fps = new FPS();
+		private long _time;
 
 		internal Control TargetControl;
 		private Thread _t;
@@ -50,6 +52,7 @@ namespace ScreenSaverConections
 		public ScreensaverController()
 		{
 			_ScreensaverSettings.Load();
+			_time = Stopwatch.GetTimestamp();
 		}
 		internal void RecreateGame(Rectangle rcClient)
 		{
@@ -95,18 +98,23 @@ namespace ScreenSaverConections
 		{
 			while (IsRunning)
 			{
-				if (!Paused)
+				var time = Stopwatch.GetTimestamp();
+				if (time - _time > Stopwatch.Frequency / 30)
 				{
-					lock (_lock)
+					_time = time;
+					if (!Paused)
 					{
-						_game.Update();
+						lock (_lock)
+						{
+							_game.Update();
+						}
+
+						DrawGame();
+
+						_fps.Increment();
 					}
-
-					DrawGame();
-
-					_fps.Increment();
 				}
-				Thread.Sleep(1000 / 30);
+				//Thread.Sleep(1000 / 60);
 			}
 		}
 		internal void DrawGame()
