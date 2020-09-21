@@ -6,6 +6,10 @@ namespace ScreenSaverConections
 	{
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
+		
+		private readonly bool _DrawConections = true;
+		private readonly bool _DrawPoints = true;
+		private readonly SolidBrush _Brush = new SolidBrush(Color.FromArgb(255, 0, 0, 0));
 
 		public Painter(Controller game, Rectangle rcClient)
 		{
@@ -15,24 +19,28 @@ namespace ScreenSaverConections
 
 		public void Draw(Graphics g)
 		{
-			g.FillRectangle(Brushes.Black, _rcClient);
-			//using (var b = new SolidBrush(Color.FromArgb(10, 0, 0, 0)))
-			//using (var b = new SolidBrush(Color.FromArgb(20, 255, 255, 255)))
-			//using (var b = new SolidBrush(Color.FromArgb(20, 10, 10, 10)))
-			{
-				//g.FillRectangle(b, _rcClient);
-			}
+			g.FillRectangle(_Brush, _rcClient);
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-			foreach (var p in _game._CPoints)
+			if (_DrawConections)
 			{
-				if (p != null) p.Draw(g);
+				foreach (var p in _game._CPoints)
+				{
+					if (p != null) p.DrawConnections(g);
+				}
+			}
+			if (_DrawPoints)
+			{
+				foreach (var p in _game._CPoints)
+				{
+					if (p != null) p.DrawPoint(g);
+				}
 			}
 		}
 
 
 		public void Dispose()
 		{
-
+			_Brush?.Dispose();
 		}
 	}
 }

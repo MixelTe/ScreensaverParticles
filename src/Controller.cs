@@ -184,7 +184,7 @@ namespace ScreenSaverConections
 		}
 		private double Squared(double num) => num * num;
 
-		public void Draw(Graphics g)
+		public void DrawConnections(Graphics g)
 		{
 			if (_DrawConections)
 			{
@@ -208,6 +208,10 @@ namespace ScreenSaverConections
 					}
 				}
 			}
+		}
+
+		public void DrawPoint(Graphics g)
+		{
 			g.FillEllipse(_Brush, (float)(_X - _PointRadius / 2), (float)(_Y - _PointRadius / 2), _PointRadius, _PointRadius);
 		}
 
