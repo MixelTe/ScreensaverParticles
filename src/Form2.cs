@@ -14,14 +14,13 @@ namespace ScreenSaverConections
 {
 	public partial class Form2 : Form
 	{
-		private ScreensaverSettings _Settings = new ScreensaverSettings();
 		public Form2()
 		{
 			InitializeComponent();
 			
 			ChangeLanguage();
 
-			_Settings.Load();
+			RegSerializer.Load(Program.KeyName, Program.Settings);
 
 			SetFields();
 		}
@@ -39,16 +38,16 @@ namespace ScreenSaverConections
 		}
 		private void SetFields()
 		{
-			SpeedUnD.Value = _Settings.Density;
+			SpeedUnD.Value = Program.Settings.Density;
 		}
 		private void ResetFields()
 		{
-			SpeedUnD.Value = ScreensaverSettings.D_Density;
+			SpeedUnD.Value = Program.Settings.Density;
 		}
 
 		private void MaxLengthUnD_ValueChanged(object sender, EventArgs e)
 		{
-			_Settings.Density = (int)SpeedUnD.Value;
+			Program.Settings.Density = (int)SpeedUnD.Value;
 		}
 
 
@@ -57,11 +56,12 @@ namespace ScreenSaverConections
 		private void ResetBtn_Click(object sender, EventArgs e)
 		{
 			ResetFields();
-			_Settings = new ScreensaverSettings();
+			Program.Settings = new Settings();
 		}
 		private void OkBtn_Click(object sender, EventArgs e)
 		{
-			_Settings.Save();
+			RegSerializer.Save(Program.KeyName, Program.Settings);
+			
 			Close();
 		}
 

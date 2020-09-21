@@ -6,15 +6,15 @@ namespace ScreenSaverConections
 {
 	class Controller : IController
 	{
-		private readonly ScreensaverSettings _Settings;
+		private readonly Settings _Settings;
 		private readonly int _Height;
 		private readonly int _Width;
 		public readonly CPoint[] _CPoints;
 		private readonly Random _Rnd = new Random(1);
 
-		public Controller(int width, int height, ScreensaverSettings settings)
+		public Controller(int width, int height)
 		{
-			_Settings = settings;
+			_Settings = Program.Settings;
 			_Width = width;
 			_Height = height;
 			_CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
@@ -68,7 +68,7 @@ namespace ScreenSaverConections
 
 	class CPoint: IDisposable
 	{
-		private readonly ScreensaverSettings _Settings;
+		private readonly Settings _Settings;
 		private double _X;
 		private double _Y;
 		private double _Speed;
@@ -85,20 +85,8 @@ namespace ScreenSaverConections
 		private readonly SolidBrush _Brush;
 		private readonly Pen _Pen;
 
-		//private readonly bool _DrawConections = true;
-		//private readonly Color _ConnectionsColor = Color.Blue;
-		//private readonly int _ConnectionsWidth = 1;
-		//private readonly int _PointRadius = 8;
-		//private readonly static double _SpeedMax = 5;
-		//private readonly double _RotateSpeedMax = 0.05;
-		//private readonly int _DistanceMax = 150;
-		//private readonly int _DistanceShading = 100;
-		//private readonly float _LineAlpha = 0.8f;
-		//private readonly int _TimeMin = 5;
-		//private readonly int _TimeMax = 50;
 
-
-		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points, ScreensaverSettings settings)
+		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points, Settings settings)
 		{
 			_Settings = settings;
 			_X = x;

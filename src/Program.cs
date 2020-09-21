@@ -8,6 +8,8 @@ namespace ScreenSaverConections
 {
 	static class Program
 	{
+		public static readonly string KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaverConections";
+		public static Settings Settings = new Settings();
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>

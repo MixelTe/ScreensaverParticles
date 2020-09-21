@@ -1,65 +1,80 @@
 ﻿using Microsoft.Win32;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace ScreenSaverConections
 {
 	class ScreensaverSettings
 	{
-		private static readonly string _KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaverConections";
-		public static int D_Density = 20;
+		public Settings Settings = new Settings();
 
-		public static readonly int D_ColorMin = 0;
-		public static readonly int D_ColorMax = 360;
-		public static readonly float D_ColorLMin = 0.4f;
-		public static readonly float D_ColorLMax = 0.6f;
+		//public void Save()
+		//{
+		//	RegSerializer.Save(Settings);
+		//}
+		//public void Load()
+		//{
 
-		public static readonly bool D_DrawConections = true;
-		public static readonly Color D_ConnectionsColor = Color.Blue;
-		public static readonly int D_ConnectionsWidth = 1;
-		public static readonly int D_PointRadius = 8;
-		public static readonly double D_SpeedMax = 5;
-		public static readonly double D_RotateSpeedMax = 0.05;
-		public static readonly int D_DistanceMax = 150;
-		public static readonly int D_DistanceShading = 100;
-		public static readonly float D_LineAlpha = 0.8f;
-		public static readonly int D_TimeMin = 5;
-		public static readonly int D_TimeMax = 50;
+		//}
 
+		//public override string ToString()
+		//{
+		//	return "Density: " + Density;
+		//}
 
-		public int Density = D_Density;
-		public int ColorMin = D_ColorMin;
-		public int ColorMax = D_ColorMax;
-		public float ColorLMin = D_ColorLMin;
-		public float ColorLMax = D_ColorLMax;
-		
-		public readonly bool DrawConections = D_DrawConections;
-		public readonly Color ConnectionsColor = D_ConnectionsColor;
-		public readonly int ConnectionsWidth = D_ConnectionsWidth;
-		public readonly int PointRadius = D_PointRadius;
-		public readonly double SpeedMax = D_SpeedMax;
-		public readonly double RotateSpeedMax = D_RotateSpeedMax;
-		public readonly int DistanceMax = D_DistanceMax;
-		public readonly int DistanceShading = D_DistanceShading;
-		public readonly float LineAlpha = D_LineAlpha;
-		public readonly int TimeMin = D_TimeMin;
-		public readonly int TimeMax = D_TimeMax;
+		//private void SaveOne(string key, int variable)
+		//{
+		//	Registry.SetValue(_KeyName, key, variable);
+		//}
+		//private void SaveOne(string key, float variable)
+		//{
+		//	var v = variable.ToString(CultureInfo.InvariantCulture);
+		//	Registry.SetValue(_KeyName, key, v);
+		//}
+		//private void SaveOne(string key, double variable)
+		//{
+		//	var v = variable.ToString(CultureInfo.InvariantCulture);
+		//	Registry.SetValue(_KeyName, key, v);
+		//}
 
 
-		public void Save()
-		{
-			Registry.SetValue(_KeyName, "Density", Density);
-		}
-		public void Load()
-		{
-			var density = Registry.GetValue(_KeyName, "Density", Density);
+		//private void LoadOne(string key, ref int variable)
+		//{
+		//	var loaded = Registry.GetValue(_KeyName, key, variable);
+		//	if (loaded != null) variable = (int)loaded;
+		//}
+		//private void LoadOne(string key, ref float variable)
+		//{
+		//	var loaded = Registry.GetValue(_KeyName, key, variable);
+		//	float v;
+		//	if (loaded != null) variable = (int)loaded / (float)Accuracy;
+		//}
+		//private void LoadOne(string key, ref double variable)
+		//{
+		//	var loaded = Registry.GetValue(_KeyName, key, variable);
+		//	if (loaded != null) variable = (int)loaded / (double)Accuracy;
+		//}
+	}
 
-			if (density != null) Density = (int)density;
-		}
+	class Settings
+	{
+		public int Density = 20;
+		public int ColorMin = 0;
+		public int ColorMax = 360;
+		public float ColorLMin = 0.4f;
+		public float ColorLMax = 0.6f;
+		public bool DrawConections = true;
+		public Color ConnectionsColor = Color.Blue;
+		public int ConnectionsWidth = 1;
+		public int PointRadius = 8;
+		public double SpeedMax = 5;
+		public double RotateSpeedMax = 0.05;
+		public int DistanceMax = 150;
+		public int DistanceShading = 100;
+		public float LineAlpha = 0.8f;
+		public int TimeMin = 5;
+		public int TimeMax = 50;
 
-		public override string ToString()
-		{
-			return "Density: " + Density;
-		}
 	}
 }

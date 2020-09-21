@@ -8,7 +8,6 @@ namespace ScreenSaverConections
 {
 	class ScreensaverController
 	{
-		private readonly ScreensaverSettings _ScreensaverSettings = new ScreensaverSettings();
 		private object _lock = new object();
 		private IController _game;
 		private IPainter _painter;
@@ -51,12 +50,12 @@ namespace ScreenSaverConections
 		}
 		public ScreensaverController()
 		{
-			_ScreensaverSettings.Load();
+			RegSerializer.Load(Program.KeyName, Program.Settings);
 			_time = Stopwatch.GetTimestamp();
 		}
 		internal void RecreateGame(Rectangle rcClient)
 		{
-			var game = new Controller(rcClient.Width, rcClient.Height, _ScreensaverSettings);
+			var game = new Controller(rcClient.Width, rcClient.Height);
 			var painter = new Painter(game, rcClient);
 
 			AssignComponents(game, painter, rcClient);
