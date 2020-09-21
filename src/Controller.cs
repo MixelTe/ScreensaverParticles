@@ -12,36 +12,29 @@ namespace ScreenSaverConections
 		public readonly CPoint[] _CPoints;
 		private readonly Random _Rnd = new Random(1);
 
-		private readonly int _Density;
-		private readonly int _ColorMin = 60;
-		private readonly int _ColorMax = 160;
-		private readonly float _ColorLMin = 0.5f;
-		private readonly float _ColorLMax = 0.6f;
-
 		public Controller(int width, int height, ScreensaverSettings settings)
 		{
 			_Settings = settings;
-			_Density = _Settings.Density;
 			_Width = width;
 			_Height = height;
-			_CPoints = new CPoint[_Width * _Height / (500 * 500) * _Density];
+			_CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
 			CreateAll();
 		}
 		private void CreateAll()
 		{
 			for (int i = 0; i < _CPoints.Length; i++)
 			{
-				_CPoints[i] = new CPoint(_Rnd.Next(_Width), _Rnd.Next(_Height), _Width, _Height, _Rnd, GetColor(), _CPoints);
+				_CPoints[i] = CreatePoint();
 			}
 		}
-			public void Update()
+		public void Update()
 		{
 			for (int i = 0; i < _CPoints.Length; i++)
 			{
 				var el = _CPoints[i];
 				if (el == null)
 				{
-					_CPoints[i] = new CPoint(_Rnd.Next(_Width), _Rnd.Next(_Height), _Width, _Height, _Rnd, GetColor(), _CPoints);
+					_CPoints[i] = CreatePoint();
 					break;
 				}
 				else
@@ -50,11 +43,16 @@ namespace ScreenSaverConections
 				}
 			}
 		}
+
+		private CPoint CreatePoint()
+		{
+			return new CPoint(_Rnd.Next(_Width), _Rnd.Next(_Height), _Width, _Height, _Rnd, GetColor(), _CPoints, _Settings);
+		}
 		private Color GetColor()
 		{
-			var h = _Rnd.Next(_ColorMin, _ColorMax);
-			var l = _Rnd.Next((int)(_ColorLMin * 100), (int)(_ColorLMax * 100));
-			
+			var h = _Rnd.Next(_Settings.ColorMin, _Settings.ColorMax);
+			var l = _Rnd.Next((int)(_Settings.ColorLMin * 100), (int)(_Settings.ColorLMax * 100));
+
 			return new HSL(h, 100, l).HSLToRGB().RGBToColor(255);
 		}
 
@@ -70,9 +68,10 @@ namespace ScreenSaverConections
 
 	class CPoint: IDisposable
 	{
+		private readonly ScreensaverSettings _Settings;
 		private double _X;
 		private double _Y;
-		private double _Speed = _SpeedMax / 2;
+		private double _Speed;
 		private double _Time = 0;
 		private double _Counter = 0;
 		private double _Acc = 0;
@@ -86,31 +85,33 @@ namespace ScreenSaverConections
 		private readonly SolidBrush _Brush;
 		private readonly Pen _Pen;
 
-		private readonly bool _DrawConections = true;
-		private readonly Color _ConnectionsColor = Color.Blue;
-		private readonly int _ConnectionsWidth = 1;
-		private readonly int _PointRadius = 8;
-		private readonly static double _SpeedMax = 5;
-		private readonly double _RotateSpeedMax = 0.05;
-		private readonly int _DistanceMax = 150;
-		private readonly int _DistanceShading = 100;
-		private readonly float _LineAlpha = 0.8f;
-		private readonly int _TimeMin = 5;
-		private readonly int _TimeMax = 50;
+		//private readonly bool _DrawConections = true;
+		//private readonly Color _ConnectionsColor = Color.Blue;
+		//private readonly int _ConnectionsWidth = 1;
+		//private readonly int _PointRadius = 8;
+		//private readonly static double _SpeedMax = 5;
+		//private readonly double _RotateSpeedMax = 0.05;
+		//private readonly int _DistanceMax = 150;
+		//private readonly int _DistanceShading = 100;
+		//private readonly float _LineAlpha = 0.8f;
+		//private readonly int _TimeMin = 5;
+		//private readonly int _TimeMax = 50;
 
 
-		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points)
+		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points, ScreensaverSettings settings)
 		{
+			_Settings = settings;
 			_X = x;
 			_Y = y;
 			_Width = width;
 			_Height = height;
 			_Rnd = rnd;
+			_Speed = _Settings.SpeedMax / 2;
 			_Direction = rnd.Next(360) / 180d * Math.PI;
 			_Brush = new SolidBrush(color);
-			_Pen = new Pen(_ConnectionsColor)
+			_Pen = new Pen(_Settings.ConnectionsColor)
 			{
-				Width = _ConnectionsWidth
+				Width = _Settings.ConnectionsWidth
 			};
 			_Points = points;
 			_PointsConnected = new CPoint[points.Length];
@@ -120,7 +121,7 @@ namespace ScreenSaverConections
 		{
 			ChangeSpeed();
 			Move();
-			if (_DrawConections)
+			if (_Settings.DrawConections)
 			{
 				_PointsConnected = new CPoint[_Points.Length];
 				for (int i = 0; i < _Points.Length; i++)
@@ -137,7 +138,7 @@ namespace ScreenSaverConections
 						}
 					}
 					if (connected) continue;
-					if (GetDistance(p._X, p._Y) <= Squared(_DistanceMax))
+					if (GetDistance(p._X, p._Y) <= Squared(_Settings.DistanceMax))
 					{
 						_PointsConnected[i] = p;
 					}
@@ -159,21 +160,21 @@ namespace ScreenSaverConections
 		private void ChangeSpeed()
 		{
 			_Speed += _Acc;
-			_Speed = Math.Max(Math.Min(_Speed, _SpeedMax), -_SpeedMax);
+			_Speed = Math.Max(Math.Min(_Speed, _Settings.SpeedMax), -_Settings.SpeedMax);
 			_Direction += _RotateSpeed;
 			if (_Counter > _Time)
 			{
-				_Time = _Rnd.Next(_TimeMin, _TimeMax);
+				_Time = _Rnd.Next(_Settings.TimeMin, _Settings.TimeMax);
 				_Counter = 0;
-				var nextAcc = _Rnd.Next(0, (int)_SpeedMax) / 10d;
-				if (_Speed == _SpeedMax) _Acc = -nextAcc;
-				else if (_Speed == -_SpeedMax) _Acc = nextAcc;
+				var nextAcc = _Rnd.Next(0, (int)_Settings.SpeedMax) / 10d;
+				if (_Speed == _Settings.SpeedMax) _Acc = -nextAcc;
+				else if (_Speed == -_Settings.SpeedMax) _Acc = nextAcc;
 				else
 				{
 					if (_Rnd.Next(2) == 1) nextAcc *= -1;
 					_Acc = nextAcc;
 				}
-				_RotateSpeed = _Rnd.Next(0, (int)(_RotateSpeedMax * 360)) / 180d / Math.PI;
+				_RotateSpeed = _Rnd.Next(0, (int)(_Settings.RotateSpeedMax * 360)) / 180d / Math.PI;
 				if (_Rnd.Next(2) == 1) _RotateSpeed *= -1;
 			}
 			_Counter++;
@@ -186,7 +187,7 @@ namespace ScreenSaverConections
 
 		public void DrawConnections(Graphics g)
 		{
-			if (_DrawConections)
+			if (_Settings.DrawConections)
 			{
 				var P = new PointF((float)_X, (float)_Y);
 				foreach (var p in _PointsConnected)
@@ -194,16 +195,16 @@ namespace ScreenSaverConections
 					if (p != null)
 					{
 						var d = GetDistance(p._X, p._Y);
-						d = Math.Min(d, Squared(_DistanceMax));
-						d -= Squared(_DistanceShading);
+						d = Math.Min(d, Squared(_Settings.DistanceMax));
+						d -= Squared(_Settings.DistanceShading);
 						var A = 255;
 						if (d > 0)
 						{
-							var a = d / (Squared(_DistanceMax) - Squared(_DistanceShading));
+							var a = d / (Squared(_Settings.DistanceMax) - Squared(_Settings.DistanceShading));
 							A = (int)((1d - a) * 256);
 						}
-						A = (int)(A * _LineAlpha);
-						_Pen.Color = Color.FromArgb(A, _ConnectionsColor);
+						A = (int)(A * _Settings.LineAlpha);
+						_Pen.Color = Color.FromArgb(A, _Settings.ConnectionsColor);
 						g.DrawLine(_Pen, P, new PointF((float)p._X, (float)p._Y));
 					}
 				}
@@ -212,7 +213,7 @@ namespace ScreenSaverConections
 
 		public void DrawPoint(Graphics g)
 		{
-			g.FillEllipse(_Brush, (float)(_X - _PointRadius / 2), (float)(_Y - _PointRadius / 2), _PointRadius, _PointRadius);
+			g.FillEllipse(_Brush, (float)(_X - _Settings.PointRadius / 2), (float)(_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
 		}
 
 		public void Dispose()
