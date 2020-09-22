@@ -40,10 +40,6 @@ namespace ScreenSaverConections
 		{
 			SpeedUnD.Value = Program.Settings.Density;
 		}
-		private void ResetFields()
-		{
-			SpeedUnD.Value = Program.Settings.Density;
-		}
 
 		private void MaxLengthUnD_ValueChanged(object sender, EventArgs e)
 		{
@@ -55,13 +51,12 @@ namespace ScreenSaverConections
 
 		private void ResetBtn_Click(object sender, EventArgs e)
 		{
-			ResetFields();
 			Program.Settings = new Settings();
+			SetFields();
 		}
 		private void OkBtn_Click(object sender, EventArgs e)
 		{
 			RegSerializer.Save(Program.KeyName, Program.Settings);
-			
 			Close();
 		}
 
