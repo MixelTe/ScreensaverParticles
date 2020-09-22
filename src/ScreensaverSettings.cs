@@ -7,23 +7,29 @@ namespace ScreenSaverConections
 {
 	class Settings
 	{
+		//main
 		public int Density = 20;
+		public Color BackgroundColor = Color.Black;
+
+		//points
+		public bool DrawPoints = true;
+		public int PointRadius = 8;
+		public double SpeedMax = 5;
+		public double RotateSpeedMax = 0.05;
+		public int TimeMin = 5;
+		public int TimeMax = 50;
+		//points color
 		public int ColorMin = 0;
 		public int ColorMax = 360;
 		public float ColorLMin = 0.4f;
 		public float ColorLMax = 0.6f;
+
+		//connections
 		public bool DrawConections = true;
-		public bool DrawPoints = true;
 		public Color ConnectionsColor = Color.Blue;
-		public Color BackgroundColor = Color.Black;
+		public float LineAlpha = 0.8f;
 		public int ConnectionsWidth = 1;
-		public int PointRadius = 8;
-		public double SpeedMax = 5;
-		public double RotateSpeedMax = 0.05;
 		public int DistanceMax = 150;
 		public int DistanceShading = 100;
-		public float LineAlpha = 0.8f;
-		public int TimeMin = 5;
-		public int TimeMax = 50;
 	}
 }
