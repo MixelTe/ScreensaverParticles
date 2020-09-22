@@ -8,7 +8,7 @@ namespace ScreenSaverConections
 	class Settings
 	{
 		//main
-		public int Density = 20;
+		public int Density = 10;
 		public Color BackgroundColor = Color.Black;
 
 		//points
