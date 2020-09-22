@@ -13,7 +13,9 @@ namespace ScreenSaverConections
 		public float ColorLMin = 0.4f;
 		public float ColorLMax = 0.6f;
 		public bool DrawConections = true;
+		public bool DrawPoints = true;
 		public Color ConnectionsColor = Color.Blue;
+		public Color BackgroundColor = Color.Black;
 		public int ConnectionsWidth = 1;
 		public int PointRadius = 8;
 		public double SpeedMax = 5;
