@@ -40,32 +40,50 @@
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.BackgroundColorPB = new System.Windows.Forms.PictureBox();
 			this.PointsGB = new System.Windows.Forms.GroupBox();
-			this.DrawPointsCB = new System.Windows.Forms.CheckBox();
-			this.PointRadiusUnD = new System.Windows.Forms.NumericUpDown();
-			this.PointRadiusLbl = new System.Windows.Forms.Label();
-			this.SpeedUnD = new System.Windows.Forms.NumericUpDown();
-			this.SpeedLbl = new System.Windows.Forms.Label();
-			this.RotateSpeedUnD = new System.Windows.Forms.NumericUpDown();
-			this.RotateSpeedLbl = new System.Windows.Forms.Label();
+			this.PointColorPB = new System.Windows.Forms.PictureBox();
+			this.PointColorLbl = new System.Windows.Forms.Label();
 			this.ChaoticUnD = new System.Windows.Forms.NumericUpDown();
 			this.ChaoticLbl = new System.Windows.Forms.Label();
-			this.PointColorLbl = new System.Windows.Forms.Label();
-			this.PointColorPB = new System.Windows.Forms.PictureBox();
+			this.RotateSpeedUnD = new System.Windows.Forms.NumericUpDown();
+			this.RotateSpeedLbl = new System.Windows.Forms.Label();
+			this.SpeedUnD = new System.Windows.Forms.NumericUpDown();
+			this.SpeedLbl = new System.Windows.Forms.Label();
+			this.PointRadiusUnD = new System.Windows.Forms.NumericUpDown();
+			this.PointRadiusLbl = new System.Windows.Forms.Label();
+			this.DrawPointsCB = new System.Windows.Forms.CheckBox();
+			this.ConnectionsGB = new System.Windows.Forms.GroupBox();
+			this.ConnectionsColorPB = new System.Windows.Forms.PictureBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.ConnectionsAlphaUnd = new System.Windows.Forms.NumericUpDown();
+			this.ConnectionsAlphaLbl = new System.Windows.Forms.Label();
+			this.LineWidthUnD = new System.Windows.Forms.NumericUpDown();
+			this.LineWidthLbl = new System.Windows.Forms.Label();
+			this.ShadingUnD = new System.Windows.Forms.NumericUpDown();
+			this.ShadingLbl = new System.Windows.Forms.Label();
+			this.DistanceUnD = new System.Windows.Forms.NumericUpDown();
+			this.DistanceLbl = new System.Windows.Forms.Label();
+			this.DrawConCB = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.DensityUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBoxGitHub)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.BackgroundColorPB)).BeginInit();
 			this.PointsGB.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.PointRadiusUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.SpeedUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.RotateSpeedUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ChaoticUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PointColorPB)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ChaoticUnD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.RotateSpeedUnD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.SpeedUnD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.PointRadiusUnD)).BeginInit();
+			this.ConnectionsGB.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ConnectionsColorPB)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ConnectionsAlphaUnd)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.LineWidthUnD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DensityUnD
 			// 
 			this.DensityUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.DensityUnD.Location = new System.Drawing.Point(135, 25);
+			this.DensityUnD.Location = new System.Drawing.Point(359, 25);
 			this.DensityUnD.Maximum = new decimal(new int[] {
             32,
             0,
@@ -98,7 +116,7 @@
 			// OkBtn
 			// 
 			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OkBtn.Location = new System.Drawing.Point(155, 266);
+			this.OkBtn.Location = new System.Drawing.Point(311, 266);
 			this.OkBtn.Name = "OkBtn";
 			this.OkBtn.Size = new System.Drawing.Size(75, 23);
 			this.OkBtn.TabIndex = 2;
@@ -109,7 +127,7 @@
 			// ResetBtn
 			// 
 			this.ResetBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.ResetBtn.Location = new System.Drawing.Point(13, 266);
+			this.ResetBtn.Location = new System.Drawing.Point(85, 266);
 			this.ResetBtn.Name = "ResetBtn";
 			this.ResetBtn.Size = new System.Drawing.Size(75, 23);
 			this.ResetBtn.TabIndex = 3;
@@ -123,7 +141,7 @@
 			this.PictureBoxGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.PictureBoxGitHub.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxGitHub.Image")));
 			this.PictureBoxGitHub.InitialImage = null;
-			this.PictureBoxGitHub.Location = new System.Drawing.Point(110, 266);
+			this.PictureBoxGitHub.Location = new System.Drawing.Point(222, 266);
 			this.PictureBoxGitHub.Name = "PictureBoxGitHub";
 			this.PictureBoxGitHub.Size = new System.Drawing.Size(23, 23);
 			this.PictureBoxGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -156,7 +174,7 @@
 			this.BackgroundColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.BackgroundColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BackgroundColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.BackgroundColorPB.Location = new System.Drawing.Point(135, 51);
+			this.BackgroundColorPB.Location = new System.Drawing.Point(359, 51);
 			this.BackgroundColorPB.Name = "BackgroundColorPB";
 			this.BackgroundColorPB.Size = new System.Drawing.Size(95, 17);
 			this.BackgroundColorPB.TabIndex = 7;
@@ -165,8 +183,6 @@
 			// 
 			// PointsGB
 			// 
-			this.PointsGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.PointsGB.Controls.Add(this.PointColorPB);
 			this.PointsGB.Controls.Add(this.PointColorLbl);
 			this.PointsGB.Controls.Add(this.ChaoticUnD);
@@ -185,83 +201,59 @@
 			this.PointsGB.TabStop = false;
 			this.PointsGB.Text = "Points";
 			// 
-			// DrawPointsCB
+			// PointColorPB
 			// 
-			this.DrawPointsCB.AutoSize = true;
-			this.DrawPointsCB.Location = new System.Drawing.Point(13, 19);
-			this.DrawPointsCB.Name = "DrawPointsCB";
-			this.DrawPointsCB.Size = new System.Drawing.Size(82, 17);
-			this.DrawPointsCB.TabIndex = 0;
-			this.DrawPointsCB.Text = "Draw points";
-			this.DrawPointsCB.UseVisualStyleBackColor = true;
-			this.DrawPointsCB.CheckedChanged += new System.EventHandler(this.DrawPointsCB_CheckedChanged);
+			this.PointColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.PointColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.PointColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.PointColorPB.Location = new System.Drawing.Point(123, 146);
+			this.PointColorPB.Name = "PointColorPB";
+			this.PointColorPB.Size = new System.Drawing.Size(95, 17);
+			this.PointColorPB.TabIndex = 16;
+			this.PointColorPB.TabStop = false;
+			this.PointColorPB.Click += new System.EventHandler(this.PointColorPB_Click);
 			// 
-			// PointRadiusUnD
+			// PointColorLbl
 			// 
-			this.PointRadiusUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.PointRadiusUnD.Location = new System.Drawing.Point(123, 41);
-			this.PointRadiusUnD.Maximum = new decimal(new int[] {
-            32,
+			this.PointColorLbl.AutoSize = true;
+			this.PointColorLbl.Location = new System.Drawing.Point(10, 146);
+			this.PointColorLbl.Name = "PointColorLbl";
+			this.PointColorLbl.Size = new System.Drawing.Size(31, 13);
+			this.PointColorLbl.TabIndex = 15;
+			this.PointColorLbl.Text = "Color";
+			// 
+			// ChaoticUnD
+			// 
+			this.ChaoticUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ChaoticUnD.Location = new System.Drawing.Point(123, 119);
+			this.ChaoticUnD.Maximum = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-			this.PointRadiusUnD.Minimum = new decimal(new int[] {
+			this.ChaoticUnD.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-			this.PointRadiusUnD.Name = "PointRadiusUnD";
-			this.PointRadiusUnD.Size = new System.Drawing.Size(95, 20);
-			this.PointRadiusUnD.TabIndex = 10;
-			this.PointRadiusUnD.Value = new decimal(new int[] {
+			this.ChaoticUnD.Name = "ChaoticUnD";
+			this.ChaoticUnD.Size = new System.Drawing.Size(95, 20);
+			this.ChaoticUnD.TabIndex = 10;
+			this.ChaoticUnD.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-			this.PointRadiusUnD.ValueChanged += new System.EventHandler(this.PointRadiusUnD_ValueChanged);
+			this.ChaoticUnD.ValueChanged += new System.EventHandler(this.ChaoticUnD_ValueChanged);
 			// 
-			// PointRadiusLbl
+			// ChaoticLbl
 			// 
-			this.PointRadiusLbl.AutoSize = true;
-			this.PointRadiusLbl.Location = new System.Drawing.Point(10, 43);
-			this.PointRadiusLbl.Name = "PointRadiusLbl";
-			this.PointRadiusLbl.Size = new System.Drawing.Size(40, 13);
-			this.PointRadiusLbl.TabIndex = 9;
-			this.PointRadiusLbl.Text = "Radius";
-			// 
-			// SpeedUnD
-			// 
-			this.SpeedUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.SpeedUnD.DecimalPlaces = 1;
-			this.SpeedUnD.Location = new System.Drawing.Point(123, 67);
-			this.SpeedUnD.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.SpeedUnD.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-			this.SpeedUnD.Name = "SpeedUnD";
-			this.SpeedUnD.Size = new System.Drawing.Size(95, 20);
-			this.SpeedUnD.TabIndex = 12;
-			this.SpeedUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.SpeedUnD.ValueChanged += new System.EventHandler(this.SpeedUnD_ValueChanged);
-			// 
-			// SpeedLbl
-			// 
-			this.SpeedLbl.AutoSize = true;
-			this.SpeedLbl.Location = new System.Drawing.Point(10, 69);
-			this.SpeedLbl.Name = "SpeedLbl";
-			this.SpeedLbl.Size = new System.Drawing.Size(38, 13);
-			this.SpeedLbl.TabIndex = 11;
-			this.SpeedLbl.Text = "Speed";
+			this.ChaoticLbl.AutoSize = true;
+			this.ChaoticLbl.Location = new System.Drawing.Point(10, 121);
+			this.ChaoticLbl.Name = "ChaoticLbl";
+			this.ChaoticLbl.Size = new System.Drawing.Size(43, 13);
+			this.ChaoticLbl.TabIndex = 9;
+			this.ChaoticLbl.Text = "Chaotic";
 			// 
 			// RotateSpeedUnD
 			// 
@@ -302,66 +294,273 @@
 			this.RotateSpeedLbl.TabIndex = 13;
 			this.RotateSpeedLbl.Text = "Rotate speed";
 			// 
-			// ChaoticUnD
+			// SpeedUnD
 			// 
-			this.ChaoticUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ChaoticUnD.Location = new System.Drawing.Point(123, 119);
-			this.ChaoticUnD.Maximum = new decimal(new int[] {
+			this.SpeedUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.SpeedUnD.DecimalPlaces = 1;
+			this.SpeedUnD.Location = new System.Drawing.Point(123, 67);
+			this.SpeedUnD.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.SpeedUnD.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+			this.SpeedUnD.Name = "SpeedUnD";
+			this.SpeedUnD.Size = new System.Drawing.Size(95, 20);
+			this.SpeedUnD.TabIndex = 12;
+			this.SpeedUnD.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-			this.ChaoticUnD.Minimum = new decimal(new int[] {
+			this.SpeedUnD.ValueChanged += new System.EventHandler(this.SpeedUnD_ValueChanged);
+			// 
+			// SpeedLbl
+			// 
+			this.SpeedLbl.AutoSize = true;
+			this.SpeedLbl.Location = new System.Drawing.Point(10, 69);
+			this.SpeedLbl.Name = "SpeedLbl";
+			this.SpeedLbl.Size = new System.Drawing.Size(38, 13);
+			this.SpeedLbl.TabIndex = 11;
+			this.SpeedLbl.Text = "Speed";
+			// 
+			// PointRadiusUnD
+			// 
+			this.PointRadiusUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.PointRadiusUnD.Location = new System.Drawing.Point(123, 41);
+			this.PointRadiusUnD.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+			this.PointRadiusUnD.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-			this.ChaoticUnD.Name = "ChaoticUnD";
-			this.ChaoticUnD.Size = new System.Drawing.Size(95, 20);
-			this.ChaoticUnD.TabIndex = 10;
-			this.ChaoticUnD.Value = new decimal(new int[] {
+			this.PointRadiusUnD.Name = "PointRadiusUnD";
+			this.PointRadiusUnD.Size = new System.Drawing.Size(95, 20);
+			this.PointRadiusUnD.TabIndex = 10;
+			this.PointRadiusUnD.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-			this.ChaoticUnD.ValueChanged += new System.EventHandler(this.ChaoticUnD_ValueChanged);
+			this.PointRadiusUnD.ValueChanged += new System.EventHandler(this.PointRadiusUnD_ValueChanged);
 			// 
-			// ChaoticLbl
+			// PointRadiusLbl
 			// 
-			this.ChaoticLbl.AutoSize = true;
-			this.ChaoticLbl.Location = new System.Drawing.Point(10, 121);
-			this.ChaoticLbl.Name = "ChaoticLbl";
-			this.ChaoticLbl.Size = new System.Drawing.Size(43, 13);
-			this.ChaoticLbl.TabIndex = 9;
-			this.ChaoticLbl.Text = "Chaotic";
+			this.PointRadiusLbl.AutoSize = true;
+			this.PointRadiusLbl.Location = new System.Drawing.Point(10, 43);
+			this.PointRadiusLbl.Name = "PointRadiusLbl";
+			this.PointRadiusLbl.Size = new System.Drawing.Size(40, 13);
+			this.PointRadiusLbl.TabIndex = 9;
+			this.PointRadiusLbl.Text = "Radius";
 			// 
-			// PointColorLbl
+			// DrawPointsCB
 			// 
-			this.PointColorLbl.AutoSize = true;
-			this.PointColorLbl.Location = new System.Drawing.Point(10, 146);
-			this.PointColorLbl.Name = "PointColorLbl";
-			this.PointColorLbl.Size = new System.Drawing.Size(31, 13);
-			this.PointColorLbl.TabIndex = 15;
-			this.PointColorLbl.Text = "Color";
+			this.DrawPointsCB.AutoSize = true;
+			this.DrawPointsCB.Location = new System.Drawing.Point(13, 19);
+			this.DrawPointsCB.Name = "DrawPointsCB";
+			this.DrawPointsCB.Size = new System.Drawing.Size(82, 17);
+			this.DrawPointsCB.TabIndex = 0;
+			this.DrawPointsCB.Text = "Draw points";
+			this.DrawPointsCB.UseVisualStyleBackColor = true;
+			this.DrawPointsCB.CheckedChanged += new System.EventHandler(this.DrawPointsCB_CheckedChanged);
 			// 
-			// PointColorPB
+			// ConnectionsGB
 			// 
-			this.PointColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.PointColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PointColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.PointColorPB.Location = new System.Drawing.Point(123, 146);
-			this.PointColorPB.Name = "PointColorPB";
-			this.PointColorPB.Size = new System.Drawing.Size(95, 17);
-			this.PointColorPB.TabIndex = 16;
-			this.PointColorPB.TabStop = false;
-			this.PointColorPB.Click += new System.EventHandler(this.PointColorPB_Click);
+			this.ConnectionsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ConnectionsGB.Controls.Add(this.ConnectionsColorPB);
+			this.ConnectionsGB.Controls.Add(this.label1);
+			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaUnd);
+			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaLbl);
+			this.ConnectionsGB.Controls.Add(this.LineWidthUnD);
+			this.ConnectionsGB.Controls.Add(this.LineWidthLbl);
+			this.ConnectionsGB.Controls.Add(this.ShadingUnD);
+			this.ConnectionsGB.Controls.Add(this.ShadingLbl);
+			this.ConnectionsGB.Controls.Add(this.DistanceUnD);
+			this.ConnectionsGB.Controls.Add(this.DistanceLbl);
+			this.ConnectionsGB.Controls.Add(this.DrawConCB);
+			this.ConnectionsGB.Location = new System.Drawing.Point(238, 74);
+			this.ConnectionsGB.Name = "ConnectionsGB";
+			this.ConnectionsGB.Size = new System.Drawing.Size(220, 176);
+			this.ConnectionsGB.TabIndex = 17;
+			this.ConnectionsGB.TabStop = false;
+			this.ConnectionsGB.Text = "Connections";
+			// 
+			// ConnectionsColorPB
+			// 
+			this.ConnectionsColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ConnectionsColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.ConnectionsColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.ConnectionsColorPB.Location = new System.Drawing.Point(123, 146);
+			this.ConnectionsColorPB.Name = "ConnectionsColorPB";
+			this.ConnectionsColorPB.Size = new System.Drawing.Size(95, 17);
+			this.ConnectionsColorPB.TabIndex = 16;
+			this.ConnectionsColorPB.TabStop = false;
+			this.ConnectionsColorPB.Click += new System.EventHandler(this.ConnectionsColorPB_Click);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(10, 146);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(31, 13);
+			this.label1.TabIndex = 15;
+			this.label1.Text = "Color";
+			// 
+			// ConnectionsAlphaUnd
+			// 
+			this.ConnectionsAlphaUnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ConnectionsAlphaUnd.DecimalPlaces = 2;
+			this.ConnectionsAlphaUnd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.ConnectionsAlphaUnd.Location = new System.Drawing.Point(123, 119);
+			this.ConnectionsAlphaUnd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.ConnectionsAlphaUnd.Name = "ConnectionsAlphaUnd";
+			this.ConnectionsAlphaUnd.Size = new System.Drawing.Size(95, 20);
+			this.ConnectionsAlphaUnd.TabIndex = 10;
+			this.ConnectionsAlphaUnd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.ConnectionsAlphaUnd.ValueChanged += new System.EventHandler(this.ConnectionsAlphaUnd_ValueChanged);
+			// 
+			// ConnectionsAlphaLbl
+			// 
+			this.ConnectionsAlphaLbl.AutoSize = true;
+			this.ConnectionsAlphaLbl.Location = new System.Drawing.Point(10, 121);
+			this.ConnectionsAlphaLbl.Name = "ConnectionsAlphaLbl";
+			this.ConnectionsAlphaLbl.Size = new System.Drawing.Size(60, 13);
+			this.ConnectionsAlphaLbl.TabIndex = 9;
+			this.ConnectionsAlphaLbl.Text = "Color alpha";
+			// 
+			// LineWidthUnD
+			// 
+			this.LineWidthUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.LineWidthUnD.Location = new System.Drawing.Point(123, 93);
+			this.LineWidthUnD.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.LineWidthUnD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.LineWidthUnD.Name = "LineWidthUnD";
+			this.LineWidthUnD.Size = new System.Drawing.Size(95, 20);
+			this.LineWidthUnD.TabIndex = 14;
+			this.LineWidthUnD.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.LineWidthUnD.ValueChanged += new System.EventHandler(this.LineWidthUnD_ValueChanged);
+			// 
+			// LineWidthLbl
+			// 
+			this.LineWidthLbl.AutoSize = true;
+			this.LineWidthLbl.Location = new System.Drawing.Point(10, 95);
+			this.LineWidthLbl.Name = "LineWidthLbl";
+			this.LineWidthLbl.Size = new System.Drawing.Size(55, 13);
+			this.LineWidthLbl.TabIndex = 13;
+			this.LineWidthLbl.Text = "Line width";
+			// 
+			// ShadingUnD
+			// 
+			this.ShadingUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ShadingUnD.InterceptArrowKeys = false;
+			this.ShadingUnD.Location = new System.Drawing.Point(123, 67);
+			this.ShadingUnD.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.ShadingUnD.Name = "ShadingUnD";
+			this.ShadingUnD.Size = new System.Drawing.Size(95, 20);
+			this.ShadingUnD.TabIndex = 12;
+			this.ShadingUnD.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.ShadingUnD.ValueChanged += new System.EventHandler(this.ShadingUnD_ValueChanged);
+			// 
+			// ShadingLbl
+			// 
+			this.ShadingLbl.AutoSize = true;
+			this.ShadingLbl.Location = new System.Drawing.Point(10, 69);
+			this.ShadingLbl.Name = "ShadingLbl";
+			this.ShadingLbl.Size = new System.Drawing.Size(69, 13);
+			this.ShadingLbl.TabIndex = 11;
+			this.ShadingLbl.Text = "Shading start";
+			// 
+			// DistanceUnD
+			// 
+			this.DistanceUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.DistanceUnD.Location = new System.Drawing.Point(123, 41);
+			this.DistanceUnD.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+			this.DistanceUnD.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.DistanceUnD.Name = "DistanceUnD";
+			this.DistanceUnD.Size = new System.Drawing.Size(95, 20);
+			this.DistanceUnD.TabIndex = 10;
+			this.DistanceUnD.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.DistanceUnD.ValueChanged += new System.EventHandler(this.DistanceUnD_ValueChanged);
+			// 
+			// DistanceLbl
+			// 
+			this.DistanceLbl.AutoSize = true;
+			this.DistanceLbl.Location = new System.Drawing.Point(10, 43);
+			this.DistanceLbl.Name = "DistanceLbl";
+			this.DistanceLbl.Size = new System.Drawing.Size(70, 13);
+			this.DistanceLbl.TabIndex = 9;
+			this.DistanceLbl.Text = "Max distance";
+			// 
+			// DrawConCB
+			// 
+			this.DrawConCB.AutoSize = true;
+			this.DrawConCB.Location = new System.Drawing.Point(13, 19);
+			this.DrawConCB.Name = "DrawConCB";
+			this.DrawConCB.Size = new System.Drawing.Size(112, 17);
+			this.DrawConCB.TabIndex = 0;
+			this.DrawConCB.Text = "Draw connections";
+			this.DrawConCB.UseVisualStyleBackColor = true;
+			this.DrawConCB.CheckedChanged += new System.EventHandler(this.DrawConCB_CheckedChanged);
 			// 
 			// Form2
 			// 
 			this.AcceptButton = this.OkBtn;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(244, 301);
+			this.ClientSize = new System.Drawing.Size(468, 301);
+			this.Controls.Add(this.ConnectionsGB);
 			this.Controls.Add(this.PointsGB);
 			this.Controls.Add(this.BackgroundColorPB);
 			this.Controls.Add(this.BackgroundColorLbl);
@@ -380,11 +579,18 @@
 			((System.ComponentModel.ISupportInitialize)(this.BackgroundColorPB)).EndInit();
 			this.PointsGB.ResumeLayout(false);
 			this.PointsGB.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.PointRadiusUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.SpeedUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.RotateSpeedUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.ChaoticUnD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.PointColorPB)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ChaoticUnD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.RotateSpeedUnD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.SpeedUnD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.PointRadiusUnD)).EndInit();
+			this.ConnectionsGB.ResumeLayout(false);
+			this.ConnectionsGB.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ConnectionsColorPB)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ConnectionsAlphaUnd)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.LineWidthUnD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -412,5 +618,17 @@
 		private System.Windows.Forms.Label ChaoticLbl;
 		private System.Windows.Forms.PictureBox PointColorPB;
 		private System.Windows.Forms.Label PointColorLbl;
+		private System.Windows.Forms.GroupBox ConnectionsGB;
+		private System.Windows.Forms.PictureBox ConnectionsColorPB;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.NumericUpDown ConnectionsAlphaUnd;
+		private System.Windows.Forms.Label ConnectionsAlphaLbl;
+		private System.Windows.Forms.NumericUpDown LineWidthUnD;
+		private System.Windows.Forms.Label LineWidthLbl;
+		private System.Windows.Forms.NumericUpDown ShadingUnD;
+		private System.Windows.Forms.Label ShadingLbl;
+		private System.Windows.Forms.NumericUpDown DistanceUnD;
+		private System.Windows.Forms.Label DistanceLbl;
+		private System.Windows.Forms.CheckBox DrawConCB;
 	}
 }

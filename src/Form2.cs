@@ -47,6 +47,13 @@ namespace ScreenSaverConections
 			ChaoticUnD.Value = (int)ChaoticUnD.Maximum + 1 - Program.Settings.TimeMin;
 			PointColorPB.BackColor = new HSL(Program.Settings.ColorMax - 1, 100, Program.Settings.ColorLMax * 100).HSLToRGB().RGBToColor(255);
 
+			DrawConCB.Checked = Program.Settings.DrawConections;
+			DistanceUnD.Value = Program.Settings.DistanceMax;
+			ShadingUnD.Maximum = Program.Settings.DistanceMax;
+			ShadingUnD.Value = Program.Settings.DistanceShading;
+			LineWidthUnD.Value = Program.Settings.ConnectionsWidth;
+			ConnectionsAlphaUnd.Value = (decimal)Program.Settings.LineAlpha;
+			ConnectionsColorPB.BackColor = Program.Settings.ConnectionsColor;
 		}
 
 
@@ -121,6 +128,37 @@ namespace ScreenSaverConections
 				Program.Settings.ColorLMin = colorDialog1.Color.GetBrightness();
 				Program.Settings.ColorLMax = colorDialog1.Color.GetBrightness();
 				PointColorPB.BackColor = colorDialog1.Color;
+			}
+		}
+		private void DrawConCB_CheckedChanged(object sender, EventArgs e)
+		{
+			Program.Settings.DrawConections = DrawConCB.Checked;
+		}
+		private void DistanceUnD_ValueChanged(object sender, EventArgs e)
+		{
+			Program.Settings.DistanceMax = (int)DistanceUnD.Value;
+			ShadingUnD.Maximum = Program.Settings.DistanceMax;
+		}
+		private void ShadingUnD_ValueChanged(object sender, EventArgs e)
+		{
+			Program.Settings.DistanceShading = (int)ShadingUnD.Value;
+		}
+		private void LineWidthUnD_ValueChanged(object sender, EventArgs e)
+		{
+			Program.Settings.ConnectionsWidth = (int)LineWidthUnD.Value;
+		}
+		private void ConnectionsAlphaUnd_ValueChanged(object sender, EventArgs e)
+		{
+			Program.Settings.LineAlpha = (float)ConnectionsAlphaUnd.Value;
+		}
+		private void ConnectionsColorPB_Click(object sender, EventArgs e)
+		{
+			colorDialog1.Color = Program.Settings.ConnectionsColor;
+			DialogResult result = colorDialog1.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				ConnectionsColorPB.BackColor = colorDialog1.Color;
+				Program.Settings.ConnectionsColor = colorDialog1.Color;
 			}
 		}
 	}
