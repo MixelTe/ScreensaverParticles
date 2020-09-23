@@ -53,7 +53,7 @@
 			this.DrawPointsCB = new System.Windows.Forms.CheckBox();
 			this.ConnectionsGB = new System.Windows.Forms.GroupBox();
 			this.ConnectionsColorPB = new System.Windows.Forms.PictureBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.ConnectionsColorLbl = new System.Windows.Forms.Label();
 			this.ConnectionsAlphaUnd = new System.Windows.Forms.NumericUpDown();
 			this.ConnectionsAlphaLbl = new System.Windows.Forms.Label();
 			this.LineWidthUnD = new System.Windows.Forms.NumericUpDown();
@@ -376,7 +376,7 @@
 			// 
 			this.ConnectionsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.ConnectionsGB.Controls.Add(this.ConnectionsColorPB);
-			this.ConnectionsGB.Controls.Add(this.label1);
+			this.ConnectionsGB.Controls.Add(this.ConnectionsColorLbl);
 			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaUnd);
 			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaLbl);
 			this.ConnectionsGB.Controls.Add(this.LineWidthUnD);
@@ -405,14 +405,14 @@
 			this.ConnectionsColorPB.TabStop = false;
 			this.ConnectionsColorPB.Click += new System.EventHandler(this.ConnectionsColorPB_Click);
 			// 
-			// label1
+			// ConnectionsColorLbl
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(10, 146);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(31, 13);
-			this.label1.TabIndex = 15;
-			this.label1.Text = "Color";
+			this.ConnectionsColorLbl.AutoSize = true;
+			this.ConnectionsColorLbl.Location = new System.Drawing.Point(10, 146);
+			this.ConnectionsColorLbl.Name = "ConnectionsColorLbl";
+			this.ConnectionsColorLbl.Size = new System.Drawing.Size(31, 13);
+			this.ConnectionsColorLbl.TabIndex = 15;
+			this.ConnectionsColorLbl.Text = "Color";
 			// 
 			// ConnectionsAlphaUnd
 			// 
@@ -620,7 +620,7 @@
 		private System.Windows.Forms.Label PointColorLbl;
 		private System.Windows.Forms.GroupBox ConnectionsGB;
 		private System.Windows.Forms.PictureBox ConnectionsColorPB;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label ConnectionsColorLbl;
 		private System.Windows.Forms.NumericUpDown ConnectionsAlphaUnd;
 		private System.Windows.Forms.Label ConnectionsAlphaLbl;
 		private System.Windows.Forms.NumericUpDown LineWidthUnD;

@@ -17,8 +17,8 @@ namespace ScreenSaverConections
 		public Form2()
 		{
 			InitializeComponent();
-			
-			//ChangeLanguage();
+
+			ChangeLanguage();
 
 			RegSerializer.Load(Program.KeyName, Program.Settings);
 
@@ -28,9 +28,26 @@ namespace ScreenSaverConections
 		{
 			if (CultureInfo.CurrentUICulture.Name == "ru-RU")
 			{
-				Text = "ScreenSaver";
+				Text = "Screensaver";
 
 				DensityLbl.Text = "Плотность";
+				BackgroundColorLbl.Text = "Цвет фона";
+
+				PointsGB.Text = "Точки";
+				DrawPointsCB.Text = "Рисовать точки";
+				PointRadiusLbl.Text = "Радиус";
+				SpeedLbl.Text = "Скорость";
+				RotateSpeedLbl.Text = "Скороть поворота";
+				ChaoticLbl.Text = "Хаотичность";
+				PointColorLbl.Text = "Цвет";
+
+				ConnectionsGB.Text = "Cоеденения";
+				DrawConCB.Text = "Рисовать соеденения";
+				DistanceLbl.Text = "Макс. Расстояние";
+				ShadingLbl.Text = "Начало затухания";
+				LineWidthLbl.Text = "Толщина линии";
+				ConnectionsAlphaLbl.Text = "Прозрачность линии";
+				ConnectionsColorLbl.Text = "Цвет";
 
 				ResetBtn.Text = "Сбросить";
 				OkBtn.Text = "ОК";
