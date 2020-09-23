@@ -136,15 +136,10 @@ namespace ScreenSaverConections
 		}
 		private void PointColorPB_Click(object sender, EventArgs e)
 		{
-			colorDialog1.Color = PointColorPB.BackColor;
-			DialogResult result = colorDialog1.ShowDialog();
+			DialogResult result = new Form3().ShowDialog();
 			if (result == DialogResult.OK)
 			{
-				Program.Settings.ColorMin = (int)colorDialog1.Color.GetHue();
-				Program.Settings.ColorMax = (int)colorDialog1.Color.GetHue();
-				Program.Settings.ColorLMin = colorDialog1.Color.GetBrightness();
-				Program.Settings.ColorLMax = colorDialog1.Color.GetBrightness();
-				PointColorPB.BackColor = colorDialog1.Color;
+				PointColorPB.BackColor = new HSL(Program.Settings.ColorMax - 1, 100, Program.Settings.ColorLMax * 100).HSLToRGB().RGBToColor(255);
 			}
 		}
 		private void DrawConCB_CheckedChanged(object sender, EventArgs e)
