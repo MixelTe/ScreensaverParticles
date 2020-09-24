@@ -16,8 +16,8 @@ namespace ScreenSaverConections
 		Bitmap _Bitmap;
 		private Graphics _G;
 		private ResultViewer _ResultViewer;
-		private RangeInput _RangeInputL;
-		private RangeInput _RangeInputH;
+		private BrightnessInput _BrightnessInput;
+		private HueInput _HueInput;
 
 		public Form3()
 		{
@@ -39,8 +39,8 @@ namespace ScreenSaverConections
 			var rangeInputLRect = new Rectangle(pictureBox1.Image.Width - _ControlsWidth, 0, _ControlsWidth, pictureBox1.Image.Height - _ControlsWidth);
 
 			_ResultViewer = new ResultViewer(resultViewerRect);
-			_RangeInputH = new RangeInput(rangeInputHRect, false, 2);
-			_RangeInputL = new RangeInput(rangeInputLRect, true, 2);
+			_HueInput = new HueInput(rangeInputHRect);
+			_BrightnessInput = new BrightnessInput(rangeInputLRect);
 		}
 
 		private void OKbutton_Click(object sender, EventArgs e)
@@ -52,8 +52,8 @@ namespace ScreenSaverConections
 		private void DrawAll()
 		{
 			_ResultViewer.Draw(_G);
-			_RangeInputH.Draw(_G);
-			_RangeInputL.Draw(_G);
+			_HueInput.Draw(_G);
+			_BrightnessInput.Draw(_G);
 		}
 
 		private bool _MouseDown = false;
@@ -63,8 +63,8 @@ namespace ScreenSaverConections
 		{
 			_MouseDown = true;
 			_PastLocation = e.Location;
-			if (_RangeInputH._Rect.IntersectPoint(_PastLocation)) _SelectedEl = _RangeInputH;
-			else if (_RangeInputL._Rect.IntersectPoint(_PastLocation)) _SelectedEl = _RangeInputL;
+			if (_HueInput._Rect.IntersectPoint(_PastLocation)) _SelectedEl = _HueInput;
+			else if (_BrightnessInput._Rect.IntersectPoint(_PastLocation)) _SelectedEl = _BrightnessInput;
 			else _SelectedEl = null;
 			if (_SelectedEl != null) _SelectedEl.MouseDown(_PastLocation);
 		}
@@ -93,6 +93,21 @@ namespace ScreenSaverConections
 
 				_PastLocation = l;
 			}
+		}
+	}
+
+	class HueInput: RangeInput
+	{
+		public HueInput(Rectangle rect) : base(rect, false, 2)
+		{
+			
+		}
+	}
+	class BrightnessInput : RangeInput
+	{
+		public BrightnessInput(Rectangle rect) : base(rect, true, 2)
+		{
+
 		}
 	}
 
