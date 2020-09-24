@@ -34,9 +34,13 @@ namespace ScreenSaverConections
 			pictureBox1.Image = _Bitmap;
 			_G = Graphics.FromImage(_Bitmap);
 
-			_ResultViewer = new ResultViewer(0, 0, pictureBox1.Image.Width - _ControlsWidth, pictureBox1.Image.Height - _ControlsWidth);
-			_RangeInputH = new RangeInput(0, pictureBox1.Image.Height - _ControlsWidth, _ControlsWidth, pictureBox1.Image.Width - _ControlsWidth, false, 2);
-			_RangeInputL = new RangeInput(pictureBox1.Image.Width - _ControlsWidth, 0, _ControlsWidth, pictureBox1.Image.Height - _ControlsWidth, true, 2);
+			var resultViewerRect = new Rectangle(0, 0, pictureBox1.Image.Width - _ControlsWidth, pictureBox1.Image.Height - _ControlsWidth);
+			var rangeInputHRect = new Rectangle(0, pictureBox1.Image.Height - _ControlsWidth, _ControlsWidth, pictureBox1.Image.Width - _ControlsWidth);
+			var rangeInputLRect = new Rectangle(pictureBox1.Image.Width - _ControlsWidth, 0, _ControlsWidth, pictureBox1.Image.Height - _ControlsWidth);
+
+			_ResultViewer = new ResultViewer(resultViewerRect);
+			_RangeInputH = new RangeInput(rangeInputHRect, false, 2);
+			_RangeInputL = new RangeInput(rangeInputLRect, true, 2);
 		}
 
 		private void OKbutton_Click(object sender, EventArgs e)
@@ -95,13 +99,30 @@ namespace ScreenSaverConections
 	class ResultViewer
 	{
 		public readonly Rectangle _Rect;
-		public ResultViewer(int x, int y, int width, int height)
+		public ResultViewer(Rectangle rect)
 		{
-			_Rect = new Rectangle(x, y, width, height);
+			_Rect = rect;
 		}
 		public void Draw(Graphics g)
 		{
 			g.FillRectangle(Brushes.Blue, _Rect);
+			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+			var rnd = new Random();
+			for (int i = 0; i < _Rect.Width * _Rect.Height / (100 * 100) * Program.Settings.Density; i++)
+			{
+				var h = rnd.Next(Program.Settings.ColorMin, Program.Settings.ColorMax);
+				var l = rnd.Next((int)(Program.Settings.ColorLMin * 100), (int)(Program.Settings.ColorLMax * 100));
+
+				using (var brush = new SolidBrush(new HSL(h, 100, l).HSLToRGB().RGBToColor(255)))
+				{
+					g.FillEllipse(brush, 
+						rnd.Next(_Rect.Width - Program.Settings.PointRadius * 2) + _Rect.X + Program.Settings.PointRadius, 
+						rnd.Next(_Rect.Height - Program.Settings.PointRadius * 2) + _Rect.Y + Program.Settings.PointRadius, 
+						Program.Settings.PointRadius, 
+						Program.Settings.PointRadius);
+				}
+			}
+			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 		}
 	}
 	class RangeInput
@@ -110,20 +131,22 @@ namespace ScreenSaverConections
 		private readonly int _Width = 6;
 		private readonly int _HandleZone = 3;
 
-		private readonly int MaxValue = 100;
-		private readonly Handle[] Handles;
+		private readonly int MaxValue = 10;
 
+		private readonly Handle[] Handles;
 		private readonly float _ValueDrawStep;
 		public readonly Rectangle _Rect;
-		public readonly Rectangle _RectLine;
-		public Rectangle _RectHandel1 = new Rectangle();
-		public Rectangle _RectHandel2 = new Rectangle();
+		private readonly Rectangle _RectLine;
 		private readonly bool _Vertical;
 
-		public RangeInput(int x, int y, int width, int lenght, bool vertical, int handles)
+		public RangeInput(Rectangle rect, bool vertical, int handlesCount)
 		{
+			var x = rect.X;
+			var y = rect.Y;
+			var width = rect.Width;
+			var lenght = rect.Height;
 			_Vertical = vertical;
-			Handles = new Handle[handles];
+			Handles = new Handle[handlesCount];
 			_ValueDrawStep = (float)(lenght - _Offset * 2) / MaxValue;
 			var lineAdd = (width - _Width) / 2;
 			if (vertical)
@@ -136,11 +159,13 @@ namespace ScreenSaverConections
 				_Rect = new Rectangle(x, y, lenght, width);
 				_RectLine = new Rectangle(x + _Offset, y + lineAdd, lenght - _Offset * 2, _Width); 
 			}
-			var hStep = handles > 0 ? MaxValue / handles : 0;
-			for (int i = 0; i < handles; i++)
+			var hStep = handlesCount > 0 ? MaxValue / handlesCount : 0;
+			for (int i = 0; i < handlesCount; i++)
 			{
-				Handles[i] = new Handle(MaxValue, _RectLine, vertical, _ValueDrawStep);
-				Handles[i].Value = hStep * i;
+				Handles[i] = new Handle(MaxValue, _RectLine, vertical, _ValueDrawStep)
+				{
+					Value = hStep * i
+				};
 			}
 		}
 
@@ -183,16 +208,14 @@ namespace ScreenSaverConections
 						var h = Handles[i].Value;
 						if (h < sh)
 						{
-							if (h > boundMin) boundMin = h;
+							if (h >= boundMin) boundMin = h + 1;
 						}
 						else
 						{
-							if (h < boundMax) boundMax = h;
+							if (h <= boundMax) boundMax = h - 1;
 						}
 					}
 				}
-				if (boundMin > 0) boundMin++;
-				if (boundMax < MaxValue) boundMax--;
 				H.SetBounds(boundMin, boundMax);
 			}
 		}
@@ -256,6 +279,7 @@ namespace ScreenSaverConections
 		public void Draw(Graphics g)
 		{
 			g.FillRectangle(Brushes.Brown, _RectHandel);
+			g.DrawRectangle(Pens.White, _RectHandel);
 		}
 
 		public void MouseDown(Point p)
