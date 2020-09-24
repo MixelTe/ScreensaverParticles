@@ -108,9 +108,10 @@ namespace ScreenSaverConections
 	{
 		private readonly int _Offset = 10;
 		private readonly int _Width = 6;
+		private readonly int _HandleZone = 3;
 
 		private readonly int MaxValue = 100;
-		private Handle[] Handles;
+		private readonly Handle[] Handles;
 
 		private readonly float _ValueDrawStep;
 		public readonly Rectangle _Rect;
@@ -135,9 +136,11 @@ namespace ScreenSaverConections
 				_Rect = new Rectangle(x, y, lenght, width);
 				_RectLine = new Rectangle(x + _Offset, y + lineAdd, lenght - _Offset * 2, _Width); 
 			}
+			var hStep = handles > 0 ? MaxValue / handles : 0;
 			for (int i = 0; i < handles; i++)
 			{
 				Handles[i] = new Handle(MaxValue, _RectLine, vertical, _ValueDrawStep);
+				Handles[i].Value = hStep * i;
 			}
 		}
 
@@ -151,30 +154,59 @@ namespace ScreenSaverConections
 			}
 		}
 
-		private int SelectedHandle = -1;
+		private int _SelectedHandle = -1;
 		public void MouseDown(Point p)
 		{
 			for (int i = 0; i < Handles.Length; i++)
 			{
-				if (Handles[i]._RectHandel.IntersectPoint(p))
+				var h = Handles[i];
+				var rect = h._RectHandel.Copy();
+				rect.Inflate(_HandleZone, _HandleZone);
+				if (rect.IntersectPoint(p))
 				{
-					SelectedHandle = i;
-					Handles[i].MouseDown(p);
+					_SelectedHandle = i;
+					h.MouseDown(p);
 					break;
 				}
+			}
+			if (_SelectedHandle > -1)
+			{
+				var boundMin = 0;
+				var boundMax = MaxValue;
+				var H = Handles[_SelectedHandle];
+				if (Handles.Length > 1)
+				{
+					var sh = Handles[_SelectedHandle].Value;
+					for (int i = 0; i < Handles.Length; i++)
+					{
+						if (Handles[i] == H) continue;
+						var h = Handles[i].Value;
+						if (h < sh)
+						{
+							if (h > boundMin) boundMin = h;
+						}
+						else
+						{
+							if (h < boundMax) boundMax = h;
+						}
+					}
+				}
+				if (boundMin > 0) boundMin++;
+				if (boundMax < MaxValue) boundMax--;
+				H.SetBounds(boundMin, boundMax);
 			}
 		}
 		public void MouseMove(Point p, int dx, int dy)
 		{
-			if (SelectedHandle > -1)
+			if (_SelectedHandle > -1)
 			{
-				Handles[SelectedHandle].MouseMove(p);
+				Handles[_SelectedHandle].MouseMove(p);
 			}
 		}
 		public void MouseUp(Point p)
 		{
-			if (SelectedHandle > -1) Handles[SelectedHandle].MouseUp();
-			SelectedHandle = -1;
+			if (_SelectedHandle > -1) Handles[_SelectedHandle].MouseUp();
+			_SelectedHandle = -1;
 		}
 	}
 	class Handle
@@ -182,10 +214,22 @@ namespace ScreenSaverConections
 		private readonly int _HandelWidth = 6;
 		private readonly int _HandelHeight = 20;
 
-		public int Value = 0;
+		public int Value
+		{
+			get { return _Value; }
+			set
+			{
+				_Value = value;
+				MoveHandle();
+			}
+		}
 
+
+		private int _BoundMin = -1;
+		private int _BoundMax = -1;
+		private int _Value = 0;
 		private readonly int _MaxValue;
-		public readonly Rectangle _RectLine;
+		private readonly Rectangle _RectLine;
 		public Rectangle _RectHandel = new Rectangle();
 		private bool _ValueChanging = false;
 		private Point StartPoint;
@@ -203,6 +247,11 @@ namespace ScreenSaverConections
 			else _RectHandel.Size = new Size(_HandelWidth, _HandelHeight);
 			MoveHandle();
 		}
+		public void SetBounds(int min, int max)
+		{
+			_BoundMin = min;
+			_BoundMax = max;
+		}
 
 		public void Draw(Graphics g)
 		{
@@ -211,12 +260,9 @@ namespace ScreenSaverConections
 
 		public void MouseDown(Point p)
 		{
-			if (_RectHandel.IntersectPoint(p))
-			{
-				_ValueChanging = true;
-				StartPoint = p;
-				_DValue = 0;
-			}
+			_ValueChanging = true;
+			StartPoint = p;
+			_DValue = 0;
 		}
 		public void MouseMove(Point p)
 		{
@@ -227,19 +273,23 @@ namespace ScreenSaverConections
 				else d = p.X - StartPoint.X;
 
 				_DValue = (int)Math.Round(d / _ValueDrawStep);
-				_DValue = Math.Max(Math.Min(_DValue, _MaxValue - Value), -Value);
+				_DValue = Math.Max(Math.Min(_DValue, _MaxValue - _Value), -_Value);
+				if (_BoundMin > -1 && _BoundMax > -1)
+				{
+					_DValue = Math.Max(Math.Min(_DValue, _BoundMax - _Value), -_Value + _BoundMin);
+				}
 				MoveHandle();
 			}
 		}
 		public void MouseUp()
 		{
 			_ValueChanging = false;
-			Value += _DValue;
+			_Value += _DValue;
 			_DValue = 0;
 		}
 		private void MoveHandle()
 		{
-			var offset = (int)Math.Round((Value + _DValue) * _ValueDrawStep);
+			var offset = (int)Math.Round((_Value + _DValue) * _ValueDrawStep);
 			if (_Vertical)
 			{
 				_RectHandel.Location = new Point(
@@ -263,6 +313,10 @@ namespace ScreenSaverConections
 				point.X >= rect.X &&
 				rect.Y + rect.Height >= point.Y &&
 				point.Y >= rect.Y;
+		}
+		public static Rectangle Copy(this Rectangle rect)
+		{
+			return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 	}
 }
