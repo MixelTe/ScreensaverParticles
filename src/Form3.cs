@@ -105,7 +105,10 @@ namespace ScreenSaverConections
 		}
 		public void Draw(Graphics g)
 		{
-			g.FillRectangle(Brushes.Blue, _Rect);
+			using (var brush = new SolidBrush(Program.Settings.BackgroundColor))
+			{
+				g.FillRectangle(brush, _Rect);
+			}
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 			var rnd = new Random();
 			for (int i = 0; i < _Rect.Width * _Rect.Height / (100 * 100) * Program.Settings.Density; i++)
