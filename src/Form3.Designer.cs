@@ -65,6 +65,9 @@
 			this.pictureBox1.Size = new System.Drawing.Size(259, 170);
 			this.pictureBox1.TabIndex = 2;
 			this.pictureBox1.TabStop = false;
+			this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
+			this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
+			this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
 			// 
 			// Form3
 			// 
@@ -81,6 +84,7 @@
 			this.Name = "Form3";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Screensaver: points color";
+			this.Load += new System.EventHandler(this.Form3_Load);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 
