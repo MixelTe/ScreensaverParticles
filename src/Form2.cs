@@ -86,7 +86,7 @@ namespace ScreenSaverConections
 		}
 		private void PictureBoxGitHub_Click(object sender, EventArgs e)
 		{
-			var link = "https://github.com/MixelTe";
+			var link = "https://github.com/MixelTe/ScreensaverParticles";
 			try
 			{
 				Process.Start(link);
