@@ -119,6 +119,19 @@ namespace ScreenSaverConections
 			Program.Settings.ColorMin = Handles[0].Value;
 			Program.Settings.ColorMax = Handles[1].Value;
 		}
+
+		public override void Draw(Graphics g)
+		{
+			g.FillRectangle(Brushes.DarkBlue, _Rect);
+			using (var brush = new SolidBrush(Color.FromArgb(150, 0, 0, 0)))
+			{
+				g.FillRectangle(brush, _RectLine);
+			}
+			for (int i = 0; i < Handles.Length; i++)
+			{
+				Handles[i].Draw(g);
+			}
+		}
 	}
 	class BrightnessInput : RangeInput
 	{
@@ -138,6 +151,18 @@ namespace ScreenSaverConections
 		{
 			Program.Settings.ColorLMin = Handles[0].Value / 100f;
 			Program.Settings.ColorLMax = Handles[1].Value / 100f;
+		}
+		public override void Draw(Graphics g)
+		{
+			g.FillRectangle(Brushes.DarkBlue, _Rect);
+			using (var brush = new SolidBrush(Color.FromArgb(150, 0, 0, 0)))
+			{
+				g.FillRectangle(brush, _RectLine);
+			}
+			for (int i = 0; i < Handles.Length; i++)
+			{
+				Handles[i].Draw(g);
+			}
 		}
 	}
 
@@ -189,7 +214,7 @@ namespace ScreenSaverConections
 		protected readonly Handle[] Handles;
 		private readonly float _ValueDrawStep;
 		public readonly Rectangle _Rect;
-		private readonly Rectangle _RectLine;
+		protected readonly Rectangle _RectLine;
 		private readonly bool _Vertical;
 
 		public RangeInput(Rectangle rect, int maxValue, bool vertical, int handlesCount)
@@ -233,7 +258,7 @@ namespace ScreenSaverConections
 			_OnChanges.Add(f);
 		}
 
-		public void Draw(Graphics g)
+		public virtual void Draw(Graphics g)
 		{
 			g.FillRectangle(Brushes.DarkBlue, _Rect);
 			g.FillRectangle(Brushes.DarkOliveGreen, _RectLine);
@@ -349,7 +374,7 @@ namespace ScreenSaverConections
 
 		public void Draw(Graphics g)
 		{
-			g.FillRectangle(Brushes.Brown, _RectHandel);
+			g.FillRectangle(Brushes.Gray, _RectHandel);
 			g.DrawRectangle(Pens.White, _RectHandel);
 		}
 
