@@ -79,9 +79,12 @@
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.Cancelbutton);
 			this.Controls.Add(this.OKbutton);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "Form3";
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Screensaver: points color";
 			this.Load += new System.EventHandler(this.Form3_Load);
