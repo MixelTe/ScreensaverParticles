@@ -107,6 +107,7 @@ namespace ScreenSaverConections
 			Handles[0].Value = Program.Settings.ColorMin;
 			Handles[1].Value = Program.Settings.ColorMax;
 			AddOnChangeListener(ChangeResultViewer);
+			CreateBackground();
 		}
 		private void ChangeResultViewer()
 		{
@@ -122,7 +123,7 @@ namespace ScreenSaverConections
 
 		public override void Draw(Graphics g)
 		{
-			g.FillRectangle(Brushes.DarkBlue, _Rect);
+			DrawBackground(g);
 			using (var brush = new SolidBrush(Color.FromArgb(150, 0, 0, 0)))
 			{
 				g.FillRectangle(brush, _RectLine);
@@ -132,6 +133,30 @@ namespace ScreenSaverConections
 				Handles[i].Draw(g);
 			}
 		}
+
+		private readonly int _TileWidth = 2;
+		private Bitmap _Background;
+		private void CreateBackground()
+		{
+			_Background = new Bitmap(_Rect.Width, _Rect.Height);
+			using (var g = Graphics.FromImage(_Background))
+			{
+				g.FillRectangle(Brushes.White, _Rect);
+				var titleCount = _Rect.Width / _TileWidth;
+				var colorStep = 360f / titleCount;
+				for (int i = 0; i < titleCount; i++)
+				{
+					using (var brush = new SolidBrush(new HSL((int)(colorStep * i), 100, 50).HSLToRGB().RGBToColor(255)))
+					{
+						g.FillRectangle(brush, _TileWidth * i, 0, _TileWidth, _Rect.Height);
+					}
+				}
+			}
+		}
+		private void DrawBackground(Graphics g)
+		{
+			g.DrawImage(_Background, _Rect.X, _Rect.Y);
+		}
 	}
 	class BrightnessInput : RangeInput
 	{
@@ -140,6 +165,7 @@ namespace ScreenSaverConections
 			Handles[0].Value = (int)Math.Round(Program.Settings.ColorLMin * 100);
 			Handles[1].Value = (int)Math.Round(Program.Settings.ColorLMax * 100);
 			AddOnChangeListener(ChangeResultViewer);
+			CreateBackground();
 		}
 		private void ChangeResultViewer()
 		{
@@ -154,7 +180,7 @@ namespace ScreenSaverConections
 		}
 		public override void Draw(Graphics g)
 		{
-			g.FillRectangle(Brushes.DarkBlue, _Rect);
+			DrawBackground(g);
 			using (var brush = new SolidBrush(Color.FromArgb(150, 0, 0, 0)))
 			{
 				g.FillRectangle(brush, _RectLine);
@@ -163,6 +189,30 @@ namespace ScreenSaverConections
 			{
 				Handles[i].Draw(g);
 			}
+		}
+		private readonly int _TileWidth = 2;
+		private Bitmap _Background;
+		private void CreateBackground()
+		{
+			_Background = new Bitmap(_Rect.Width, _Rect.Height);
+			using (var g = Graphics.FromImage(_Background))
+			{
+				g.FillRectangle(Brushes.White, _Rect);
+				var titleCount = _Rect.Height / _TileWidth;
+				var colorStep = 255f / titleCount;
+				for (int i = 0; i < titleCount; i++)
+				{
+					var c = (int)(colorStep * i);
+					using (var brush = new SolidBrush(Color.FromArgb(255, c, c, c)))
+					{
+						g.FillRectangle(brush, 0, _TileWidth * i, _Rect.Width, _TileWidth);
+					}
+				}
+			}
+		}
+		private void DrawBackground(Graphics g)
+		{
+			g.DrawImage(_Background, _Rect.X, _Rect.Y);
 		}
 	}
 
