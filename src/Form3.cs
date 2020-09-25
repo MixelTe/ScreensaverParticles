@@ -49,7 +49,8 @@ namespace ScreenSaverConections
 		private void OKbutton_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
-			Close();
+			_HueInput.Save();
+			_BrightnessInput.Save();
 		}
 
 		private void DrawAll()
@@ -101,21 +102,52 @@ namespace ScreenSaverConections
 
 	class HueInput: RangeInput
 	{
-		public HueInput(Rectangle rect) : base(rect, false, 2)
+		public HueInput(Rectangle rect) : base(rect, 360, false, 2)
 		{
-			
+			Handles[0].Value = Program.Settings.ColorMin;
+			Handles[1].Value = Program.Settings.ColorMax;
+			AddOnChangeListener(ChangeResultViewer);
+		}
+		private void ChangeResultViewer()
+		{
+			ResultViewer.ColorMin = Handles[0].ValueWithD;
+			ResultViewer.ColorMax = Handles[1].ValueWithD;
+		}
+
+		public void Save()
+		{
+			Program.Settings.ColorMin = Handles[0].Value;
+			Program.Settings.ColorMax = Handles[1].Value;
 		}
 	}
 	class BrightnessInput : RangeInput
 	{
-		public BrightnessInput(Rectangle rect) : base(rect, true, 2)
+		public BrightnessInput(Rectangle rect) : base(rect, 100, true, 2)
 		{
+			Handles[0].Value = (int)Math.Round(Program.Settings.ColorLMin * 100);
+			Handles[1].Value = (int)Math.Round(Program.Settings.ColorLMax * 100);
+			AddOnChangeListener(ChangeResultViewer);
+		}
+		private void ChangeResultViewer()
+		{
+			ResultViewer.ColorLMin = Handles[0].ValueWithD / 100f;
+			ResultViewer.ColorLMax = Handles[1].ValueWithD / 100f;
+		}
 
+		public void Save()
+		{
+			Program.Settings.ColorLMin = Handles[0].Value / 100f;
+			Program.Settings.ColorLMax = Handles[1].Value / 100f;
 		}
 	}
 
 	class ResultViewer
 	{
+		public static int ColorMin = Program.Settings.ColorMin;
+		public static int ColorMax = Program.Settings.ColorMax;
+		public static float ColorLMin = Program.Settings.ColorLMin;
+		public static float ColorLMax = Program.Settings.ColorLMax;
+
 		public readonly Rectangle _Rect;
 		public ResultViewer(Rectangle rect)
 		{
@@ -131,8 +163,8 @@ namespace ScreenSaverConections
 			var rnd = new Random();
 			for (int i = 0; i < _Rect.Width * _Rect.Height / (100 * 100) * Program.Settings.Density; i++)
 			{
-				var h = rnd.Next(Program.Settings.ColorMin, Program.Settings.ColorMax);
-				var l = rnd.Next((int)(Program.Settings.ColorLMin * 100), (int)(Program.Settings.ColorLMax * 100));
+				var h = rnd.Next(ColorMin, ColorMax);
+				var l = rnd.Next((int)(ColorLMin * 100), (int)(ColorLMax * 100));
 
 				using (var brush = new SolidBrush(new HSL(h, 100, l).HSLToRGB().RGBToColor(255)))
 				{
@@ -152,23 +184,24 @@ namespace ScreenSaverConections
 		private readonly int _Width = 6;
 		private readonly int _HandleZone = 3;
 
-		private readonly int MaxValue = 10;
 
-		private readonly Handle[] Handles;
+		private readonly int _MaxValue;
+		protected readonly Handle[] Handles;
 		private readonly float _ValueDrawStep;
 		public readonly Rectangle _Rect;
 		private readonly Rectangle _RectLine;
 		private readonly bool _Vertical;
 
-		public RangeInput(Rectangle rect, bool vertical, int handlesCount)
+		public RangeInput(Rectangle rect, int maxValue, bool vertical, int handlesCount)
 		{
+			_MaxValue = maxValue;
 			var x = rect.X;
 			var y = rect.Y;
 			var width = rect.Width;
 			var lenght = rect.Height;
 			_Vertical = vertical;
 			Handles = new Handle[handlesCount];
-			_ValueDrawStep = (float)(lenght - _Offset * 2) / MaxValue;
+			_ValueDrawStep = (float)(lenght - _Offset * 2) / _MaxValue;
 			var lineAdd = (width - _Width) / 2;
 			if (vertical)
 			{
@@ -180,10 +213,10 @@ namespace ScreenSaverConections
 				_Rect = new Rectangle(x, y, lenght, width);
 				_RectLine = new Rectangle(x + _Offset, y + lineAdd, lenght - _Offset * 2, _Width); 
 			}
-			var hStep = handlesCount > 0 ? MaxValue / handlesCount : 0;
+			var hStep = handlesCount > 0 ? _MaxValue / handlesCount : 0;
 			for (int i = 0; i < handlesCount; i++)
 			{
-				Handles[i] = new Handle(MaxValue, _RectLine, vertical, _ValueDrawStep, OnChange)
+				Handles[i] = new Handle(_MaxValue, _RectLine, vertical, _ValueDrawStep, OnChange)
 				{
 					Value = hStep * i
 				};
@@ -228,7 +261,7 @@ namespace ScreenSaverConections
 			if (_SelectedHandle > -1)
 			{
 				var boundMin = 0;
-				var boundMax = MaxValue;
+				var boundMax = _MaxValue;
 				var H = Handles[_SelectedHandle];
 				if (Handles.Length > 1)
 				{
@@ -273,9 +306,14 @@ namespace ScreenSaverConections
 			get { return _Value; }
 			set
 			{
-				_Value = value;
+				_Value = Math.Max(Math.Min(value, _MaxValue), 0);
 				MoveHandle();
 			}
+		}
+
+		public int ValueWithD
+		{
+			get { return _Value + _DValue; }
 		}
 
 
