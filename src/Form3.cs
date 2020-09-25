@@ -41,6 +41,9 @@ namespace ScreenSaverConections
 			_ResultViewer = new ResultViewer(resultViewerRect);
 			_HueInput = new HueInput(rangeInputHRect);
 			_BrightnessInput = new BrightnessInput(rangeInputLRect);
+
+			_HueInput.AddOnChangeListener(() => { _ResultViewer.Draw(_G); });
+			_BrightnessInput.AddOnChangeListener(() => { _ResultViewer.Draw(_G); });
 		}
 
 		private void OKbutton_Click(object sender, EventArgs e)
@@ -180,11 +183,21 @@ namespace ScreenSaverConections
 			var hStep = handlesCount > 0 ? MaxValue / handlesCount : 0;
 			for (int i = 0; i < handlesCount; i++)
 			{
-				Handles[i] = new Handle(MaxValue, _RectLine, vertical, _ValueDrawStep)
+				Handles[i] = new Handle(MaxValue, _RectLine, vertical, _ValueDrawStep, OnChange)
 				{
 					Value = hStep * i
 				};
 			}
+		}
+
+		private List<SomeFunctions.OnChange> _OnChanges = new List<SomeFunctions.OnChange>();
+		private void OnChange()
+		{
+			_OnChanges.ForEach((SomeFunctions.OnChange f) => { f(); });
+		}
+		public void AddOnChangeListener(SomeFunctions.OnChange f)
+		{
+			_OnChanges.Add(f);
 		}
 
 		public void Draw(Graphics g)
@@ -277,9 +290,11 @@ namespace ScreenSaverConections
 		private int _DValue = 0;
 		private readonly bool _Vertical;
 		private readonly float _ValueDrawStep;
+		private readonly SomeFunctions.OnChange _OnChange;
 
-		public Handle(int maxValue, Rectangle rectLine, bool vertical, float valueDrawStep)
+		public Handle(int maxValue, Rectangle rectLine, bool vertical, float valueDrawStep, SomeFunctions.OnChange onChange)
 		{
+			_OnChange = onChange;
 			_MaxValue = maxValue;
 			_RectLine = rectLine;
 			_Vertical = vertical;
@@ -314,12 +329,15 @@ namespace ScreenSaverConections
 				if (_Vertical) d = p.Y - StartPoint.Y;
 				else d = p.X - StartPoint.X;
 
+				var pastValue = _DValue;
+
 				_DValue = (int)Math.Round(d / _ValueDrawStep);
 				_DValue = Math.Max(Math.Min(_DValue, _MaxValue - _Value), -_Value);
 				if (_BoundMin > -1 && _BoundMax > -1)
 				{
 					_DValue = Math.Max(Math.Min(_DValue, _BoundMax - _Value), -_Value + _BoundMin);
 				}
+				if (pastValue != _DValue) _OnChange();
 				MoveHandle();
 			}
 		}
@@ -349,6 +367,7 @@ namespace ScreenSaverConections
 	}
 	static class SomeFunctions
 	{
+		public delegate void OnChange();
 		public static bool IntersectPoint(this Rectangle rect, Point point)
 		{
 			return rect.X + rect.Width >= point.X &&
