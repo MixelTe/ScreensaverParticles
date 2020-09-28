@@ -97,10 +97,10 @@ namespace ScreenSaverConections
 		{
 			while (IsRunning)
 			{
-				var time = Stopwatch.GetTimestamp();
-				if (time - _time > Stopwatch.Frequency / 30)
-				{
-					_time = time;
+				var timeBefore = Stopwatch.GetTimestamp();
+				//if (timeBefore - _time > Stopwatch.Frequency / 30)
+				//{
+					//_time = timeBefore;
 					if (!Paused)
 					{
 						lock (_lock)
@@ -111,10 +111,14 @@ namespace ScreenSaverConections
 						DrawGame();
 
 						_fps.Increment();
-					}
-				}
-				//Thread.Sleep(1000 / 60);
+					//}
+					var sleepTime = Stopwatch.Frequency / 30 - (Stopwatch.GetTimestamp() - timeBefore);
+					var sleepMilliseconds = (int)(sleepTime * 1000 / Stopwatch.Frequency);
+					Debug.WriteLine(sleepMilliseconds);
+					if (sleepMilliseconds > 0) Thread.Sleep(sleepMilliseconds);
 			}
+			//Thread.Sleep(1000 / 60);
+		}
 		}
 		internal void DrawGame()
 		{
