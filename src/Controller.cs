@@ -10,7 +10,7 @@ namespace ScreenSaverConections
 		private readonly int _Height;
 		private readonly int _Width;
 		public readonly CPoint[] _CPoints;
-		private readonly Random _Rnd = new Random(26);
+		private readonly Random _Rnd = new Random(1);
 
 		public Controller(int width, int height)
 		{
@@ -18,7 +18,6 @@ namespace ScreenSaverConections
 			_Width = width;
 			_Height = height;
 			_CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
-			_CPoints = new CPoint[1];
 			CreateAll();
 		}
 		private void CreateAll()
@@ -85,8 +84,6 @@ namespace ScreenSaverConections
 		private readonly CPoint[] _Points;
 		private readonly SolidBrush _Brush;
 		private readonly Pen _Pen;
-		private HSL _dev_color;
-		private readonly bool _dev_active = true;
 
 
 		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points, Settings settings)
@@ -106,13 +103,6 @@ namespace ScreenSaverConections
 			};
 			_Points = points;
 			_PointsConnected = new CPoint[points.Length];
-
-			if (_dev_active)
-			{
-				var h = _Rnd.Next(_Settings.ColorMin, _Settings.ColorMax);
-				var l = _Rnd.Next((int)(_Settings.ColorLMin * 100), (int)(_Settings.ColorLMax * 100));
-				_dev_color = new HSL(h, 100, l);
-			}
 		}
 
 		public void Update()
@@ -211,13 +201,7 @@ namespace ScreenSaverConections
 
 		public void DrawPoint(Graphics g)
 		{
-			var b = _Brush;
-			if (_dev_active)
-			{
-				b = new SolidBrush(_dev_color.HSLToRGB().RGBToColor(255));
-				_dev_color = new HSL((_dev_color.H + 1) % 360, _dev_color.S, _dev_color.L);
-			}
-			g.FillEllipse(b, (float)(_X - _Settings.PointRadius / 2), (float)(_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
+			g.FillEllipse(_Brush, (float)(_X - _Settings.PointRadius / 2), (float)(_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
 		}
 
 		public void Dispose()

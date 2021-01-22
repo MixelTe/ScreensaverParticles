@@ -8,14 +8,14 @@ namespace ScreenSaverConections
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
 		
-		private readonly SolidBrush _Brush = new SolidBrush(Color.FromArgb(1, 0, 0, 0));
+		private readonly SolidBrush _Brush = new SolidBrush(Color.FromArgb(255, 0, 0, 0));
 
 		public Painter(Controller game, Rectangle rcClient)
 		{
 			_Settings = Program.Settings;
 			_game = game;
 			_rcClient = rcClient;
-			//_Brush.Color = _Settings.BackgroundColor;
+			_Brush.Color = _Settings.BackgroundColor;
 		}
 
 		public void Draw(Graphics g)
