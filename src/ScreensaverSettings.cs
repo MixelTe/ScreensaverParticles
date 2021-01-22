@@ -10,6 +10,8 @@ namespace ScreenSaverConections
 		//main
 		public int Density = 10;
 		public Color BackgroundColor = Color.Black;
+		public bool ClockMode = true;
+		public float ClockSize = 0.6f;
 
 		//points
 		public bool DrawPoints = true;

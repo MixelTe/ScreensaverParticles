@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,6 +11,7 @@ namespace ScreenSaverConections
 	{
 		public static readonly string KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaverConections";
 		public static Settings Settings = new Settings();
+		public static List<Rectangle> rectangles = new List<Rectangle>();
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>

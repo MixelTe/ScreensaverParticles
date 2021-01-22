@@ -36,6 +36,12 @@ namespace ScreenSaverConections
 					if (p != null) p.DrawPoint(g);
 				}
 			}
+			var b = new SolidBrush(Color.FromArgb(100, 255, 255, 255));
+			foreach (var rect in Program.rectangles)
+			{
+				g.FillRectangle(b, rect);
+			}
+			b.Dispose();
 		}
 
 
