@@ -123,11 +123,11 @@ namespace ScreenSaverConections
 		}
 		private void SpeedUnD_ValueChanged(object sender, EventArgs e)
 		{
-			Program.Settings.SpeedMax = (double)SpeedUnD.Value;
+			Program.Settings.SpeedMax = (float)SpeedUnD.Value;
 		}
 		private void RotateSpeedUnD_ValueChanged(object sender, EventArgs e)
 		{
-			Program.Settings.RotateSpeedMax = (double)RotateSpeedUnD.Value;
+			Program.Settings.RotateSpeedMax = (float)RotateSpeedUnD.Value;
 		}
 		private void ChaoticUnD_ValueChanged(object sender, EventArgs e)
 		{

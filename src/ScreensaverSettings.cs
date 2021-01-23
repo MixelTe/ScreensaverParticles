@@ -16,8 +16,8 @@ namespace ScreenSaverConections
 		//points
 		public bool DrawPoints = true;
 		public int PointRadius = 8;
-		public double SpeedMax = 5;
-		public double RotateSpeedMax = 0.05;
+		public float SpeedMax = 5;
+		public float RotateSpeedMax = 0.05f;
 		public int TimeMin = 5;
 		public int TimeMax = 50;
 		//points color

@@ -82,16 +82,16 @@ namespace ScreenSaverConections
 		private readonly Settings _Settings;
 		private readonly bool _Bound;
 		private readonly int _Group;
-		private double _XStart;
-		private double _YStart;
-		private double _X;
-		private double _Y;
-		private double _Speed;
-		private double _Time = 0;
-		private double _Counter = 0;
-		private double _Acc = 0;
-		private double _Direction;
-		private double _RotateSpeed = 0;
+		private float _XStart;
+		private float _YStart;
+		private float _X;
+		private float _Y;
+		private float _Speed;
+		private float _Time = 0;
+		private float _Counter = 0;
+		private float _Acc = 0;
+		private float _Direction;
+		private float _RotateSpeed = 0;
 		private readonly int _Width;
 		private readonly int _Height;
 		private readonly Random _Rnd;
@@ -116,7 +116,7 @@ namespace ScreenSaverConections
 			_Height = height;
 			_Rnd = rnd;
 			_Speed = _Settings.SpeedMax / 2;
-			_Direction = rnd.Next(360) / 180d * Math.PI;
+			_Direction = (float)(rnd.Next(360) / 180d * Math.PI);
 			_Brush = new SolidBrush(color);
 			_Pen = new Pen(_Settings.ConnectionsColor)
 			{
@@ -157,13 +157,13 @@ namespace ScreenSaverConections
 		}
 		private void Move()
 		{
-			_X += Math.Cos(_Direction) * _Speed;
-			_Y += Math.Sin(_Direction) * _Speed;
+			_X += (float)(Math.Cos(_Direction) * _Speed);
+			_Y += (float)(Math.Sin(_Direction) * _Speed);
 
-			if (_X > _Width) _Direction = Math.PI - _Direction;
-			if (_X < 0) _Direction = Math.PI - (_Direction - Math.PI) + Math.PI;
-			if (_Y > _Height) _Direction = Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2;
-			if (_Y < 0) _Direction = Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2;
+			if (_X > _Width) _Direction = (float)(Math.PI - _Direction);
+			if (_X < 0) _Direction = (float)(Math.PI - (_Direction - Math.PI) + Math.PI);
+			if (_Y > _Height) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			if (_Y < 0) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
 			_X = Math.Max(Math.Min(_X, _Width), 0);
 			_Y = Math.Max(Math.Min(_Y, _Height), 0);
 
@@ -185,7 +185,7 @@ namespace ScreenSaverConections
 			{
 				_Time = _Rnd.Next(_Settings.TimeMin, _Settings.TimeMax);
 				_Counter = 0;
-				var nextAcc = _Rnd.Next(0, (int)_Settings.SpeedMax) / 10d;
+				var nextAcc = _Rnd.Next(0, (int)_Settings.SpeedMax) / 10f;
 				if (_Speed == _Settings.SpeedMax) _Acc = -nextAcc;
 				else if (_Speed == -_Settings.SpeedMax) _Acc = nextAcc;
 				else
@@ -193,16 +193,16 @@ namespace ScreenSaverConections
 					if (_Rnd.Next(2) == 1) nextAcc *= -1;
 					_Acc = nextAcc;
 				}
-				_RotateSpeed = _Rnd.Next(0, (int)(_Settings.RotateSpeedMax * 360)) / 180d / Math.PI;
+				_RotateSpeed = (float)(_Rnd.Next(0, (int)(_Settings.RotateSpeedMax * 360)) / 180d / Math.PI);
 				if (_Rnd.Next(2) == 1) _RotateSpeed *= -1;
 			}
 			_Counter++;
 		}
-		private double GetDistance(double x, double y)
+		private float GetDistance(float x, float y)
 		{
 			return Squared(x - _X) + Squared(y - _Y);
 		}
-		private double Squared(double num) => num * num;
+		private float Squared(float num) => num * num;
 
 		public void DrawConnections(Graphics g)
 		{
@@ -232,8 +232,8 @@ namespace ScreenSaverConections
 
 		public void DrawPoint(Graphics g)
 		{
-			//g.DrawLine(Pens.White, (float)_X, (float)_Y, (float)_XStart, (float)_YStart);
-			g.FillEllipse(_Brush, (float)(_X - _Settings.PointRadius / 2), (float)(_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
+			//g.DrawLine(Pens.White, _X, _Y, _XStart, _YStart);
+			g.FillEllipse(_Brush, (_X - _Settings.PointRadius / 2), (_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
 		}
 
 		public void Dispose()
