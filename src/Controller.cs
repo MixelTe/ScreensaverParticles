@@ -20,7 +20,7 @@ namespace ScreenSaverConections
 			_Settings = Program.Settings;
 			_Width = width;
 			_Height = height;
-			_OneNumRange = (int)(_Width * _Height / 1.5f) / (500 * 500) * _Settings.Density;
+			_OneNumRange = (int)(_Width * _Height / 1.4f) / (500 * 500) * _Settings.Density;
 			if (_Settings.ClockMode) _CPoints = new CPoint[_OneNumRange * 4];
 			else _CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
 			_PointsCreator = new PointsCreator(width, height, _Settings, _Rnd);
@@ -232,7 +232,7 @@ namespace ScreenSaverConections
 
 		public void DrawPoint(Graphics g)
 		{
-			g.DrawLine(Pens.White, (float)_X, (float)_Y, (float)_XStart, (float)_YStart);
+			//g.DrawLine(Pens.White, (float)_X, (float)_Y, (float)_XStart, (float)_YStart);
 			g.FillEllipse(_Brush, (float)(_X - _Settings.PointRadius / 2), (float)(_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
 		}
 
@@ -268,25 +268,25 @@ namespace ScreenSaverConections
 			_Rnd = rnd;
 			_WidthScr = width;
 			_HeightScr = height;
-			var ClockMaxWidth = (int)Math.Round(width * _Settings.ClockSize);
-			var ClockMaxHeight = (int)Math.Round(height * _Settings.ClockSize);
-			int ClockWidth, ClockHeight;
-			if (ClockMaxHeight * 2 > ClockMaxWidth)
+			var clockMaxWidth = (int)Math.Round(width * _Settings.ClockSize) - _Settings.DistanceMax * 3;
+			var clockMaxHeight = (int)Math.Round(height * _Settings.ClockSize);
+			int clockWidth, clockHeight;
+			if (clockMaxHeight * 2 > clockMaxWidth)
 			{
-				ClockWidth = ClockMaxWidth;
-				ClockHeight = ClockMaxWidth / 2;
+				clockWidth = clockMaxWidth;
+				clockHeight = clockMaxWidth / 2;
 			}
 			else
 			{
-				ClockWidth = ClockMaxHeight * 2;
-				ClockHeight = ClockMaxHeight;
+				clockWidth = clockMaxHeight * 2;
+				clockHeight = clockMaxHeight;
 			}
-			_Width = ClockWidth / 4;
-			_Height = ClockHeight;
-			_Space = _Width / 2;
+			_Space = _Settings.DistanceMax;
+			_Width = clockWidth / 4;
+			_Height = clockHeight;
 
-			_X = (width - (ClockWidth + _Space * 3)) / 2;
-			_Y = (height - ClockHeight) / 2;
+			_X = (width - (clockWidth + _Space * 3)) / 2;
+			_Y = (height - clockHeight) / 2;
 		}
 
 		public void CreatePointsSimple(CPoint[] points)
