@@ -12,36 +12,52 @@ namespace ScreenSaverConections
 		public readonly CPoint[] _CPoints;
 		private readonly int _OneNumRange;
 		private readonly Random _Rnd = new Random(1);
-		private readonly PointsCreator _NumsCreator;
+		private readonly PointsCreator _PointsCreator;
+		private string _PastTime;
 
 		public Controller(int width, int height)
 		{
 			_Settings = Program.Settings;
 			_Width = width;
 			_Height = height;
-			_OneNumRange = (_Width * _Height / 2) / (500 * 500) * _Settings.Density;
+			_OneNumRange = (int)(_Width * _Height / 1.5f) / (500 * 500) * _Settings.Density;
 			if (_Settings.ClockMode) _CPoints = new CPoint[_OneNumRange * 4];
 			else _CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
-			_NumsCreator = new PointsCreator(width, height, _Settings, _Rnd);
+			_PointsCreator = new PointsCreator(width, height, _Settings, _Rnd);
 			CreateAll();
 		}
 		private void CreateAll()
 		{
 			if (_Settings.ClockMode)
 			{
-				var time = _NumsCreator.GetCurrentTime();
-				_NumsCreator.CreateNum(time[0], _OneNumRange * 0, _OneNumRange * 1, _CPoints, 0);
-				_NumsCreator.CreateNum(time[1], _OneNumRange * 1, _OneNumRange * 2, _CPoints, 1);
-				_NumsCreator.CreateNum(time[2], _OneNumRange * 2, _OneNumRange * 3, _CPoints, 2);
-				_NumsCreator.CreateNum(time[3], _OneNumRange * 3, _OneNumRange * 4, _CPoints, 3);
+				var time = _PointsCreator.GetCurrentTime(ref _PastTime);
+				//time = new int[] { 7, 8, 8, 8 };
+				_PointsCreator.CreateNum(time[0], _OneNumRange * 0, _OneNumRange * 1, _CPoints, 0);
+				_PointsCreator.CreateNum(time[1], _OneNumRange * 1, _OneNumRange * 2, _CPoints, 1);
+				_PointsCreator.CreateNum(time[2], _OneNumRange * 2, _OneNumRange * 3, _CPoints, 2);
+				_PointsCreator.CreateNum(time[3], _OneNumRange * 3, _OneNumRange * 4, _CPoints, 3);
 			}
 			else
 			{
-				_NumsCreator.CreatePointsSimple(_CPoints);
+				_PointsCreator.CreatePointsSimple(_CPoints);
 			}
 		}
 		void IController.Update()
 		{
+			if (_Settings.ClockMode)
+			{
+				var sTime = "";
+				var time = _PointsCreator.GetCurrentTime(ref sTime);
+				if (_PastTime != sTime)
+				{
+					if (_PastTime[0] != sTime[0]) _PointsCreator.ReCreateNum(time[0], _OneNumRange * 0, _OneNumRange * 1, _CPoints, 0);
+					if (_PastTime[1] != sTime[1]) _PointsCreator.ReCreateNum(time[1], _OneNumRange * 1, _OneNumRange * 2, _CPoints, 1);
+					if (_PastTime[2] != sTime[2]) _PointsCreator.ReCreateNum(time[2], _OneNumRange * 2, _OneNumRange * 3, _CPoints, 2);
+					if (_PastTime[3] != sTime[3]) _PointsCreator.ReCreateNum(time[3], _OneNumRange * 3, _OneNumRange * 4, _CPoints, 3);
+				}
+				_PastTime = sTime;
+			}
+
 			for (int i = 0; i < _CPoints.Length; i++)
 			{
 				var el = _CPoints[i];
@@ -64,10 +80,10 @@ namespace ScreenSaverConections
 	class CPoint: IDisposable
 	{
 		private readonly Settings _Settings;
-		private readonly double _XStart;
-		private readonly double _YStart;
 		private readonly bool _Bound;
 		private readonly int _Group;
+		private double _XStart;
+		private double _YStart;
 		private double _X;
 		private double _Y;
 		private double _Speed;
@@ -216,6 +232,7 @@ namespace ScreenSaverConections
 
 		public void DrawPoint(Graphics g)
 		{
+			g.DrawLine(Pens.White, (float)_X, (float)_Y, (float)_XStart, (float)_YStart);
 			g.FillEllipse(_Brush, (float)(_X - _Settings.PointRadius / 2), (float)(_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
 		}
 
@@ -223,6 +240,12 @@ namespace ScreenSaverConections
 		{
 			_Brush?.Dispose();
 			_Pen?.Dispose();
+		}
+
+		internal void SetStartPos(int x, int y)
+		{
+			_XStart = x;
+			_YStart = y;
 		}
 	}
 
@@ -286,7 +309,7 @@ namespace ScreenSaverConections
 			return new HSL(h, 100, l).HSLToRGB().RGBToColor(255);
 		}
 
-		public int[] GetCurrentTime()
+		public int[] GetCurrentTime(ref string time)
 		{
 			var hours = DateTime.Now.Hour.ToString();
 			var minute = DateTime.Now.Minute.ToString();
@@ -311,60 +334,232 @@ namespace ScreenSaverConections
 				n3 = int.Parse(minute.Substring(0, 1));
 				n4 = int.Parse(minute.Substring(1, 1));
 			}
+			time = n1.ToString() + n2.ToString() + n3.ToString() + n4.ToString();
 			return new int[] { n1, n2, n3, n4 };
 		}
 		public void CreateNum(int num, int rs, int re, CPoint[] points, int pos)
 		{
 			switch (num)
 			{
-				case 0: CreateNum_8(rs, re, points, pos); break;
-				case 1: CreateNum_8(rs, re, points, pos); break;
-				case 2: CreateNum_8(rs, re, points, pos); break;
-				case 3: CreateNum_8(rs, re, points, pos); break;
-				case 4: CreateNum_8(rs, re, points, pos); break;
-				case 5: CreateNum_8(rs, re, points, pos); break;
-				case 6: CreateNum_8(rs, re, points, pos); break;
-				case 7: CreateNum_8(rs, re, points, pos); break;
-				case 8: CreateNum_8(rs, re, points, pos); break;
-				case 9: CreateNum_8(rs, re, points, pos); break;
+				case 0: CreateNum_0(rs, re, points, pos, true); break;
+				case 1: CreateNum_1(rs, re, points, pos, true); break;
+				case 2: CreateNum_2(rs, re, points, pos, true); break;
+				case 3: CreateNum_3(rs, re, points, pos, true); break;
+				case 4: CreateNum_4(rs, re, points, pos, true); break;
+				case 5: CreateNum_5(rs, re, points, pos, true); break;
+				case 6: CreateNum_6(rs, re, points, pos, true); break;
+				case 7: CreateNum_7(rs, re, points, pos, true); break;
+				case 8: CreateNum_8(rs, re, points, pos, true); break;
+				case 9: CreateNum_9(rs, re, points, pos, true); break;
 			}
 		}
 
-		private void CreateNum_8(int rs, int re, CPoint[] points, int pos)
+		private void CreateNum_0(int rs, int re, CPoint[] points, int pos, bool newP)
 		{
 			var rects = new RectangleF[] {
-				new RectangleF(0.25f, 0, 0.5f, 0.142f), //¯
-				new RectangleF(0.25f, 0.426f, 0.5f, 0.142f), //-
-				new RectangleF(0.25f, 0.858f, 0.5f, 0.142f), //_
-				new RectangleF(0, 0, 0.142f, 0.568f), //|
-				new RectangleF(0, 0.426f, 0.142f, 0.568f), //|
-				new RectangleF(0.858f, 0, 0.142f, 0.568f), // |
-				new RectangleF(0.858f, 0.426f, 0.142f, 0.568f), // |
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.LeftTop),
+				GetRectangle(NumPart.LeftBottom),
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
 			};
-			CreateNum_Rects(rects, rs, re, points, pos);
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
 		}
-		private void CreateNum_Rects(RectangleF[] rects, int rs, int re, CPoint[] points, int pos)
+		private void CreateNum_1(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_2(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.LeftBottom),
+				GetRectangle(NumPart.RightTop),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_3(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_4(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.LeftTop),
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_5(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.LeftTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_6(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.LeftTop),
+				GetRectangle(NumPart.LeftBottom),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_7(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_8(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.LeftTop),
+				GetRectangle(NumPart.LeftBottom),
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private void CreateNum_9(int rs, int re, CPoint[] points, int pos, bool newP)
+		{
+			var rects = new RectangleF[] {
+				GetRectangle(NumPart.Top),
+				GetRectangle(NumPart.Middle),
+				GetRectangle(NumPart.Bottom),
+				GetRectangle(NumPart.LeftTop),
+				GetRectangle(NumPart.RightTop),
+				GetRectangle(NumPart.RightBottom),
+			};
+			CreateNum_Rects(rects, rs, re, points, pos, newP);
+		}
+		private RectangleF GetRectangle(NumPart part)
+		{
+			switch (part)
+			{
+				case NumPart.Top: return new RectangleF(0.125f, 0, 0.75f, 0.142f);
+				case NumPart.Middle: return new RectangleF(0.125f, 0.426f, 0.75f, 0.142f);
+				case NumPart.Bottom: return new RectangleF(0.125f, 0.858f, 0.75f, 0.142f);
+				case NumPart.LeftTop: return new RectangleF(0, 0.071f, 0.25f, 0.426f);
+				case NumPart.LeftBottom: return new RectangleF(0, 0.497f, 0.25f, 0.426f);
+				case NumPart.RightTop: return new RectangleF(0.75f, 0.071f, 0.25f, 0.426f);
+				case NumPart.RightBottom: return new RectangleF(0.75f, 0.497f, 0.25f, 0.426f);
+			}
+			return new RectangleF();
+		}
+		private void CreateNum_Rects(RectangleF[] rects, int rs, int re, CPoint[] points, int pos, bool newP)
 		{
 			var pointsCount = re - rs;
 			var xShift = (_Width + _Space) * pos + _X;
 			var pointsForRect = pointsCount / rects.Length;
+			var sShift = 0;
+			var addPoints = pointsCount - pointsForRect * rects.Length;
 			for (int i = 0; i < rects.Length; i++)
 			{
 				var rect = rects[i];
 				rect = new RectangleF(rect.X * _Width, rect.Y * _Height, rect.Width * _Width, rect.Height * _Height);
 				var rectInt = new Rectangle((int)rect.X + xShift, (int)rect.Y + _Y, (int)rect.Width, (int)rect.Height);
-				var s = rs + pointsForRect * i;
-				var e = rs + pointsForRect * (i + 1);
-				CreatePoints(rectInt, s, e, points, pos);
+				var s = rs + pointsForRect * i + sShift;
+				var e = rs + pointsForRect * (i + 1) + sShift;
+				if (addPoints > 0)
+				{
+					e += 1;
+					sShift += 1;
+					addPoints -= 1;
+				}
+				CreatePoints(rectInt, s, e, points, pos, newP);
 			}
 		}
-		private void CreatePoints(Rectangle rect, int rs, int re, CPoint[] points, int pos)
+		private void CreatePoints(Rectangle rect, int rs, int re, CPoint[] points, int pos, bool newP)
 		{
-			Program.rectangles.Add(rect);
+			//Program.rectangles.Add(rect);
+			var pointsCount = re - rs;
+			var width = rect.Width / (float)pointsCount;
+			var height = rect.Height / (float)pointsCount;
+			var xPoints = new int[pointsCount];
+			for (int i = 0; i < xPoints.Length; i++)
+			{
+				xPoints[i] = rect.X + (int)(i * width);
+			}
+			xPoints.Shuffle();
 			for (int i = rs; i < re; i++)
 			{
-				points[i] = CreatePoint(rect, points, true, pos);
+				//var pRect = new Rectangle(rect.X + (int)((i - rs) * width), rect.Y, (int)width, rect.Height);
+				//var pRect = new Rectangle(rect.X + (int)((i - rs) * width), rect.Y + (int)((i - rs) * height), (int)width, (int)height);
+				var pRect = new Rectangle(xPoints[i - rs], rect.Y + (int)((i - rs) * height), (int)width, (int)height);
+				//Program.rectangles.Add(pRect);
+				//pRect = rect;
+				if (newP)
+				{
+					points[i] = CreatePoint(pRect, points, true, pos);
+				}
+				else
+				{
+					var x = _Rnd.Next(pRect.Width) + pRect.X;
+					var y = _Rnd.Next(pRect.Height) + pRect.Y;
+					if (points[i] != null)
+					{
+						points[i].SetStartPos(x, y);
+					}
+				}
 			}
 		}
+
+		internal void ReCreateNum(int num, int rs, int re, CPoint[] points, int pos)
+		{
+			switch (num)
+			{
+				case 0: CreateNum_0(rs, re, points, pos, false); break;
+				case 1: CreateNum_1(rs, re, points, pos, false); break;
+				case 2: CreateNum_2(rs, re, points, pos, false); break;
+				case 3: CreateNum_3(rs, re, points, pos, false); break;
+				case 4: CreateNum_4(rs, re, points, pos, false); break;
+				case 5: CreateNum_5(rs, re, points, pos, false); break;
+				case 6: CreateNum_6(rs, re, points, pos, false); break;
+				case 7: CreateNum_7(rs, re, points, pos, false); break;
+				case 8: CreateNum_8(rs, re, points, pos, false); break;
+				case 9: CreateNum_9(rs, re, points, pos, false); break;
+			}
+		}
+	}
+	enum NumPart
+	{
+		Top,
+		Middle,
+		Bottom,
+		LeftTop,
+		LeftBottom,
+		RightTop,
+		RightBottom,
 	}
 }
