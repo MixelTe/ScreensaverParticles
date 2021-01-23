@@ -95,7 +95,7 @@ namespace ScreenSaverConections
 		private readonly int _Width;
 		private readonly int _Height;
 		private readonly Random _Rnd;
-		private CPoint[] _PointsConnected;
+		private CPointConection[] _PointConections;
 		private readonly CPoint[] _Points;
 		private readonly SolidBrush _Brush;
 		private readonly Pen _Pen;
@@ -123,7 +123,7 @@ namespace ScreenSaverConections
 				Width = _Settings.ConnectionsWidth
 			};
 			_Points = points;
-			_PointsConnected = new CPoint[points.Length];
+			_PointConections = new CPointConection[points.Length];
 		}
 
 		public void Update()
@@ -132,15 +132,16 @@ namespace ScreenSaverConections
 			Move();
 			if (_Settings.DrawConections)
 			{
-				_PointsConnected = new CPoint[_Points.Length];
+				_PointConections = new CPointConection[_Points.Length];
+				var lastI = 0;
 				for (int i = 0; i < _Points.Length; i++)
 				{
 					var p = _Points[i];
 					if (p == this || p == null) continue;
 					var connected = false;
-					for (int o = 0; o < p._PointsConnected.Length; o++)
+					for (int o = 0; o < p._PointConections.Length; o++)
 					{
-						if (p._PointsConnected[o] == this)
+						if (p._PointConections[o].X == _X && p._PointConections[o].Y == _Y)
 						{
 							connected = true;
 							break;
@@ -148,9 +149,11 @@ namespace ScreenSaverConections
 					}
 					if (_Bound && _Group != p._Group) continue;
 					if (connected) continue;
-					if (GetDistance(p._X, p._Y) <= Squared(_Settings.DistanceMax))
+					var d = GetDistance(p._X, p._Y);
+					if (d <= Squared(_Settings.DistanceMax))
 					{
-						_PointsConnected[i] = p;
+						_PointConections[lastI] = new CPointConection(p._X, p._Y, d);
+						lastI += 1;
 					}
 				}
 			}
@@ -208,12 +211,12 @@ namespace ScreenSaverConections
 		{
 			if (_Settings.DrawConections)
 			{
-				var P = new PointF((float)_X, (float)_Y);
-				foreach (var p in _PointsConnected)
+				var P = new PointF(_X, _Y);
+				foreach (var p in _PointConections)
 				{
-					if (p != null)
+					if (p.NotEmpty)
 					{
-						var d = GetDistance(p._X, p._Y);
+						var d = p.D;
 						d = Math.Min(d, Squared(_Settings.DistanceMax));
 						d -= Squared(_Settings.DistanceShading);
 						var A = 255;
@@ -224,7 +227,11 @@ namespace ScreenSaverConections
 						}
 						A = (int)(A * _Settings.LineAlpha);
 						_Pen.Color = Color.FromArgb(A, _Settings.ConnectionsColor);
-						g.DrawLine(_Pen, P, new PointF((float)p._X, (float)p._Y));
+						g.DrawLine(_Pen, P, new PointF(p.X, p.Y));
+					}
+					else
+					{
+						break;
 					}
 				}
 			}
@@ -246,6 +253,20 @@ namespace ScreenSaverConections
 		{
 			_XStart = x;
 			_YStart = y;
+		}
+	}
+	struct CPointConection
+	{
+		public readonly float X;
+		public readonly float Y;
+		public readonly float D;
+		public readonly bool NotEmpty;
+		public CPointConection(float x, float y, float d)
+		{
+			X = x;
+			Y = y;
+			D = d;
+			NotEmpty = true;
 		}
 	}
 
