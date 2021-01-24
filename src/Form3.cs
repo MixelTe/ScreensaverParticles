@@ -223,10 +223,36 @@ namespace ScreenSaverConections
 		public static float ColorLMin = Program.Settings.ColorLMin;
 		public static float ColorLMax = Program.Settings.ColorLMax;
 
+		private Point[] _Points;
+
 		public readonly Rectangle _Rect;
 		public ResultViewer(Rectangle rect)
 		{
 			_Rect = rect;
+			CreatePoints();
+		}
+		private void CreatePoints()
+		{
+			var rnd = new Random();
+			var pointsCount = _Rect.Width * _Rect.Height / (100 * 100) * Program.Settings.Density;
+			_Points = new Point[pointsCount];
+			var width = (_Rect.Width - Program.Settings.PointRadius * 2) / (float)pointsCount;
+			var height = (_Rect.Height - Program.Settings.PointRadius * 2) / (float)pointsCount;
+			var xPoints = new int[pointsCount];
+			for (int i = 0; i < pointsCount; i++)
+			{
+				xPoints[i] = _Rect.X + (int)(i * width);
+			}
+			xPoints.Shuffle();
+			for (int i = 0; i < pointsCount; i++)
+			{
+				var pRect = new Rectangle(xPoints[i], _Rect.Y + (int)(i * height), (int)width, (int)height);
+				//var x = rnd.Next(_Rect.Width - Program.Settings.PointRadius * 2) + _Rect.X + Program.Settings.PointRadius;
+				//var y = rnd.Next(_Rect.Height - Program.Settings.PointRadius * 2) + _Rect.Y + Program.Settings.PointRadius;
+				var x = rnd.Next(pRect.Width) + pRect.X;
+				var y = rnd.Next(pRect.Height) + pRect.Y;
+				_Points[i] = new Point(x, y);
+			}
 		}
 		public void Draw(Graphics g)
 		{
@@ -236,20 +262,20 @@ namespace ScreenSaverConections
 			}
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 			var rnd = new Random();
-			for (int i = 0; i < _Rect.Width * _Rect.Height / (100 * 100) * Program.Settings.Density; i++)
+			foreach (var point in _Points)
 			{
 				var h = rnd.Next(ColorMin, ColorMax);
 				var l = rnd.Next((int)(ColorLMin * 100), (int)(ColorLMax * 100));
-
 				using (var brush = new SolidBrush(new HSL(h, 100, l).HSLToRGB().RGBToColor(255)))
 				{
-					g.FillEllipse(brush, 
-						rnd.Next(_Rect.Width - Program.Settings.PointRadius * 2) + _Rect.X + Program.Settings.PointRadius, 
-						rnd.Next(_Rect.Height - Program.Settings.PointRadius * 2) + _Rect.Y + Program.Settings.PointRadius, 
-						Program.Settings.PointRadius, 
+					g.FillEllipse(brush,
+						point.X,
+						point.Y,
+						Program.Settings.PointRadius,
 						Program.Settings.PointRadius);
 				}
 			}
+
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 		}
 	}
