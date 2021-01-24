@@ -546,9 +546,9 @@
 			this.DistanceLbl.AutoSize = true;
 			this.DistanceLbl.Location = new System.Drawing.Point(10, 43);
 			this.DistanceLbl.Name = "DistanceLbl";
-			this.DistanceLbl.Size = new System.Drawing.Size(70, 13);
+			this.DistanceLbl.Size = new System.Drawing.Size(59, 13);
 			this.DistanceLbl.TabIndex = 9;
-			this.DistanceLbl.Text = "Max distance";
+			this.DistanceLbl.Text = "Max length";
 			// 
 			// DrawConCB
 			// 

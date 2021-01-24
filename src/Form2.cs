@@ -47,7 +47,7 @@ namespace ScreenSaverConections
 
 				ConnectionsGB.Text = "Cоеденения";
 				DrawConCB.Text = "Рисовать соеденения";
-				DistanceLbl.Text = "Макс. Расстояние";
+				DistanceLbl.Text = "Макс. длина";
 				ShadingLbl.Text = "Начало затухания";
 				LineWidthLbl.Text = "Толщина линии";
 				ConnectionsAlphaLbl.Text = "Прозрачность линии";
@@ -100,7 +100,7 @@ namespace ScreenSaverConections
 			}
 			catch (Exception)
 			{
-				MessageBox.Show(link + "\n\nCopied to clipboard", "StarScreen: Source code", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBox.Show(link + "\n\nCopied to clipboard", "ScreensaverParticles: Source code", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				Clipboard.SetText(link);
 			}
 		}
