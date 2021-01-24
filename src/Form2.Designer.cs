@@ -102,7 +102,7 @@
             0});
 			this.DensityUnD.Name = "DensityUnD";
 			this.DensityUnD.Size = new System.Drawing.Size(95, 20);
-			this.DensityUnD.TabIndex = 2;
+			this.DensityUnD.TabIndex = 0;
 			this.DensityUnD.Value = new decimal(new int[] {
             10,
             0,
@@ -125,7 +125,7 @@
 			this.OkBtn.Location = new System.Drawing.Point(311, 337);
 			this.OkBtn.Name = "OkBtn";
 			this.OkBtn.Size = new System.Drawing.Size(75, 23);
-			this.OkBtn.TabIndex = 2;
+			this.OkBtn.TabIndex = 5;
 			this.OkBtn.Text = "OK";
 			this.OkBtn.UseVisualStyleBackColor = true;
 			this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
@@ -136,7 +136,7 @@
 			this.ResetBtn.Location = new System.Drawing.Point(85, 337);
 			this.ResetBtn.Name = "ResetBtn";
 			this.ResetBtn.Size = new System.Drawing.Size(75, 23);
-			this.ResetBtn.TabIndex = 3;
+			this.ResetBtn.TabIndex = 4;
 			this.ResetBtn.Text = "Reset";
 			this.ResetBtn.UseVisualStyleBackColor = true;
 			this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
@@ -204,7 +204,7 @@
 			this.PointsGB.Location = new System.Drawing.Point(12, 145);
 			this.PointsGB.Name = "PointsGB";
 			this.PointsGB.Size = new System.Drawing.Size(220, 176);
-			this.PointsGB.TabIndex = 8;
+			this.PointsGB.TabIndex = 2;
 			this.PointsGB.TabStop = false;
 			this.PointsGB.Text = "Points";
 			// 
@@ -245,7 +245,7 @@
             0});
 			this.ChaoticUnD.Name = "ChaoticUnD";
 			this.ChaoticUnD.Size = new System.Drawing.Size(95, 20);
-			this.ChaoticUnD.TabIndex = 10;
+			this.ChaoticUnD.TabIndex = 4;
 			this.ChaoticUnD.Value = new decimal(new int[] {
             10,
             0,
@@ -284,7 +284,7 @@
             131072});
 			this.RotateSpeedUnD.Name = "RotateSpeedUnD";
 			this.RotateSpeedUnD.Size = new System.Drawing.Size(95, 20);
-			this.RotateSpeedUnD.TabIndex = 14;
+			this.RotateSpeedUnD.TabIndex = 3;
 			this.RotateSpeedUnD.Value = new decimal(new int[] {
             1,
             0,
@@ -318,7 +318,7 @@
             131072});
 			this.SpeedUnD.Name = "SpeedUnD";
 			this.SpeedUnD.Size = new System.Drawing.Size(95, 20);
-			this.SpeedUnD.TabIndex = 12;
+			this.SpeedUnD.TabIndex = 2;
 			this.SpeedUnD.Value = new decimal(new int[] {
             10,
             0,
@@ -351,7 +351,7 @@
             0});
 			this.PointRadiusUnD.Name = "PointRadiusUnD";
 			this.PointRadiusUnD.Size = new System.Drawing.Size(95, 20);
-			this.PointRadiusUnD.TabIndex = 10;
+			this.PointRadiusUnD.TabIndex = 1;
 			this.PointRadiusUnD.Value = new decimal(new int[] {
             10,
             0,
@@ -396,7 +396,7 @@
 			this.ConnectionsGB.Location = new System.Drawing.Point(238, 145);
 			this.ConnectionsGB.Name = "ConnectionsGB";
 			this.ConnectionsGB.Size = new System.Drawing.Size(220, 176);
-			this.ConnectionsGB.TabIndex = 17;
+			this.ConnectionsGB.TabIndex = 3;
 			this.ConnectionsGB.TabStop = false;
 			this.ConnectionsGB.Text = "Connections";
 			// 
@@ -438,7 +438,7 @@
             0});
 			this.ConnectionsAlphaUnd.Name = "ConnectionsAlphaUnd";
 			this.ConnectionsAlphaUnd.Size = new System.Drawing.Size(95, 20);
-			this.ConnectionsAlphaUnd.TabIndex = 10;
+			this.ConnectionsAlphaUnd.TabIndex = 4;
 			this.ConnectionsAlphaUnd.Value = new decimal(new int[] {
             1,
             0,
@@ -471,7 +471,7 @@
             0});
 			this.LineWidthUnD.Name = "LineWidthUnD";
 			this.LineWidthUnD.Size = new System.Drawing.Size(95, 20);
-			this.LineWidthUnD.TabIndex = 14;
+			this.LineWidthUnD.TabIndex = 3;
 			this.LineWidthUnD.Value = new decimal(new int[] {
             1,
             0,
@@ -500,7 +500,7 @@
             0});
 			this.ShadingUnD.Name = "ShadingUnD";
 			this.ShadingUnD.Size = new System.Drawing.Size(95, 20);
-			this.ShadingUnD.TabIndex = 12;
+			this.ShadingUnD.TabIndex = 2;
 			this.ShadingUnD.Value = new decimal(new int[] {
             10,
             0,
@@ -533,7 +533,7 @@
             0});
 			this.DistanceUnD.Name = "DistanceUnD";
 			this.DistanceUnD.Size = new System.Drawing.Size(95, 20);
-			this.DistanceUnD.TabIndex = 10;
+			this.DistanceUnD.TabIndex = 1;
 			this.DistanceUnD.Value = new decimal(new int[] {
             10,
             0,
@@ -567,7 +567,7 @@
 			this.ClockModeCB.Location = new System.Drawing.Point(13, 19);
 			this.ClockModeCB.Name = "ClockModeCB";
 			this.ClockModeCB.Size = new System.Drawing.Size(82, 17);
-			this.ClockModeCB.TabIndex = 18;
+			this.ClockModeCB.TabIndex = 0;
 			this.ClockModeCB.Text = "Clock mode";
 			this.ClockModeCB.UseVisualStyleBackColor = true;
 			this.ClockModeCB.CheckedChanged += new System.EventHandler(this.ClockModeCB_CheckedChanged);
@@ -589,7 +589,7 @@
             0});
 			this.ClockSizeUnD.Name = "ClockSizeUnD";
 			this.ClockSizeUnD.Size = new System.Drawing.Size(95, 20);
-			this.ClockSizeUnD.TabIndex = 20;
+			this.ClockSizeUnD.TabIndex = 1;
 			this.ClockSizeUnD.ValueChanged += new System.EventHandler(this.ClockSizeUnD_ValueChanged);
 			// 
 			// ClockSizeLbl
@@ -611,7 +611,7 @@
 			this.ClockModeGB.Location = new System.Drawing.Point(12, 63);
 			this.ClockModeGB.Name = "ClockModeGB";
 			this.ClockModeGB.Size = new System.Drawing.Size(446, 76);
-			this.ClockModeGB.TabIndex = 22;
+			this.ClockModeGB.TabIndex = 1;
 			this.ClockModeGB.TabStop = false;
 			this.ClockModeGB.Text = "Clock mode";
 			// 
