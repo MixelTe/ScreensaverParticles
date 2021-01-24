@@ -10,7 +10,9 @@ namespace ScreenSaverConections
 		//main
 		public int Density = 10;
 		public Color BackgroundColor = Color.Black;
-		public bool ClockMode = false;
+
+		//clock mode
+		public bool ClockMode = true;
 		public float ClockSize = 0.9f;
 
 		//points
@@ -33,5 +35,11 @@ namespace ScreenSaverConections
 		public int ConnectionsWidth = 1;
 		public int DistanceMax = 150;
 		public int DistanceShading = 100;
+
+
+		//dev
+		public bool DEV_ClockFakeTimeMode = false;
+		public int DEV_ClockFastMode_TicksForChange = 60;
+		public string DEV_ClockFastMode_StartTime = "1200";
 	}
 }

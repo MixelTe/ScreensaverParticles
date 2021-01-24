@@ -14,6 +14,9 @@ namespace ScreenSaverConections
 			{
 				var v = fi.GetValue(settings);
 				var n = fi.Name;
+				
+				if (n.StartsWith("DEV")) continue; //Don't save settings with "DEV" prefix
+
 				//var s = string.Format(CultureInfo.InvariantCulture, "{0}", v);
 				string s;
 				var ft = fi.FieldType;

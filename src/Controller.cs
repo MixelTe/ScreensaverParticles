@@ -286,6 +286,9 @@ namespace ScreenSaverConections
 		private readonly int _Space;
 		private readonly Random _Rnd;
 
+		private int DEV_timeCounter = 0;
+		private int DEV_timeAdd = 0;
+
 		public PointsCreator(int width, int height, Settings settings, Random rnd)
 		{
 			_Settings = settings;
@@ -337,29 +340,42 @@ namespace ScreenSaverConections
 		{
 			var hours = DateTime.Now.Hour.ToString();
 			var minute = DateTime.Now.Minute.ToString();
-			int n1, n2, n3, n4;
-			if (hours.Length == 1)
+			if (_Settings.DEV_ClockFakeTimeMode)
 			{
-				n1 = 0;
-				n2 = int.Parse(hours);
+				DEV_timeCounter += 1;
+				if (DEV_timeCounter >= _Settings.DEV_ClockFastMode_TicksForChange)
+				{
+					DEV_timeAdd += 1;
+					DEV_timeCounter = 0;
+				}
+				var st1 = int.Parse(_Settings.DEV_ClockFastMode_StartTime.Substring(0, 2));
+				var st2 = int.Parse(_Settings.DEV_ClockFastMode_StartTime.Substring(2, 2));
+				var date = new DateTime(1, 1, 1, st1, st2, 0);
+				date = date.AddMinutes(DEV_timeAdd);
+				hours = date.Hour.ToString();
+				minute = date.Minute.ToString();
 			}
-			else
-			{
-				n1 = int.Parse(hours.Substring(0, 1));
-				n2 = int.Parse(hours.Substring(1, 1));
-			}
-			if (minute.Length == 1)
-			{
-				n3 = 0;
-				n4 = int.Parse(minute);
-			}
-			else
-			{
-				n3 = int.Parse(minute.Substring(0, 1));
-				n4 = int.Parse(minute.Substring(1, 1));
-			}
+			var n1 = 0;
+			var n2 = 0;
+			var n3 = 0;
+			var n4 = 0;
+			ParseTimeString(hours, ref n1, ref n2);
+			ParseTimeString(minute, ref n3, ref n4);
 			time = n1.ToString() + n2.ToString() + n3.ToString() + n4.ToString();
 			return new int[] { n1, n2, n3, n4 };
+		}
+		private void ParseTimeString(string time, ref int num1, ref int num2)
+		{
+			if (time.Length == 1)
+			{
+				num1 = 0;
+				num2 = int.Parse(time);
+			}
+			else
+			{
+				num1 = int.Parse(time.Substring(0, 1));
+				num2 = int.Parse(time.Substring(1, 1));
+			}
 		}
 		public void CreateNum(int num, int rs, int re, CPoint[] points, int pos)
 		{
