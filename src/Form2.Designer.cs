@@ -66,6 +66,7 @@
 			this.ClockModeCB = new System.Windows.Forms.CheckBox();
 			this.ClockSizeUnD = new System.Windows.Forms.NumericUpDown();
 			this.ClockSizeLbl = new System.Windows.Forms.Label();
+			this.ClockModeGB = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.DensityUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBoxGitHub)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.BackgroundColorPB)).BeginInit();
@@ -82,6 +83,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ClockSizeUnD)).BeginInit();
+			this.ClockModeGB.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DensityUnD
@@ -120,7 +122,7 @@
 			// OkBtn
 			// 
 			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OkBtn.Location = new System.Drawing.Point(311, 309);
+			this.OkBtn.Location = new System.Drawing.Point(311, 337);
 			this.OkBtn.Name = "OkBtn";
 			this.OkBtn.Size = new System.Drawing.Size(75, 23);
 			this.OkBtn.TabIndex = 2;
@@ -131,7 +133,7 @@
 			// ResetBtn
 			// 
 			this.ResetBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.ResetBtn.Location = new System.Drawing.Point(85, 309);
+			this.ResetBtn.Location = new System.Drawing.Point(85, 337);
 			this.ResetBtn.Name = "ResetBtn";
 			this.ResetBtn.Size = new System.Drawing.Size(75, 23);
 			this.ResetBtn.TabIndex = 3;
@@ -145,7 +147,7 @@
 			this.PictureBoxGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.PictureBoxGitHub.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxGitHub.Image")));
 			this.PictureBoxGitHub.InitialImage = null;
-			this.PictureBoxGitHub.Location = new System.Drawing.Point(222, 309);
+			this.PictureBoxGitHub.Location = new System.Drawing.Point(222, 337);
 			this.PictureBoxGitHub.Name = "PictureBoxGitHub";
 			this.PictureBoxGitHub.Size = new System.Drawing.Size(23, 23);
 			this.PictureBoxGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -187,7 +189,7 @@
 			// 
 			// PointsGB
 			// 
-			this.PointsGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.PointsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.PointsGB.Controls.Add(this.PointColorPB);
 			this.PointsGB.Controls.Add(this.PointColorLbl);
 			this.PointsGB.Controls.Add(this.ChaoticUnD);
@@ -199,7 +201,7 @@
 			this.PointsGB.Controls.Add(this.PointRadiusUnD);
 			this.PointsGB.Controls.Add(this.PointRadiusLbl);
 			this.PointsGB.Controls.Add(this.DrawPointsCB);
-			this.PointsGB.Location = new System.Drawing.Point(12, 117);
+			this.PointsGB.Location = new System.Drawing.Point(12, 145);
 			this.PointsGB.Name = "PointsGB";
 			this.PointsGB.Size = new System.Drawing.Size(220, 176);
 			this.PointsGB.TabIndex = 8;
@@ -379,7 +381,7 @@
 			// 
 			// ConnectionsGB
 			// 
-			this.ConnectionsGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.ConnectionsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.ConnectionsGB.Controls.Add(this.ConnectionsColorPB);
 			this.ConnectionsGB.Controls.Add(this.ConnectionsColorLbl);
 			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaUnd);
@@ -391,7 +393,7 @@
 			this.ConnectionsGB.Controls.Add(this.DistanceUnD);
 			this.ConnectionsGB.Controls.Add(this.DistanceLbl);
 			this.ConnectionsGB.Controls.Add(this.DrawConCB);
-			this.ConnectionsGB.Location = new System.Drawing.Point(238, 117);
+			this.ConnectionsGB.Location = new System.Drawing.Point(238, 145);
 			this.ConnectionsGB.Name = "ConnectionsGB";
 			this.ConnectionsGB.Size = new System.Drawing.Size(220, 176);
 			this.ConnectionsGB.TabIndex = 17;
@@ -562,7 +564,7 @@
 			// ClockModeCB
 			// 
 			this.ClockModeCB.AutoSize = true;
-			this.ClockModeCB.Location = new System.Drawing.Point(27, 64);
+			this.ClockModeCB.Location = new System.Drawing.Point(13, 19);
 			this.ClockModeCB.Name = "ClockModeCB";
 			this.ClockModeCB.Size = new System.Drawing.Size(82, 17);
 			this.ClockModeCB.TabIndex = 18;
@@ -572,13 +574,14 @@
 			// 
 			// ClockSizeUnD
 			// 
+			this.ClockSizeUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.ClockSizeUnD.DecimalPlaces = 2;
 			this.ClockSizeUnD.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.ClockSizeUnD.Location = new System.Drawing.Point(361, 87);
+			this.ClockSizeUnD.Location = new System.Drawing.Point(349, 42);
 			this.ClockSizeUnD.Maximum = new decimal(new int[] {
             1,
             0,
@@ -592,21 +595,33 @@
 			// ClockSizeLbl
 			// 
 			this.ClockSizeLbl.AutoSize = true;
-			this.ClockSizeLbl.Location = new System.Drawing.Point(24, 89);
+			this.ClockSizeLbl.Location = new System.Drawing.Point(10, 44);
 			this.ClockSizeLbl.Name = "ClockSizeLbl";
 			this.ClockSizeLbl.Size = new System.Drawing.Size(55, 13);
 			this.ClockSizeLbl.TabIndex = 21;
 			this.ClockSizeLbl.Text = "Clock size";
+			// 
+			// ClockModeGB
+			// 
+			this.ClockModeGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ClockModeGB.Controls.Add(this.ClockModeCB);
+			this.ClockModeGB.Controls.Add(this.ClockSizeUnD);
+			this.ClockModeGB.Controls.Add(this.ClockSizeLbl);
+			this.ClockModeGB.Location = new System.Drawing.Point(12, 63);
+			this.ClockModeGB.Name = "ClockModeGB";
+			this.ClockModeGB.Size = new System.Drawing.Size(446, 76);
+			this.ClockModeGB.TabIndex = 22;
+			this.ClockModeGB.TabStop = false;
+			this.ClockModeGB.Text = "Clock mode";
 			// 
 			// Form2
 			// 
 			this.AcceptButton = this.OkBtn;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(468, 344);
-			this.Controls.Add(this.ClockSizeLbl);
-			this.Controls.Add(this.ClockSizeUnD);
-			this.Controls.Add(this.ClockModeCB);
+			this.ClientSize = new System.Drawing.Size(468, 372);
+			this.Controls.Add(this.ClockModeGB);
 			this.Controls.Add(this.ConnectionsGB);
 			this.Controls.Add(this.PointsGB);
 			this.Controls.Add(this.BackgroundColorPB);
@@ -641,6 +656,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ClockSizeUnD)).EndInit();
+			this.ClockModeGB.ResumeLayout(false);
+			this.ClockModeGB.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -683,5 +700,6 @@
 		private System.Windows.Forms.CheckBox ClockModeCB;
 		private System.Windows.Forms.NumericUpDown ClockSizeUnD;
 		private System.Windows.Forms.Label ClockSizeLbl;
+		private System.Windows.Forms.GroupBox ClockModeGB;
 	}
 }

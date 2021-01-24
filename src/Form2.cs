@@ -32,6 +32,8 @@ namespace ScreenSaverConections
 
 				DensityLbl.Text = "Плотность";
 				BackgroundColorLbl.Text = "Цвет фона";
+
+				ClockModeGB.Text = "Режим часов";
 				ClockModeCB.Text = "Режим часов";
 				ClockSizeLbl.Text = "Размер часов";
 
