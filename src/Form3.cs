@@ -375,13 +375,16 @@ namespace ScreenSaverConections
 					{
 						if (Handles[i] == H) continue;
 						var h = Handles[i].Value;
+						var saveShift = (int)((Handles[i]._HandelWidth + _HandleZone / 2) / Handles[i]._ValueDrawStep);
 						if (h < sh)
 						{
-							if (h >= boundMin) boundMin = h + 1;
+							//if (h >= boundMin) boundMin = h + 1;
+							if (h >= boundMin) boundMin = h + saveShift;
 						}
 						else
 						{
-							if (h <= boundMax) boundMax = h - 1;
+							//if (h <= boundMax) boundMax = h - 1;
+							if (h <= boundMax) boundMax = h - saveShift;
 						}
 					}
 				}
@@ -403,7 +406,7 @@ namespace ScreenSaverConections
 	}
 	class Handle
 	{
-		private readonly int _HandelWidth = 6;
+		public readonly int _HandelWidth = 6;
 		private readonly int _HandelHeight = 20;
 
 		public int Value
@@ -432,7 +435,7 @@ namespace ScreenSaverConections
 		private Point StartPoint;
 		private int _DValue = 0;
 		private readonly bool _Vertical;
-		private readonly float _ValueDrawStep;
+		public readonly float _ValueDrawStep;
 		private readonly SomeFunctions.OnChange _OnChange;
 
 		public Handle(int maxValue, Rectangle rectLine, bool vertical, float valueDrawStep, SomeFunctions.OnChange onChange)
