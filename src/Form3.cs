@@ -228,6 +228,10 @@ namespace ScreenSaverConections
 		public readonly Rectangle _Rect;
 		public ResultViewer(Rectangle rect)
 		{
+			ColorMin = Program.Settings.ColorMin;
+			ColorMax = Program.Settings.ColorMax;
+			ColorLMin = Program.Settings.ColorLMin;
+			ColorLMax = Program.Settings.ColorLMax;
 			_Rect = rect;
 			CreatePoints();
 		}

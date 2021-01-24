@@ -78,6 +78,29 @@ namespace ScreenSaverConections
 			LineWidthUnD.Value = Program.Settings.ConnectionsWidth;
 			ConnectionsAlphaUnd.Value = (decimal)Program.Settings.LineAlpha;
 			ConnectionsColorPB.BackColor = Program.Settings.ConnectionsColor;
+			PointColorPB_SetImage();
+		}
+		private void PointColorPB_SetImage()
+		{
+			var rect = new Rectangle(0, 0, PointColorPB.Width, PointColorPB.Height);
+			var background = new Bitmap(rect.Width, rect.Height);
+			var tileWidth = 2;
+			using (var g = Graphics.FromImage(background))
+			{
+				g.FillRectangle(Brushes.White, rect);
+				var titleCount = rect.Width / tileWidth;
+				var colorStart = Program.Settings.ColorMin;
+				var colorEnd = Program.Settings.ColorMax;
+				var colorStep = (colorEnd - colorStart) / (float)titleCount;
+				for (int i = 0; i < titleCount; i++)
+				{
+					using (var brush = new SolidBrush(new HSL((int)(colorStep * i) + colorStart, 100, 50).HSLToRGB().RGBToColor(255)))
+					{
+						g.FillRectangle(brush, tileWidth * i, 0, tileWidth, rect.Height);
+					}
+				}
+			}
+			PointColorPB.Image = background;
 		}
 
 
@@ -147,6 +170,7 @@ namespace ScreenSaverConections
 			if (result == DialogResult.OK)
 			{
 				PointColorPB.BackColor = new HSL(Program.Settings.ColorMax - 1, 100, Program.Settings.ColorLMax * 100).HSLToRGB().RGBToColor(255);
+				PointColorPB_SetImage();
 			}
 		}
 		private void DrawConCB_CheckedChanged(object sender, EventArgs e)
