@@ -132,16 +132,19 @@ namespace ScreenSaverConections
 			Move();
 			if (_Settings.DrawConections)
 			{
-				_PointConections = new CPointConection[_Points.Length];
 				var lastI = 0;
 				for (int i = 0; i < _Points.Length; i++)
 				{
 					var p = _Points[i];
 					if (p == this || p == null) continue;
+
 					var connected = false;
 					for (int o = 0; o < p._PointConections.Length; o++)
 					{
-						if (p._PointConections[o].X == _X && p._PointConections[o].Y == _Y)
+						var conn = p._PointConections[o];
+						if (!conn.NotEmpty) break;
+
+						if (conn.X == _X && conn.Y == _Y)
 						{
 							connected = true;
 							break;
@@ -149,24 +152,26 @@ namespace ScreenSaverConections
 					}
 					if (_Bound && _Group != p._Group) continue;
 					if (connected) continue;
+
 					var d = GetDistance(p._X, p._Y);
 					if (d <= Squared(_Settings.DistanceMax))
 					{
 						_PointConections[lastI] = new CPointConection(p._X, p._Y, d);
 						lastI += 1;
 					}
+					if (lastI < _PointConections.Length) _PointConections[lastI].NotEmpty = false;
 				}
 			}
 		}
 		private void Move()
 		{
-			_X += (float)(Math.Cos(_Direction) * _Speed);
-			_Y += (float)(Math.Sin(_Direction) * _Speed);
+			_X += (float) (Math.Cos(_Direction) * _Speed);
+			_Y += (float) (Math.Sin(_Direction) * _Speed);
 
-			if (_X > _Width) _Direction = (float)(Math.PI - _Direction);
-			if (_X < 0) _Direction = (float)(Math.PI - (_Direction - Math.PI) + Math.PI);
-			if (_Y > _Height) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
-			if (_Y < 0) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			if (_X > _Width) _Direction = (float) (Math.PI - _Direction);
+			if (_X < 0) _Direction = (float) (Math.PI - (_Direction - Math.PI) + Math.PI);
+			if (_Y > _Height) _Direction = (float) (Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			if (_Y < 0) _Direction = (float) (Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
 			_X = Math.Max(Math.Min(_X, _Width), 0);
 			_Y = Math.Max(Math.Min(_Y, _Height), 0);
 
@@ -188,7 +193,7 @@ namespace ScreenSaverConections
 			{
 				_Time = _Rnd.Next(_Settings.TimeMin, _Settings.TimeMax);
 				_Counter = 0;
-				var nextAcc = _Rnd.Next(0, (int)_Settings.SpeedMax) / 10f;
+				var nextAcc = _Rnd.Next(0, (int) _Settings.SpeedMax) / 10f;
 				if (_Speed == _Settings.SpeedMax) _Acc = -nextAcc;
 				else if (_Speed == -_Settings.SpeedMax) _Acc = nextAcc;
 				else
@@ -196,15 +201,13 @@ namespace ScreenSaverConections
 					if (_Rnd.Next(2) == 1) nextAcc *= -1;
 					_Acc = nextAcc;
 				}
-				_RotateSpeed = (float)(_Rnd.Next(0, (int)(_Settings.RotateSpeedMax * 360)) / 180d / Math.PI);
+				_RotateSpeed = (float) (_Rnd.Next(0, (int) (_Settings.RotateSpeedMax * 360)) / 180d / Math.PI);
 				if (_Rnd.Next(2) == 1) _RotateSpeed *= -1;
 			}
 			_Counter++;
 		}
-		private float GetDistance(float x, float y)
-		{
-			return Squared(x - _X) + Squared(y - _Y);
-		}
+
+		private float GetDistance(float x, float y) => Squared(x - _X) + Squared(y - _Y);
 		private float Squared(float num) => num * num;
 
 		public void DrawConnections(Graphics g)
@@ -260,7 +263,7 @@ namespace ScreenSaverConections
 		public readonly float X;
 		public readonly float Y;
 		public readonly float D;
-		public readonly bool NotEmpty;
+		public bool NotEmpty;
 		public CPointConection(float x, float y, float d)
 		{
 			X = x;

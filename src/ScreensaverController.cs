@@ -18,7 +18,7 @@ namespace ScreenSaverConections
 
 		internal Control TargetControl;
 		private Thread _t;
-		private bool _IsRunning;
+		private int _IsRunning;
 
 		internal double GetFps() => _fps.Value;
 
@@ -39,14 +39,8 @@ namespace ScreenSaverConections
 		}
 		private bool IsRunning
 		{
-			get
-			{
-				lock (_lock) return _IsRunning;
-			}
-			set
-			{
-				lock (_lock) _IsRunning = value;
-			}
+			get => Interlocked.CompareExchange(ref _IsRunning, 0, 0) == 1;
+			set => Interlocked.Exchange(ref _IsRunning, value ? 1 : 0);
 		}
 		public ScreensaverController()
 		{
