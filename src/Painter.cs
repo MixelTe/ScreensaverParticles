@@ -7,7 +7,7 @@ namespace ScreenSaverConections
 		private readonly Settings _Settings;
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
-		
+
 		private readonly SolidBrush _Brush = new SolidBrush(Color.FromArgb(255, 0, 0, 0));
 
 		public Painter(Controller game, Rectangle rcClient)

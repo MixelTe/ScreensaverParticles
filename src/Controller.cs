@@ -77,7 +77,7 @@ namespace ScreenSaverConections
 	}
 
 
-	class CPoint: IDisposable
+	class CPoint : IDisposable
 	{
 		private readonly Settings _Settings;
 		private readonly bool _Bound;
@@ -165,13 +165,13 @@ namespace ScreenSaverConections
 		}
 		private void Move()
 		{
-			_X += (float) (Math.Cos(_Direction) * _Speed);
-			_Y += (float) (Math.Sin(_Direction) * _Speed);
+			_X += (float)(Math.Cos(_Direction) * _Speed);
+			_Y += (float)(Math.Sin(_Direction) * _Speed);
 
-			if (_X > _Width) _Direction = (float) (Math.PI - _Direction);
-			if (_X < 0) _Direction = (float) (Math.PI - (_Direction - Math.PI) + Math.PI);
-			if (_Y > _Height) _Direction = (float) (Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
-			if (_Y < 0) _Direction = (float) (Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			if (_X > _Width) _Direction = (float)(Math.PI - _Direction);
+			if (_X < 0) _Direction = (float)(Math.PI - (_Direction - Math.PI) + Math.PI);
+			if (_Y > _Height) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			if (_Y < 0) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
 			_X = Math.Max(Math.Min(_X, _Width), 0);
 			_Y = Math.Max(Math.Min(_Y, _Height), 0);
 
@@ -193,7 +193,7 @@ namespace ScreenSaverConections
 			{
 				_Time = _Rnd.Next(_Settings.TimeMin, _Settings.TimeMax);
 				_Counter = 0;
-				var nextAcc = _Rnd.Next(0, (int) _Settings.SpeedMax) / 10f;
+				var nextAcc = _Rnd.Next(0, (int)_Settings.SpeedMax) / 10f;
 				if (_Speed == _Settings.SpeedMax) _Acc = -nextAcc;
 				else if (_Speed == -_Settings.SpeedMax) _Acc = nextAcc;
 				else
@@ -201,7 +201,7 @@ namespace ScreenSaverConections
 					if (_Rnd.Next(2) == 1) nextAcc *= -1;
 					_Acc = nextAcc;
 				}
-				_RotateSpeed = (float) (_Rnd.Next(0, (int) (_Settings.RotateSpeedMax * 360)) / 180d / Math.PI);
+				_RotateSpeed = (float)(_Rnd.Next(0, (int)(_Settings.RotateSpeedMax * 360)) / 180d / Math.PI);
 				if (_Rnd.Next(2) == 1) _RotateSpeed *= -1;
 			}
 			_Counter++;
