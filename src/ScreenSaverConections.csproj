@@ -7,7 +7,7 @@
     <ProjectGuid>{BBFC9035-3F47-44DF-8DA0-D6633A58B09A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ScreenSaverConections</RootNamespace>
-    <AssemblyName>ScreenSaverConections</AssemblyName>
+    <AssemblyName>ScreenSaverParticles</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
