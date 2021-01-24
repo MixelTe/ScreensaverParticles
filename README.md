@@ -4,6 +4,7 @@
 ![](./docs/screenshot1.png)
 ![](./docs/screenshot2.png)
 ## Clock mode:
+![](./docs/screenrecord2.gif)
 ![](./docs/screenshot5.png)
 ## Settings menu:
 ![](./docs/screenshot3.png)
