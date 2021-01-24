@@ -32,6 +32,8 @@ namespace ScreenSaverConections
 
 				DensityLbl.Text = "Плотность";
 				BackgroundColorLbl.Text = "Цвет фона";
+				ClockModeCB.Text = "Режим часов";
+				ClockSizeLbl.Text = "Размер часов";
 
 				PointsGB.Text = "Точки";
 				DrawPointsCB.Text = "Рисовать точки";
@@ -57,6 +59,9 @@ namespace ScreenSaverConections
 		{
 			DensityUnD.Value = Program.Settings.Density;
 			BackgroundColorPB.BackColor = Program.Settings.BackgroundColor;
+			ClockModeCB.Checked = Program.Settings.ClockMode;
+			ClockSizeUnD.Value = (decimal)Program.Settings.ClockSize;
+
 			DrawPointsCB.Checked = Program.Settings.DrawPoints;
 			PointRadiusUnD.Value = Program.Settings.PointRadius;
 			SpeedUnD.Value = (decimal)Program.Settings.SpeedMax;
@@ -172,6 +177,14 @@ namespace ScreenSaverConections
 				ConnectionsColorPB.BackColor = colorDialog1.Color;
 				Program.Settings.ConnectionsColor = colorDialog1.Color;
 			}
+		}
+		private void ClockModeCB_CheckedChanged(object sender, EventArgs e)
+		{
+			Program.Settings.ClockMode = ClockModeCB.Checked;
+		}
+		private void ClockSizeUnD_ValueChanged(object sender, EventArgs e)
+		{
+			Program.Settings.ClockSize = (float)ClockSizeUnD.Value;
 		}
 	}
 }

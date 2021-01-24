@@ -10,7 +10,7 @@ namespace ScreenSaverConections
 		//main
 		public int Density = 10;
 		public Color BackgroundColor = Color.Black;
-		public bool ClockMode = true;
+		public bool ClockMode = false;
 		public float ClockSize = 0.9f;
 
 		//points

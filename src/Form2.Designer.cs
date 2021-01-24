@@ -63,6 +63,9 @@
 			this.DistanceUnD = new System.Windows.Forms.NumericUpDown();
 			this.DistanceLbl = new System.Windows.Forms.Label();
 			this.DrawConCB = new System.Windows.Forms.CheckBox();
+			this.ClockModeCB = new System.Windows.Forms.CheckBox();
+			this.ClockSizeUnD = new System.Windows.Forms.NumericUpDown();
+			this.ClockSizeLbl = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DensityUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBoxGitHub)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.BackgroundColorPB)).BeginInit();
@@ -78,12 +81,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.LineWidthUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ClockSizeUnD)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DensityUnD
 			// 
 			this.DensityUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.DensityUnD.Location = new System.Drawing.Point(359, 25);
+			this.DensityUnD.Location = new System.Drawing.Point(361, 12);
 			this.DensityUnD.Maximum = new decimal(new int[] {
             32,
             0,
@@ -107,7 +111,7 @@
 			// DensityLbl
 			// 
 			this.DensityLbl.AutoSize = true;
-			this.DensityLbl.Location = new System.Drawing.Point(22, 27);
+			this.DensityLbl.Location = new System.Drawing.Point(24, 19);
 			this.DensityLbl.Name = "DensityLbl";
 			this.DensityLbl.Size = new System.Drawing.Size(42, 13);
 			this.DensityLbl.TabIndex = 1;
@@ -116,7 +120,7 @@
 			// OkBtn
 			// 
 			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OkBtn.Location = new System.Drawing.Point(311, 266);
+			this.OkBtn.Location = new System.Drawing.Point(311, 309);
 			this.OkBtn.Name = "OkBtn";
 			this.OkBtn.Size = new System.Drawing.Size(75, 23);
 			this.OkBtn.TabIndex = 2;
@@ -127,7 +131,7 @@
 			// ResetBtn
 			// 
 			this.ResetBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.ResetBtn.Location = new System.Drawing.Point(85, 266);
+			this.ResetBtn.Location = new System.Drawing.Point(85, 309);
 			this.ResetBtn.Name = "ResetBtn";
 			this.ResetBtn.Size = new System.Drawing.Size(75, 23);
 			this.ResetBtn.TabIndex = 3;
@@ -141,10 +145,10 @@
 			this.PictureBoxGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.PictureBoxGitHub.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxGitHub.Image")));
 			this.PictureBoxGitHub.InitialImage = null;
-			this.PictureBoxGitHub.Location = new System.Drawing.Point(222, 266);
+			this.PictureBoxGitHub.Location = new System.Drawing.Point(222, 309);
 			this.PictureBoxGitHub.Name = "PictureBoxGitHub";
 			this.PictureBoxGitHub.Size = new System.Drawing.Size(23, 23);
-			this.PictureBoxGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.PictureBoxGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.PictureBoxGitHub.TabIndex = 4;
 			this.PictureBoxGitHub.TabStop = false;
 			this.toolTipGitHub.SetToolTip(this.PictureBoxGitHub, "Source Code");
@@ -159,7 +163,7 @@
 			// BackgroundColorLbl
 			// 
 			this.BackgroundColorLbl.AutoSize = true;
-			this.BackgroundColorLbl.Location = new System.Drawing.Point(22, 55);
+			this.BackgroundColorLbl.Location = new System.Drawing.Point(24, 42);
 			this.BackgroundColorLbl.Name = "BackgroundColorLbl";
 			this.BackgroundColorLbl.Size = new System.Drawing.Size(91, 13);
 			this.BackgroundColorLbl.TabIndex = 5;
@@ -174,7 +178,7 @@
 			this.BackgroundColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.BackgroundColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BackgroundColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.BackgroundColorPB.Location = new System.Drawing.Point(359, 51);
+			this.BackgroundColorPB.Location = new System.Drawing.Point(361, 38);
 			this.BackgroundColorPB.Name = "BackgroundColorPB";
 			this.BackgroundColorPB.Size = new System.Drawing.Size(95, 17);
 			this.BackgroundColorPB.TabIndex = 7;
@@ -183,6 +187,7 @@
 			// 
 			// PointsGB
 			// 
+			this.PointsGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.PointsGB.Controls.Add(this.PointColorPB);
 			this.PointsGB.Controls.Add(this.PointColorLbl);
 			this.PointsGB.Controls.Add(this.ChaoticUnD);
@@ -194,7 +199,7 @@
 			this.PointsGB.Controls.Add(this.PointRadiusUnD);
 			this.PointsGB.Controls.Add(this.PointRadiusLbl);
 			this.PointsGB.Controls.Add(this.DrawPointsCB);
-			this.PointsGB.Location = new System.Drawing.Point(12, 74);
+			this.PointsGB.Location = new System.Drawing.Point(12, 117);
 			this.PointsGB.Name = "PointsGB";
 			this.PointsGB.Size = new System.Drawing.Size(220, 176);
 			this.PointsGB.TabIndex = 8;
@@ -374,7 +379,7 @@
 			// 
 			// ConnectionsGB
 			// 
-			this.ConnectionsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ConnectionsGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.ConnectionsGB.Controls.Add(this.ConnectionsColorPB);
 			this.ConnectionsGB.Controls.Add(this.ConnectionsColorLbl);
 			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaUnd);
@@ -386,7 +391,7 @@
 			this.ConnectionsGB.Controls.Add(this.DistanceUnD);
 			this.ConnectionsGB.Controls.Add(this.DistanceLbl);
 			this.ConnectionsGB.Controls.Add(this.DrawConCB);
-			this.ConnectionsGB.Location = new System.Drawing.Point(238, 74);
+			this.ConnectionsGB.Location = new System.Drawing.Point(238, 117);
 			this.ConnectionsGB.Name = "ConnectionsGB";
 			this.ConnectionsGB.Size = new System.Drawing.Size(220, 176);
 			this.ConnectionsGB.TabIndex = 17;
@@ -554,12 +559,54 @@
 			this.DrawConCB.UseVisualStyleBackColor = true;
 			this.DrawConCB.CheckedChanged += new System.EventHandler(this.DrawConCB_CheckedChanged);
 			// 
+			// ClockModeCB
+			// 
+			this.ClockModeCB.AutoSize = true;
+			this.ClockModeCB.Location = new System.Drawing.Point(27, 64);
+			this.ClockModeCB.Name = "ClockModeCB";
+			this.ClockModeCB.Size = new System.Drawing.Size(82, 17);
+			this.ClockModeCB.TabIndex = 18;
+			this.ClockModeCB.Text = "Clock mode";
+			this.ClockModeCB.UseVisualStyleBackColor = true;
+			this.ClockModeCB.CheckedChanged += new System.EventHandler(this.ClockModeCB_CheckedChanged);
+			// 
+			// ClockSizeUnD
+			// 
+			this.ClockSizeUnD.DecimalPlaces = 2;
+			this.ClockSizeUnD.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.ClockSizeUnD.Location = new System.Drawing.Point(361, 87);
+			this.ClockSizeUnD.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.ClockSizeUnD.Name = "ClockSizeUnD";
+			this.ClockSizeUnD.Size = new System.Drawing.Size(95, 20);
+			this.ClockSizeUnD.TabIndex = 20;
+			this.ClockSizeUnD.ValueChanged += new System.EventHandler(this.ClockSizeUnD_ValueChanged);
+			// 
+			// ClockSizeLbl
+			// 
+			this.ClockSizeLbl.AutoSize = true;
+			this.ClockSizeLbl.Location = new System.Drawing.Point(24, 89);
+			this.ClockSizeLbl.Name = "ClockSizeLbl";
+			this.ClockSizeLbl.Size = new System.Drawing.Size(55, 13);
+			this.ClockSizeLbl.TabIndex = 21;
+			this.ClockSizeLbl.Text = "Clock size";
+			// 
 			// Form2
 			// 
 			this.AcceptButton = this.OkBtn;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(468, 301);
+			this.ClientSize = new System.Drawing.Size(468, 344);
+			this.Controls.Add(this.ClockSizeLbl);
+			this.Controls.Add(this.ClockSizeUnD);
+			this.Controls.Add(this.ClockModeCB);
 			this.Controls.Add(this.ConnectionsGB);
 			this.Controls.Add(this.PointsGB);
 			this.Controls.Add(this.BackgroundColorPB);
@@ -593,6 +640,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.LineWidthUnD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ClockSizeUnD)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -632,5 +680,8 @@
 		private System.Windows.Forms.NumericUpDown DistanceUnD;
 		private System.Windows.Forms.Label DistanceLbl;
 		private System.Windows.Forms.CheckBox DrawConCB;
+		private System.Windows.Forms.CheckBox ClockModeCB;
+		private System.Windows.Forms.NumericUpDown ClockSizeUnD;
+		private System.Windows.Forms.Label ClockSizeLbl;
 	}
 }
