@@ -12,7 +12,7 @@ namespace ScreenSaverConections
 		public Color BackgroundColor = Color.Black;
 
 		//clock mode
-		public bool ClockMode = true;
+		public bool ClockMode = false;
 		public float ClockSize = 0.9f;
 
 		//points

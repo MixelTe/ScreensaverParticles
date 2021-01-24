@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,12 @@ namespace ScreenSaverConections
 		public Form3()
 		{
 			InitializeComponent();
+			if (CultureInfo.CurrentUICulture.Name == "ru-RU")
+			{
+				Text = "Screensaver: цвет точек";
+				OKbutton.Text = "ОК";
+				Cancelbutton.Text = "Отмена";
+			}
 		}
 		private void Form3_Load(object sender, EventArgs e)
 		{
