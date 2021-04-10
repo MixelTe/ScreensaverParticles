@@ -41,5 +41,6 @@ namespace ScreenSaverConections
 		public bool DEV_ClockFakeTimeMode = false;
 		public int DEV_ClockFastMode_TicksForChange = 60;
 		public string DEV_ClockFastMode_StartTime = "1200";
+		public int DEV_PointsPerDot = 6;
 	}
 }

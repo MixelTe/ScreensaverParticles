@@ -21,7 +21,7 @@ namespace ScreenSaverConections
 			_Width = width;
 			_Height = height;
 			_OneNumRange = (int)(_Width * _Height / 1.4f) / (500 * 500) * _Settings.Density;
-			if (_Settings.ClockMode) _CPoints = new CPoint[_OneNumRange * 4];
+			if (_Settings.ClockMode) _CPoints = new CPoint[_OneNumRange * 4 + _Settings.DEV_PointsPerDot * 2];
 			else _CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
 			_PointsCreator = new PointsCreator(width, height, _Settings, _Rnd);
 			CreateAll();
@@ -36,6 +36,8 @@ namespace ScreenSaverConections
 				_PointsCreator.CreateNum(time[1], _OneNumRange * 1, _OneNumRange * 2, _CPoints, 1);
 				_PointsCreator.CreateNum(time[2], _OneNumRange * 2, _OneNumRange * 3, _CPoints, 2);
 				_PointsCreator.CreateNum(time[3], _OneNumRange * 3, _OneNumRange * 4, _CPoints, 3);
+				_PointsCreator.CreateDot(_OneNumRange * 4 + _Settings.DEV_PointsPerDot * 0, _OneNumRange * 4 + _Settings.DEV_PointsPerDot * 1, _CPoints, 0);
+				_PointsCreator.CreateDot(_OneNumRange * 4 + _Settings.DEV_PointsPerDot * 1, _OneNumRange * 4 + _Settings.DEV_PointsPerDot * 2, _CPoints, 1);
 			}
 			else
 			{
@@ -328,6 +330,10 @@ namespace ScreenSaverConections
 		{
 			return new CPoint(_Rnd.Next(rect.Width) + rect.X, _Rnd.Next(rect.Height) + rect.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), points, _Settings, bound, group);
 		}
+		private CPoint CreatePoint(Point point, CPoint[] points, bool bound, int group = 0)
+		{
+			return new CPoint(point.X, point.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), points, _Settings, bound, group);
+		}
 		private Color GetColor()
 		{
 			var h = _Rnd.Next(_Settings.ColorMin, _Settings.ColorMax);
@@ -392,6 +398,23 @@ namespace ScreenSaverConections
 				case 8: CreateNum_8(rs, re, points, pos, true); break;
 				case 9: CreateNum_9(rs, re, points, pos, true); break;
 			}
+		}
+		public void CreateDot(int rs, int re, CPoint[] points, int pos)
+		{
+			var pointsCount = re - rs;
+			var r = _Space / 5;
+			var d = (int)Math.Round(_Height * 0.3);
+			var xShift = _Width * 2 + _Space + _X + (_Space - r) / 2;
+			var yShift = _Y + (_Height - d) / 2 + d * pos;
+			var step = Math.PI * 2 / pointsCount;
+			for (int i = 0; i < pointsCount; i++)
+			{
+				var x = (int)Math.Round(Math.Cos(step * i) * r + xShift);
+				var y = (int)Math.Round(Math.Sin(step * i) * r + yShift);
+				var point = new Point(x, y);
+				points[rs + i] = CreatePoint(point, points, true, pos + 4);
+			}
+
 		}
 
 		private void CreateNum_0(int rs, int re, CPoint[] points, int pos, bool newP)
