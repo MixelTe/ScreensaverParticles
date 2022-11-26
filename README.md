@@ -1,3 +1,4 @@
+[Download](https://github.com/MixelTe/ScreensaverParticles/releases/download/v1.2/ScreenSaverParticles.scr)
 # Screensaver Particles
 
 ![](./docs/screenrecord.gif)
