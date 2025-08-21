@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace ScreenSaverConections
 {
@@ -6,6 +7,7 @@ namespace ScreenSaverConections
 	{
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
+		private readonly Color _c = Color.FromArgb(100, Color.White);
 
 		public Painter(Controller game, Rectangle rcClient)
 		{
@@ -17,6 +19,18 @@ namespace ScreenSaverConections
 		{
 			g.FillRectangle(Program.Settings.BackgroundColor, _rcClient);
 			g.SetHighQuality();
+			if (Program.Settings.DEV_Presentation)
+			{
+				for (int i = 0; i < _game._CPoints.Length; i++)
+				{
+					var p = _game._CPoints[i];
+					if (p != null && (i * 2) % _game._CPoints.Length > Program.Settings.DEV_Presentation_VisibleI)
+					{
+						p.Alpha = Program.Settings.DEV_Presentation_VisibleAlpha;
+						if (!p.Visible) p.Alpha = 0;
+					}
+				}
+			}
 			if (Program.Settings.DrawConections)
 			{
 				_game?.DrawConnections(g);
@@ -28,11 +42,10 @@ namespace ScreenSaverConections
 					p?.Draw(g);
 				}
 			}
-			//var c = Color.FromArgb(100, Color.White);
-			//foreach (var rect in Program.rectangles)
-			//{
-			//	g.FillRectangle(c, rect);
-			//}
+			foreach (var rect in Program.rectangles)
+			{
+				g.FillRectangle(_c, rect);
+			}
 		}
 
 

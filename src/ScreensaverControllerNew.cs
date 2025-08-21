@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ScreenSaverConections
 {
@@ -34,13 +35,25 @@ namespace ScreenSaverConections
 				PerPrimitiveAntiAliasing = true,
 				TextAntiAliasing = true
 			};
+			var w = Screen.PrimaryScreen.Bounds.Width;
+			var h = Screen.PrimaryScreen.Bounds.Height;
+			if (Program.Settings.DEV_Presentation)
+			{
+				Program.Settings.DEV_ClockFakeTimeMode = true;
+				Program.Settings.Density = 20;
+				var _w = 540;
+				h = (int)((float)h / w * _w);
+				w = _w;
+
+			}
+			Program.SizeMul = (float)Math.Sqrt(w * h / (1920f * 1080));
 
 			_window = new GraphicsWindow(gfx)
 			{
 				X = 0,
 				Y = 0,
-				Width = Screen.PrimaryScreen.Bounds.Width,
-				Height = Screen.PrimaryScreen.Bounds.Height,
+				Width = w,
+				Height = h,
 				FPS = 30,
 				IsTopmost = true,
 				IsVisible = true,
@@ -50,9 +63,9 @@ namespace ScreenSaverConections
 			_window.DrawGraphics += DrawGraphics;
 			_window.DestroyGraphics += DestroyGraphics;
 
-			var game = new Controller(_window.Width, _window.Height);
+			var game = new Controller(w, h);
 			_game = game;
-			_painter = new Painter(game, new System.Drawing.Rectangle(0, 0, _window.Width, _window.Height));
+			_painter = new Painter(game, new System.Drawing.Rectangle(0, 0, w, h));
 		}
 
 		private void SetupGraphics(object sender, SetupGraphicsEventArgs e)
@@ -68,7 +81,11 @@ namespace ScreenSaverConections
 
 		private void DrawGraphics(object sender, DrawGraphicsEventArgs e)
 		{
-			if (!_paused) _game.Update();
+			if (!_paused)
+			{
+				Program.Settings.DEV_counter++;
+				_game.Update();
+			}
 
 			if (_gfx != null) _painter.Draw(_gfx);
 
@@ -77,6 +94,7 @@ namespace ScreenSaverConections
 
 		public void Start()
 		{
+			if (Program.Settings.DEV_Presentation) TargetControl.Visible = false;
 			_window.Create();
 		}
 

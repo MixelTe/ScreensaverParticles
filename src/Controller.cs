@@ -16,15 +16,18 @@ namespace ScreenSaverConections
 		private readonly Random _Rnd = new Random(1);
 		private readonly PointsCreator _PointsCreator;
 		private string _PastTime;
+		private Point[] _DEV_poses1;
+		private Point[] _DEV_poses2;
+		private Color[] _DEV_colors;
 
 		public Controller(int width, int height)
 		{
 			_Settings = Program.Settings;
 			_Width = width;
 			_Height = height;
-			_OneNumRange = _Width * _Height / (500 * 500) * _Settings.Density;
+			_OneNumRange = (int)(_Width * _Height / (500f * 500) * _Settings.Density / Program.SizeMul);
 			if (_Settings.ClockMode) _CPoints = new CPoint[_OneNumRange * 4 + _Settings.DEV_PointsPerDot * 2];
-			else _CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
+			else _CPoints = new CPoint[(int)(_Width * _Height / (500f * 500) * _Settings.Density)];
 			_PointsCreator = new PointsCreator(width, height, _Settings, _Rnd);
 			CreateAll();
 		}
@@ -65,6 +68,145 @@ namespace ScreenSaverConections
 			{
 				el?.Update();
 			}
+
+			if (_Settings.DEV_Presentation)
+			{
+				if (_Settings.DEV_counter == 1)
+				{
+					_Settings.DEV_ClockFastMode_TicksForChange = 300;
+					_Settings.DEV_Presentation_BoundSpeed = 0;
+					_Settings.DEV_Presentation_VisibleI = (int)(_CPoints.Length * 0.5f);
+					_Settings.DEV_Presentation_VisibleAlpha = 0;
+					_Settings.PointRadius = 5;
+					_Settings.ConnectionsWidth = 3;
+					_Settings.DistanceMax = 200;
+					_DEV_poses1 = new Point[_CPoints.Length];
+					_DEV_poses2 = new Point[_CPoints.Length];
+					_DEV_colors = new Color[_CPoints.Length];
+					for (int i = 0; i < _CPoints.Length; i++)
+					{
+						var p = _CPoints[i];
+						var pos = new Point(_Rnd.Next(_Width), _Rnd.Next(_Height));
+						_DEV_poses1[i] = new Point((int)p.X, (int)p.Y);
+						_DEV_poses2[i] = pos;
+						_DEV_colors[i] = p._Color;
+						p.X = pos.X;
+						p.Y = pos.Y;
+						p.SetStartPos(pos.X, pos.Y);
+					}
+					_Settings.DEV_Presentation_BoundSpeed = 3f;
+				}
+				else if (_Settings.DEV_counter == 5)
+				{
+					_Settings.DEV_Presentation_BoundSpeed = 0f;
+				}
+				else if (_Settings.DEV_counter == 100)
+				{
+					for (int i = 0; i < _CPoints.Length; i++)
+					{
+						var p = _CPoints[i];
+						var pos = _DEV_poses1[i];
+						p.SetStartPos(pos.X, pos.Y);
+					}
+					_Settings.DEV_Presentation_BoundSpeed = 0.4f;
+				}
+				else if (_Settings.DEV_counter > 100 && _Settings.DEV_counter <= 140)
+				{
+					var t = (_Settings.DEV_counter - 100) / 40f;
+					var t2 = Math.Min((_Settings.DEV_counter - 100) / 25f, 1);
+					_Settings.PointRadius = (int)(5 - t2 * 2);
+					_Settings.ConnectionsWidth = (int)(2.5 - t2 * 1.5);
+					_Settings.DistanceMax = (int)(180 - t2 * 30);
+					_Settings.DEV_Presentation_VisibleAlpha = t;
+					_Settings.DEV_Presentation_BoundSpeed = 0.4f + t * 0.6f;
+				}
+				else if (_Settings.DEV_counter == 141)
+				{
+					_Settings.DEV_ClockFastMode_TicksForChange = 20;
+				}
+				else if (_Settings.DEV_counter > 180 && _Settings.DEV_counter <= 200)
+				{
+					var t = (_Settings.DEV_counter - 180) / 20f;
+					for (int i = 0; i < _CPoints.Length; i++)
+					{
+						var p = _CPoints[i];
+						var r = 255;
+						var g = 0 + (i + 197) * 63 % 255;
+						var b = 0 + i * 89 % 100;
+						p._Color = Color.FromArgb(255,
+							(int)(p._Color.R + (r - p._Color.R) * t),
+							(int)(p._Color.G + (g - p._Color.G) * t),
+							(int)(p._Color.B + (b - p._Color.B) * t)
+						);
+					}
+					_Settings.ConnectionsColor = Color.FromArgb(255,
+						(int)(_Settings.ConnectionsColor.R + (20 - _Settings.ConnectionsColor.R) * t),
+						(int)(_Settings.ConnectionsColor.G + (170 - _Settings.ConnectionsColor.G) * t),
+						(int)(_Settings.ConnectionsColor.B + (20 - _Settings.ConnectionsColor.B) * t)
+					);
+				}
+				else if (_Settings.DEV_counter == 240)
+				{
+					_Settings.DEV_Presentation_BoundSpeed = -0.1f;
+				}
+				else if (_Settings.DEV_counter == 250)
+				{
+					_Settings.DEV_Presentation_BoundSpeed = 0;
+					_Settings.DEV_ClockFastMode_StartTime = "1212";
+					_Settings.DEV_ClockFastMode_TicksForChange = 3000;
+				}
+				else if (_Settings.DEV_counter > 250 && _Settings.DEV_counter <= 290)
+				{
+					var t = (_Settings.DEV_counter - 250) / 40f;
+					_Settings.PointRadius = (int)(3 + t * 2);
+					_Settings.ConnectionsWidth = (int)(1 + t * 2);
+					_Settings.DistanceMax = (int)(150 + t * 50);
+					_Settings.DEV_Presentation_VisibleAlpha = 1 - t;
+					if (_Settings.DEV_counter == 290)
+					{
+						_Settings.DEV_ClockFastMode_StartTime = "1200";
+					}
+				}
+				else if (_Settings.DEV_counter == 341)
+				{
+					for (int i = 0; i < _CPoints.Length; i++)
+					{
+						var p = _CPoints[i];
+						var pos = _DEV_poses2[i];
+						p.SetStartPos(pos.X, pos.Y);
+					}
+					_Settings.DEV_Presentation_BoundSpeed = 0.05f;
+				}
+				else if (_Settings.DEV_counter > 350 && _Settings.DEV_counter <= 360)
+				{
+					var t = (_Settings.DEV_counter - 340) / 20f;
+					for (int i = 0; i < _CPoints.Length; i++)
+					{
+						var p = _CPoints[i];
+						var c = _DEV_colors[i];
+						p._Color = Color.FromArgb(255,
+							(int)(p._Color.R + (c.R - p._Color.R) * t),
+							(int)(p._Color.G + (c.G - p._Color.G) * t),
+							(int)(p._Color.B + (c.B - p._Color.B) * t)
+						);
+					}
+					_Settings.ConnectionsColor = Color.FromArgb(255,
+						(int)(_Settings.ConnectionsColor.R + (0 - _Settings.ConnectionsColor.R) * t),
+						(int)(_Settings.ConnectionsColor.G + (0 - _Settings.ConnectionsColor.G) * t),
+						(int)(_Settings.ConnectionsColor.B + (255 - _Settings.ConnectionsColor.B) * t)
+					);
+				}
+				else if (_Settings.DEV_counter > 350 && _Settings.DEV_counter <= 480)
+				{
+					var t = (_Settings.DEV_counter - 350) / 130f;
+					_Settings.DEV_Presentation_BoundSpeed = 0.05f + t / 4;
+				}
+				else if (_Settings.DEV_counter > 500 && _Settings.DEV_counter <= 520)
+				{
+					var t = (_Settings.DEV_counter - 500) / 20f;
+					_Settings.DEV_Presentation_BoundSpeed = 0.3f + t * 2;
+				}
+			}
 		}
 		public void Dispose()
 		{
@@ -76,8 +218,8 @@ namespace ScreenSaverConections
 
 		internal void DrawConnections(IGraphics g)
 		{
-			var dMax = Squared(_Settings.DistanceMax);
-			var dShade = Squared(_Settings.DistanceShading);
+			var dMax = Squared(_Settings.DistanceMax * Program.SizeMul);
+			var dShade = Squared(_Settings.DistanceShading * Program.SizeMul);
 			for (int i = 0; i < _CPoints.Length; i++)
 			{
 				var p1 = _CPoints[i];
@@ -109,456 +251,5 @@ namespace ScreenSaverConections
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private float Squared(float num) => num * num;
-	}
-
-
-	class CPoint : IDisposable
-	{
-		private readonly Settings _Settings;
-		public readonly bool Bound;
-		public readonly int Group;
-		public bool Visible = true;
-		public float Alpha = 1;
-		private float _AlphaSpeed = 0.025f;
-		private float _XStart;
-		private float _YStart;
-		public float X;
-		public float Y;
-		private float _Speed;
-		private float _Time = 0;
-		private float _Counter = 0;
-		private float _Acc = 0;
-		private float _Direction;
-		private float _RotateSpeed = 0;
-		private readonly Color _Color;
-		private readonly int _Width;
-		private readonly int _Height;
-		private readonly Random _Rnd;
-
-		private readonly int _MaxDistanceWhenBound = 10;
-
-
-		public CPoint(int x, int y, int width, int height, Random rnd, Color color, Settings settings, bool bound, int group = 0)
-		{
-			_Settings = settings;
-			Bound = bound;
-			Group = group;
-			_XStart = x;
-			_YStart = y;
-			X = x;
-			Y = y;
-			_Width = width;
-			_Height = height;
-			_Rnd = rnd;
-			_Speed = _Settings.SpeedMax / 2;
-			_Direction = (float)(rnd.Next(360) / 180d * Math.PI);
-			_Color = color;
-		}
-
-		public void Update()
-		{
-			ChangeSpeed();
-			Move();
-			if (Visible) Alpha = Math.Min(Alpha + _AlphaSpeed, 1);
-			else Alpha = Math.Max(Alpha - _AlphaSpeed, 0);
-		}
-		private void Move()
-		{
-			X += (float)(Math.Cos(_Direction) * _Speed);
-			Y += (float)(Math.Sin(_Direction) * _Speed);
-
-			if (X > _Width) _Direction = (float)(Math.PI - _Direction);
-			if (X < 0) _Direction = (float)(Math.PI - (_Direction - Math.PI) + Math.PI);
-			if (Y > _Height) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
-			if (Y < 0) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
-			X = Math.Max(Math.Min(X, _Width), 0);
-			Y = Math.Max(Math.Min(Y, _Height), 0);
-
-			if (Bound)
-			{
-				var speed = 1;
-				var speedX = speed * (_XStart - X) / _MaxDistanceWhenBound;
-				var speedY = speed * (_YStart - Y) / _MaxDistanceWhenBound;
-				X += speedX;
-				Y += speedY;
-			}
-		}
-		private void ChangeSpeed()
-		{
-			_Speed += _Acc;
-			_Speed = Math.Max(Math.Min(_Speed, _Settings.SpeedMax), -_Settings.SpeedMax);
-			_Direction += _RotateSpeed;
-			if (_Counter > _Time)
-			{
-				_Time = _Rnd.Next(_Settings.TimeMin, _Settings.TimeMax);
-				_Counter = 0;
-				var nextAcc = _Rnd.Next(0, (int)_Settings.SpeedMax) / 10f;
-				if (_Speed == _Settings.SpeedMax) _Acc = -nextAcc;
-				else if (_Speed == -_Settings.SpeedMax) _Acc = nextAcc;
-				else
-				{
-					if (_Rnd.Next(2) == 1) nextAcc *= -1;
-					_Acc = nextAcc;
-				}
-				_RotateSpeed = (float)(_Rnd.Next(0, (int)(_Settings.RotateSpeedMax * 360)) / 180d / Math.PI);
-				if (_Rnd.Next(2) == 1) _RotateSpeed *= -1;
-			}
-			_Counter++;
-		}
-
-		public void Draw(IGraphics g)
-		{
-			if (Alpha == 0) return;
-			var c = _Color;
-			if (Alpha != 1) c = Color.FromArgb((int)(Alpha * 255), c);
-			g.FillEllipse(c, X, Y, _Settings.PointRadius, _Settings.PointRadius);
-		}
-
-		public void Dispose()
-		{
-		}
-
-		internal void SetStartPos(int x, int y)
-		{
-			_XStart = x;
-			_YStart = y;
-		}
-	}
-
-	class PointsCreator
-	{
-		private readonly Settings _Settings;
-		private readonly int _WidthScr;
-		private readonly int _HeightScr;
-		private readonly int _X;
-		private readonly int _Y;
-		private readonly int _Width;
-		private readonly int _Height;
-		private readonly int _Space;
-		private readonly Random _Rnd;
-
-		private int DEV_timeCounter = 0;
-		private int DEV_timeAdd = 0;
-
-		public PointsCreator(int width, int height, Settings settings, Random rnd)
-		{
-			_Settings = settings;
-			_Rnd = rnd;
-			_WidthScr = width;
-			_HeightScr = height;
-			var clockMaxWidth = (int)Math.Round(width * _Settings.ClockSize) - _Settings.DistanceMax * 3;
-			var clockMaxHeight = (int)Math.Round(height * _Settings.ClockSize);
-			int clockWidth, clockHeight;
-			if (clockMaxHeight * 2 > clockMaxWidth)
-			{
-				clockWidth = clockMaxWidth;
-				clockHeight = clockMaxWidth / 2;
-			}
-			else
-			{
-				clockWidth = clockMaxHeight * 2;
-				clockHeight = clockMaxHeight;
-			}
-			_Space = _Settings.DistanceMax;
-			_Width = clockWidth / 4;
-			_Height = clockHeight;
-
-			_X = (width - (clockWidth + _Space * 3)) / 2;
-			_Y = (height - clockHeight) / 2;
-		}
-
-		public void CreatePointsSimple(CPoint[] points)
-		{
-			var rect = new Rectangle(0, 0, _WidthScr, _HeightScr);
-			for (int i = 0; i < points.Length; i++)
-			{
-				points[i] = CreatePoint(rect, points, false);
-			}
-		}
-		private CPoint CreatePoint(Rectangle rect, CPoint[] points, bool bound, int group = 0)
-		{
-			//return new CPoint(rect.X, rect.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), _Settings, bound, group);
-			return new CPoint(_Rnd.Next(rect.Width) + rect.X, _Rnd.Next(rect.Height) + rect.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), _Settings, bound, group);
-		}
-		private CPoint CreatePoint(Point point, CPoint[] points, bool bound, int group = 0)
-		{
-			return new CPoint(point.X, point.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), _Settings, bound, group);
-		}
-		private Color GetColor()
-		{
-			var h = _Rnd.Next(_Settings.ColorMin, _Settings.ColorMax);
-			var l = _Rnd.Next((int)(_Settings.ColorLMin * 100), (int)(_Settings.ColorLMax * 100));
-
-			return new HSL(h, 100, l).HSLToRGB().RGBToColor(255);
-		}
-
-		public int[] GetCurrentTime(out string time)
-		{
-			var now = DateTime.Now;
-			if (_Settings.DEV_ClockFakeTimeMode)
-			{
-				DEV_timeCounter += 1;
-				if (DEV_timeCounter >= _Settings.DEV_ClockFastMode_TicksForChange)
-				{
-					DEV_timeAdd += 1;
-					DEV_timeCounter = 0;
-				}
-				var st1 = int.Parse(_Settings.DEV_ClockFastMode_StartTime.Substring(0, 2));
-				var st2 = int.Parse(_Settings.DEV_ClockFastMode_StartTime.Substring(2, 2));
-				var date = new DateTime(1, 1, 1, st1, st2, 0);
-				now = date.AddMinutes(DEV_timeAdd);
-			}
-			var n1 = now.Hour / 10;
-			var n2 = now.Hour % 10;
-			var n3 = now.Minute / 10;
-			var n4 = now.Minute % 10;
-			time = $"{n1}{n2}{n3}{n4}";
-			return new int[] { n1, n2, n3, n4 };
-		}
-
-		public void CreateNum(int num, int rs, int re, CPoint[] points, int pos)
-		{
-			switch (num)
-			{
-				case 0: CreateNum_0(rs, re, points, pos, true); break;
-				case 1: CreateNum_1(rs, re, points, pos, true); break;
-				case 2: CreateNum_2(rs, re, points, pos, true); break;
-				case 3: CreateNum_3(rs, re, points, pos, true); break;
-				case 4: CreateNum_4(rs, re, points, pos, true); break;
-				case 5: CreateNum_5(rs, re, points, pos, true); break;
-				case 6: CreateNum_6(rs, re, points, pos, true); break;
-				case 7: CreateNum_7(rs, re, points, pos, true); break;
-				case 8: CreateNum_8(rs, re, points, pos, true); break;
-				case 9: CreateNum_9(rs, re, points, pos, true); break;
-			}
-		}
-		public void CreateDot(int rs, int re, CPoint[] points, int pos)
-		{
-			var pointsCount = re - rs;
-			var r = _Space / 5;
-			var d = (int)Math.Round(_Height * 0.3);
-			var xShift = _Width * 2 + _Space + _X + (_Space - r) / 2;
-			var yShift = _Y + (_Height - d) / 2 + d * pos;
-			var step = Math.PI * 2 / pointsCount;
-			for (int i = 0; i < pointsCount; i++)
-			{
-				var x = (int)Math.Round(Math.Cos(step * i) * r + xShift);
-				var y = (int)Math.Round(Math.Sin(step * i) * r + yShift);
-				var point = new Point(x, y);
-				points[rs + i] = CreatePoint(point, points, true, pos + 4);
-			}
-
-		}
-
-		private void CreateNum_0(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.LeftTop),
-				GetRectangle(NumPart.LeftBottom),
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_1(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_2(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.LeftBottom),
-				GetRectangle(NumPart.RightTop),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_3(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_4(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.LeftTop),
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_5(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.LeftTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_6(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.LeftTop),
-				GetRectangle(NumPart.LeftBottom),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_7(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_8(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.LeftTop),
-				GetRectangle(NumPart.LeftBottom),
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private void CreateNum_9(int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var rects = new RectangleF[] {
-				GetRectangle(NumPart.Top),
-				GetRectangle(NumPart.Middle),
-				GetRectangle(NumPart.Bottom),
-				GetRectangle(NumPart.LeftTop),
-				GetRectangle(NumPart.RightTop),
-				GetRectangle(NumPart.RightBottom),
-			};
-			CreateNum_Rects(rects, rs, re, points, pos, newP);
-		}
-		private RectangleF GetRectangle(NumPart part)
-		{
-			switch (part)
-			{
-				case NumPart.Top: return new RectangleF(0.125f, 0, 0.75f, 0.142f);
-				case NumPart.Middle: return new RectangleF(0.125f, 0.426f, 0.75f, 0.142f);
-				case NumPart.Bottom: return new RectangleF(0.125f, 0.858f, 0.75f, 0.142f);
-				case NumPart.LeftTop: return new RectangleF(0, 0.071f, 0.25f, 0.426f);
-				case NumPart.LeftBottom: return new RectangleF(0, 0.497f, 0.25f, 0.426f);
-				case NumPart.RightTop: return new RectangleF(0.75f, 0.071f, 0.25f, 0.426f);
-				case NumPart.RightBottom: return new RectangleF(0.75f, 0.497f, 0.25f, 0.426f);
-			}
-			return new RectangleF();
-		}
-		private void CreateNum_Rects(RectangleF[] rects, int rs, int re, CPoint[] points, int pos, bool newP)
-		{
-			var pointsCount = re - rs;
-			var xShift = (_Width + _Space) * pos + _X;
-			var pointsForRect = pointsCount / rects.Length;
-			var pointsForRectVisible = pointsCount / 7;
-			var visibleCount = pointsCount / 7;
-			var sShift = 0;
-			var addPoints = pointsCount - pointsForRect * rects.Length;
-			for (int i = 0; i < rects.Length; i++)
-			{
-				var rect = rects[i];
-				rect = new RectangleF(rect.X * _Width, rect.Y * _Height, rect.Width * _Width, rect.Height * _Height);
-				var rectInt = new Rectangle((int)rect.X + xShift, (int)rect.Y + _Y, (int)rect.Width, (int)rect.Height);
-				var s = rs + pointsForRect * i + sShift;
-				var e = rs + pointsForRect * (i + 1) + sShift;
-				if (addPoints > 0)
-				{
-					e += 1;
-					sShift += 1;
-					addPoints -= 1;
-				}
-				CreatePoints(rectInt, s, e, points, pos, newP, pointsForRectVisible);
-			}
-		}
-		private void CreatePoints(Rectangle rect, int rs, int re, CPoint[] points, int pos, bool newP, int visibleCount)
-		{
-			//Program.rectangles.Add(rect);
-			var pointsCount = re - rs;
-			var width = rect.Width / (float)visibleCount;
-			var height = rect.Height / (float)visibleCount;
-			var xPoints = new int[pointsCount];
-			for (int i = 0; i < xPoints.Length; i++)
-			{
-				xPoints[i] = rect.X + (int)(i * width) % rect.Width;
-			}
-			xPoints.Shuffle();
-			for (int i = rs; i < re; i++)
-			{
-				var pi = i - rs;
-				//var pRect = new Rectangle(rect.X + (int)(pi * width) % rect.Width, rect.Y, (int)width, rect.Height);
-				//var pRect = new Rectangle(rect.X + (int)(pi * width) % rect.Width, rect.Y + (int)(pi * height) % rect.Height, (int)width, (int)height);
-				var pRect = new Rectangle(xPoints[pi], rect.Y + (int)(pi * height) % rect.Height, (int)width, (int)height);
-				//Program.rectangles.Add(pRect);
-				//pRect = rect;
-				if (newP)
-				{
-					points[i] = CreatePoint(pRect, points, true, pos);
-					if (pi > visibleCount) points[i].Alpha = 0;
-				}
-				else
-				{
-					var x = _Rnd.Next(pRect.Width) + pRect.X;
-					var y = _Rnd.Next(pRect.Height) + pRect.Y;
-					points[i]?.SetStartPos(x, y);
-				}
-				if (points[i] != null)
-					points[i].Visible = pi <= visibleCount;
-			}
-		}
-
-		internal void ReCreateNum(int num, int rs, int re, CPoint[] points, int pos)
-		{
-			switch (num)
-			{
-				case 0: CreateNum_0(rs, re, points, pos, false); break;
-				case 1: CreateNum_1(rs, re, points, pos, false); break;
-				case 2: CreateNum_2(rs, re, points, pos, false); break;
-				case 3: CreateNum_3(rs, re, points, pos, false); break;
-				case 4: CreateNum_4(rs, re, points, pos, false); break;
-				case 5: CreateNum_5(rs, re, points, pos, false); break;
-				case 6: CreateNum_6(rs, re, points, pos, false); break;
-				case 7: CreateNum_7(rs, re, points, pos, false); break;
-				case 8: CreateNum_8(rs, re, points, pos, false); break;
-				case 9: CreateNum_9(rs, re, points, pos, false); break;
-			}
-		}
-	}
-	enum NumPart
-	{
-		Top,
-		Middle,
-		Bottom,
-		LeftTop,
-		LeftBottom,
-		RightTop,
-		RightBottom,
 	}
 }

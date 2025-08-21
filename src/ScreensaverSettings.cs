@@ -38,9 +38,15 @@ namespace ScreenSaverConections
 
 
 		//dev
+		public int DEV_counter = -100;
 		public bool DEV_ClockFakeTimeMode = false;
 		public int DEV_ClockFastMode_TicksForChange = 60;
 		public string DEV_ClockFastMode_StartTime = "1200";
 		public int DEV_PointsPerDot = 6;
+
+		public bool DEV_Presentation = false;
+		public float DEV_Presentation_BoundSpeed = 1;
+		public int DEV_Presentation_VisibleI = 1;
+		public float DEV_Presentation_VisibleAlpha = 1;
 	}
 }
