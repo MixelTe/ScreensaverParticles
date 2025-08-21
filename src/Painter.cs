@@ -8,20 +8,17 @@ namespace ScreenSaverConections
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
 
-		private readonly SolidBrush _Brush = new SolidBrush(Color.FromArgb(255, 0, 0, 0));
-
 		public Painter(Controller game, Rectangle rcClient)
 		{
 			_Settings = Program.Settings;
 			_game = game;
 			_rcClient = rcClient;
-			_Brush.Color = _Settings.BackgroundColor;
 		}
 
-		public void Draw(Graphics g)
+		public void Draw(IGraphics g)
 		{
-			g.FillRectangle(_Brush, _rcClient);
-			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+			g.FillRectangle(_Settings.BackgroundColor, _rcClient);
+			g.SetHighQuality();
 			if (_Settings.DrawConections)
 			{
 				foreach (var p in _game._CPoints)
@@ -47,7 +44,6 @@ namespace ScreenSaverConections
 
 		public void Dispose()
 		{
-			_Brush?.Dispose();
 		}
 	}
 }

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ScreenSaverConections
 {
-	class ScreensaverController
+	class ScreensaverController : IMainController
 	{
 		private object _lock = new object();
 		private IController _game;
@@ -16,14 +16,15 @@ namespace ScreenSaverConections
 		private readonly FPS _fps = new FPS();
 		private long _time;
 
-		internal Control TargetControl;
+		public Control TargetControl;
 		private Thread _t;
 		private int _IsRunning;
 
-		internal double GetFps() => _fps.Value;
+		public double GetFps() => _fps.Value;
+		Control IMainController.TargetControl { set => TargetControl = value; }
 
 
-		internal void TogglePaused()
+		public void TogglePaused()
 		{
 			lock (_lock)
 			{
@@ -47,8 +48,9 @@ namespace ScreenSaverConections
 			RegSerializer.Load(Program.KeyName, Program.Settings);
 			_time = Stopwatch.GetTimestamp();
 		}
-		internal void RecreateGame(Rectangle rcClient)
+		public void RecreateGame(Rectangle rcClient)
 		{
+			TargetControl.BackColor = Program.Settings.BackgroundColor;
 			var game = new Controller(rcClient.Width, rcClient.Height);
 			var painter = new Painter(game, rcClient);
 
@@ -72,7 +74,7 @@ namespace ScreenSaverConections
 		{
 			return new DrawingBuffer(TargetControl.CreateGraphics(), rcClient);
 		}
-		internal void Start()
+		public void Start()
 		{
 			_t = new Thread(GameLoop)
 			{
@@ -82,7 +84,7 @@ namespace ScreenSaverConections
 			IsRunning = true;
 			_t.Start();
 		}
-		internal void Stop()
+		public void Stop()
 		{
 			IsRunning = false;
 			_t.Join(TimeSpan.FromSeconds(20)); // wait thread to finish
@@ -110,7 +112,7 @@ namespace ScreenSaverConections
 				//Thread.Sleep(1000 / 60);
 			}
 		}
-		internal void DrawGame()
+		public void DrawGame()
 		{
 			lock (_lock)
 			{

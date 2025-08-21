@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,22 @@ namespace ScreenSaverConections
 		private Point _PastMousePos;
 		private bool _FirstMouseMove = true;
 		private Size _OldSize;
-		private readonly ScreensaverController _Controller = new ScreensaverController();
+		private readonly IMainController _Controller;
 
 		public Form1()
 		{
 			InitializeComponent();
 			Cursor.Hide();
+			var newController = true;
+			if (newController)
+			{
+				_Controller = new ScreensaverControllerNew();
+				timer1.Enabled = false;
+			}
+			else
+			{
+				_Controller = new ScreensaverController();
+			}
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
@@ -44,6 +55,7 @@ namespace ScreenSaverConections
 				_Controller.DrawGame();
 			}
 
+			//Debug.WriteLine(_Controller.GetFps());
 			Text = $"fps={_Controller.GetFps():#,##0}";
 		}
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)

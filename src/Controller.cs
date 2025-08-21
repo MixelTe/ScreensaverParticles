@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.CompilerServices;
 
 namespace ScreenSaverConections
 {
@@ -94,13 +95,12 @@ namespace ScreenSaverConections
 		private float _Acc = 0;
 		private float _Direction;
 		private float _RotateSpeed = 0;
+		private readonly Color _Color;
 		private readonly int _Width;
 		private readonly int _Height;
 		private readonly Random _Rnd;
 		private CPointConection[] _PointConections;
 		private readonly CPoint[] _Points;
-		private readonly SolidBrush _Brush;
-		private readonly Pen _Pen;
 
 		private readonly int _MaxDistanceWhenBound = 10;
 
@@ -119,11 +119,7 @@ namespace ScreenSaverConections
 			_Rnd = rnd;
 			_Speed = _Settings.SpeedMax / 2;
 			_Direction = (float)(rnd.Next(360) / 180d * Math.PI);
-			_Brush = new SolidBrush(color);
-			_Pen = new Pen(_Settings.ConnectionsColor)
-			{
-				Width = _Settings.ConnectionsWidth
-			};
+			_Color = color;
 			_Points = points;
 			_PointConections = new CPointConection[points.Length];
 		}
@@ -210,9 +206,10 @@ namespace ScreenSaverConections
 		}
 
 		private float GetDistance(float x, float y) => Squared(x - _X) + Squared(y - _Y);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private float Squared(float num) => num * num;
 
-		public void DrawConnections(Graphics g)
+		public void DrawConnections(IGraphics g)
 		{
 			if (_Settings.DrawConections)
 			{
@@ -231,8 +228,8 @@ namespace ScreenSaverConections
 							A = (int)((1d - a) * 256);
 						}
 						A = (int)(A * _Settings.LineAlpha);
-						_Pen.Color = Color.FromArgb(A, _Settings.ConnectionsColor);
-						g.DrawLine(_Pen, P, new PointF(p.X, p.Y));
+						var color = Color.FromArgb(A, _Settings.ConnectionsColor);
+						g.DrawLine(color, _Settings.ConnectionsWidth, P, new PointF(p.X, p.Y));
 					}
 					else
 					{
@@ -242,16 +239,13 @@ namespace ScreenSaverConections
 			}
 		}
 
-		public void DrawPoint(Graphics g)
+		public void DrawPoint(IGraphics g)
 		{
-			//g.DrawLine(Pens.White, _X, _Y, _XStart, _YStart);
-			g.FillEllipse(_Brush, (_X - _Settings.PointRadius / 2), (_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
+			g.FillEllipse(_Color, (_X - _Settings.PointRadius / 2), (_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
 		}
 
 		public void Dispose()
 		{
-			_Brush?.Dispose();
-			_Pen?.Dispose();
 		}
 
 		internal void SetStartPos(int x, int y)
