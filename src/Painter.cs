@@ -4,41 +4,35 @@ namespace ScreenSaverConections
 {
 	class Painter : IPainter
 	{
-		private readonly Settings _Settings;
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
 
 		public Painter(Controller game, Rectangle rcClient)
 		{
-			_Settings = Program.Settings;
 			_game = game;
 			_rcClient = rcClient;
 		}
 
 		public void Draw(IGraphics g)
 		{
-			g.FillRectangle(_Settings.BackgroundColor, _rcClient);
+			g.FillRectangle(Program.Settings.BackgroundColor, _rcClient);
 			g.SetHighQuality();
-			if (_Settings.DrawConections)
+			if (Program.Settings.DrawConections)
+			{
+				_game?.DrawConnections(g);
+			}
+			if (Program.Settings.DrawPoints)
 			{
 				foreach (var p in _game._CPoints)
 				{
-					if (p != null) p.DrawConnections(g);
+					p?.Draw(g);
 				}
 			}
-			if (_Settings.DrawPoints)
-			{
-				foreach (var p in _game._CPoints)
-				{
-					if (p != null) p.DrawPoint(g);
-				}
-			}
-			//var b = new SolidBrush(Color.FromArgb(100, 255, 255, 255));
+			//var c = Color.FromArgb(100, Color.White);
 			//foreach (var rect in Program.rectangles)
 			//{
-			//	g.FillRectangle(b, rect);
+			//	g.FillRectangle(c, rect);
 			//}
-			//b.Dispose();
 		}
 
 

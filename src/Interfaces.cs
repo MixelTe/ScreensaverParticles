@@ -39,6 +39,7 @@ namespace ScreenSaverConections
 		void FillRectangle(Color color, float x, float y, float width, float height);
 		void FillRectangle(Color color, Rectangle rect);
 		void DrawLine(Color color, float lineWidth, PointF pt1, PointF pt2);
-		void FillEllipse(Color color, float x, float y, float width, float height);
+		void DrawLine(Color color, float lineWidth, float x1, float y1, float x2, float y2);
+		void FillEllipse(Color color, float x, float y, float radiusX, float radiusY);
 	}
 }

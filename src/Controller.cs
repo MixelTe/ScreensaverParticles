@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace ScreenSaverConections
 {
@@ -21,7 +22,7 @@ namespace ScreenSaverConections
 			_Settings = Program.Settings;
 			_Width = width;
 			_Height = height;
-			_OneNumRange = (int)(_Width * _Height / 1.4f) / (500 * 500) * _Settings.Density;
+			_OneNumRange = _Width * _Height / (500 * 500) * _Settings.Density;
 			if (_Settings.ClockMode) _CPoints = new CPoint[_OneNumRange * 4 + _Settings.DEV_PointsPerDot * 2];
 			else _CPoints = new CPoint[_Width * _Height / (500 * 500) * _Settings.Density];
 			_PointsCreator = new PointsCreator(width, height, _Settings, _Rnd);
@@ -31,7 +32,7 @@ namespace ScreenSaverConections
 		{
 			if (_Settings.ClockMode)
 			{
-				var time = _PointsCreator.GetCurrentTime(ref _PastTime);
+				var time = _PointsCreator.GetCurrentTime(out _PastTime);
 				//time = new int[] { 7, 8, 8, 8 };
 				_PointsCreator.CreateNum(time[0], _OneNumRange * 0, _OneNumRange * 1, _CPoints, 0);
 				_PointsCreator.CreateNum(time[1], _OneNumRange * 1, _OneNumRange * 2, _CPoints, 1);
@@ -49,8 +50,7 @@ namespace ScreenSaverConections
 		{
 			if (_Settings.ClockMode)
 			{
-				var sTime = "";
-				var time = _PointsCreator.GetCurrentTime(ref sTime);
+				var time = _PointsCreator.GetCurrentTime(out var sTime);
 				if (_PastTime != sTime)
 				{
 					if (_PastTime[0] != sTime[0]) _PointsCreator.ReCreateNum(time[0], _OneNumRange * 0, _OneNumRange * 1, _CPoints, 0);
@@ -61,34 +61,69 @@ namespace ScreenSaverConections
 				_PastTime = sTime;
 			}
 
-			for (int i = 0; i < _CPoints.Length; i++)
+			foreach (var el in _CPoints)
 			{
-				var el = _CPoints[i];
-				if (el != null)
-				{
-					el.Update();
-				}
+				el?.Update();
 			}
 		}
 		public void Dispose()
 		{
 			foreach (var p in _CPoints)
 			{
-				if (p != null) p.Dispose();
+				p?.Dispose();
 			}
 		}
+
+		internal void DrawConnections(IGraphics g)
+		{
+			var dMax = Squared(_Settings.DistanceMax);
+			var dShade = Squared(_Settings.DistanceShading);
+			for (int i = 0; i < _CPoints.Length; i++)
+			{
+				var p1 = _CPoints[i];
+				if (p1 == null || p1.Alpha == 0) continue;
+				for (int j = i + 1; j < _CPoints.Length; j++)
+				{
+					var p2 = _CPoints[j];
+					if (p2 == null || p2.Alpha == 0) continue;
+
+					if (p1.Bound && p1.Group != p2.Group) break;  // rely on that points are sorted by group
+
+					var d = Squared(p1.X - p2.X) + Squared(p1.Y - p2.Y);
+					if (d > dMax) continue;
+
+					d -= dShade;
+					var A = 255;
+					if (d > 0)
+					{
+						var a = d / (dMax - dShade);
+						A = (int)((1f - a) * 255);
+					}
+					A = (int)(A * _Settings.LineAlpha);
+					A = (int)(A * Math.Min(p1.Alpha, p2.Alpha));
+					var color = Color.FromArgb(A, _Settings.ConnectionsColor);
+					g.DrawLine(color, _Settings.ConnectionsWidth, p1.X, p1.Y, p2.X, p2.Y);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private float Squared(float num) => num * num;
 	}
 
 
 	class CPoint : IDisposable
 	{
 		private readonly Settings _Settings;
-		private readonly bool _Bound;
-		private readonly int _Group;
+		public readonly bool Bound;
+		public readonly int Group;
+		public bool Visible = true;
+		public float Alpha = 1;
+		private float _AlphaSpeed = 0.025f;
 		private float _XStart;
 		private float _YStart;
-		private float _X;
-		private float _Y;
+		public float X;
+		public float Y;
 		private float _Speed;
 		private float _Time = 0;
 		private float _Counter = 0;
@@ -99,87 +134,53 @@ namespace ScreenSaverConections
 		private readonly int _Width;
 		private readonly int _Height;
 		private readonly Random _Rnd;
-		private CPointConection[] _PointConections;
-		private readonly CPoint[] _Points;
 
 		private readonly int _MaxDistanceWhenBound = 10;
 
 
-		public CPoint(int x, int y, int width, int height, Random rnd, Color color, CPoint[] points, Settings settings, bool bound, int group = 0)
+		public CPoint(int x, int y, int width, int height, Random rnd, Color color, Settings settings, bool bound, int group = 0)
 		{
 			_Settings = settings;
-			_Bound = bound;
-			_Group = group;
+			Bound = bound;
+			Group = group;
 			_XStart = x;
 			_YStart = y;
-			_X = x;
-			_Y = y;
+			X = x;
+			Y = y;
 			_Width = width;
 			_Height = height;
 			_Rnd = rnd;
 			_Speed = _Settings.SpeedMax / 2;
 			_Direction = (float)(rnd.Next(360) / 180d * Math.PI);
 			_Color = color;
-			_Points = points;
-			_PointConections = new CPointConection[points.Length];
 		}
 
 		public void Update()
 		{
 			ChangeSpeed();
 			Move();
-			if (_Settings.DrawConections)
-			{
-				var lastI = 0;
-				for (int i = 0; i < _Points.Length; i++)
-				{
-					var p = _Points[i];
-					if (p == this || p == null) continue;
-
-					var connected = false;
-					for (int o = 0; o < p._PointConections.Length; o++)
-					{
-						var conn = p._PointConections[o];
-						if (!conn.NotEmpty) break;
-
-						if (conn.X == _X && conn.Y == _Y)
-						{
-							connected = true;
-							break;
-						}
-					}
-					if (_Bound && _Group != p._Group) continue;
-					if (connected) continue;
-
-					var d = GetDistance(p._X, p._Y);
-					if (d <= Squared(_Settings.DistanceMax))
-					{
-						_PointConections[lastI] = new CPointConection(p._X, p._Y, d);
-						lastI += 1;
-					}
-					if (lastI < _PointConections.Length) _PointConections[lastI].NotEmpty = false;
-				}
-			}
+			if (Visible) Alpha = Math.Min(Alpha + _AlphaSpeed, 1);
+			else Alpha = Math.Max(Alpha - _AlphaSpeed, 0);
 		}
 		private void Move()
 		{
-			_X += (float)(Math.Cos(_Direction) * _Speed);
-			_Y += (float)(Math.Sin(_Direction) * _Speed);
+			X += (float)(Math.Cos(_Direction) * _Speed);
+			Y += (float)(Math.Sin(_Direction) * _Speed);
 
-			if (_X > _Width) _Direction = (float)(Math.PI - _Direction);
-			if (_X < 0) _Direction = (float)(Math.PI - (_Direction - Math.PI) + Math.PI);
-			if (_Y > _Height) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
-			if (_Y < 0) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
-			_X = Math.Max(Math.Min(_X, _Width), 0);
-			_Y = Math.Max(Math.Min(_Y, _Height), 0);
+			if (X > _Width) _Direction = (float)(Math.PI - _Direction);
+			if (X < 0) _Direction = (float)(Math.PI - (_Direction - Math.PI) + Math.PI);
+			if (Y > _Height) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			if (Y < 0) _Direction = (float)(Math.PI - (_Direction + Math.PI / 2) - Math.PI / 2);
+			X = Math.Max(Math.Min(X, _Width), 0);
+			Y = Math.Max(Math.Min(Y, _Height), 0);
 
-			if (_Bound)
+			if (Bound)
 			{
 				var speed = 1;
-				var speedX = speed * (_XStart - _X) / _MaxDistanceWhenBound;
-				var speedY = speed * (_YStart - _Y) / _MaxDistanceWhenBound;
-				_X += speedX;
-				_Y += speedY;
+				var speedX = speed * (_XStart - X) / _MaxDistanceWhenBound;
+				var speedY = speed * (_YStart - Y) / _MaxDistanceWhenBound;
+				X += speedX;
+				Y += speedY;
 			}
 		}
 		private void ChangeSpeed()
@@ -205,43 +206,12 @@ namespace ScreenSaverConections
 			_Counter++;
 		}
 
-		private float GetDistance(float x, float y) => Squared(x - _X) + Squared(y - _Y);
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private float Squared(float num) => num * num;
-
-		public void DrawConnections(IGraphics g)
+		public void Draw(IGraphics g)
 		{
-			if (_Settings.DrawConections)
-			{
-				var P = new PointF(_X, _Y);
-				foreach (var p in _PointConections)
-				{
-					if (p.NotEmpty)
-					{
-						var d = p.D;
-						d = Math.Min(d, Squared(_Settings.DistanceMax));
-						d -= Squared(_Settings.DistanceShading);
-						var A = 255;
-						if (d > 0)
-						{
-							var a = d / (Squared(_Settings.DistanceMax) - Squared(_Settings.DistanceShading));
-							A = (int)((1d - a) * 256);
-						}
-						A = (int)(A * _Settings.LineAlpha);
-						var color = Color.FromArgb(A, _Settings.ConnectionsColor);
-						g.DrawLine(color, _Settings.ConnectionsWidth, P, new PointF(p.X, p.Y));
-					}
-					else
-					{
-						break;
-					}
-				}
-			}
-		}
-
-		public void DrawPoint(IGraphics g)
-		{
-			g.FillEllipse(_Color, (_X - _Settings.PointRadius / 2), (_Y - _Settings.PointRadius / 2), _Settings.PointRadius, _Settings.PointRadius);
+			if (Alpha == 0) return;
+			var c = _Color;
+			if (Alpha != 1) c = Color.FromArgb((int)(Alpha * 255), c);
+			g.FillEllipse(c, X, Y, _Settings.PointRadius, _Settings.PointRadius);
 		}
 
 		public void Dispose()
@@ -254,21 +224,6 @@ namespace ScreenSaverConections
 			_YStart = y;
 		}
 	}
-	struct CPointConection
-	{
-		public readonly float X;
-		public readonly float Y;
-		public readonly float D;
-		public bool NotEmpty;
-		public CPointConection(float x, float y, float d)
-		{
-			X = x;
-			Y = y;
-			D = d;
-			NotEmpty = true;
-		}
-	}
-
 
 	class PointsCreator
 	{
@@ -322,11 +277,12 @@ namespace ScreenSaverConections
 		}
 		private CPoint CreatePoint(Rectangle rect, CPoint[] points, bool bound, int group = 0)
 		{
-			return new CPoint(_Rnd.Next(rect.Width) + rect.X, _Rnd.Next(rect.Height) + rect.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), points, _Settings, bound, group);
+			//return new CPoint(rect.X, rect.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), _Settings, bound, group);
+			return new CPoint(_Rnd.Next(rect.Width) + rect.X, _Rnd.Next(rect.Height) + rect.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), _Settings, bound, group);
 		}
 		private CPoint CreatePoint(Point point, CPoint[] points, bool bound, int group = 0)
 		{
-			return new CPoint(point.X, point.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), points, _Settings, bound, group);
+			return new CPoint(point.X, point.Y, _WidthScr, _HeightScr, _Rnd, GetColor(), _Settings, bound, group);
 		}
 		private Color GetColor()
 		{
@@ -336,10 +292,9 @@ namespace ScreenSaverConections
 			return new HSL(h, 100, l).HSLToRGB().RGBToColor(255);
 		}
 
-		public int[] GetCurrentTime(ref string time)
+		public int[] GetCurrentTime(out string time)
 		{
-			var hours = DateTime.Now.Hour.ToString();
-			var minute = DateTime.Now.Minute.ToString();
+			var now = DateTime.Now;
 			if (_Settings.DEV_ClockFakeTimeMode)
 			{
 				DEV_timeCounter += 1;
@@ -351,32 +306,16 @@ namespace ScreenSaverConections
 				var st1 = int.Parse(_Settings.DEV_ClockFastMode_StartTime.Substring(0, 2));
 				var st2 = int.Parse(_Settings.DEV_ClockFastMode_StartTime.Substring(2, 2));
 				var date = new DateTime(1, 1, 1, st1, st2, 0);
-				date = date.AddMinutes(DEV_timeAdd);
-				hours = date.Hour.ToString();
-				minute = date.Minute.ToString();
+				now = date.AddMinutes(DEV_timeAdd);
 			}
-			var n1 = 0;
-			var n2 = 0;
-			var n3 = 0;
-			var n4 = 0;
-			ParseTimeString(hours, ref n1, ref n2);
-			ParseTimeString(minute, ref n3, ref n4);
-			time = n1.ToString() + n2.ToString() + n3.ToString() + n4.ToString();
+			var n1 = now.Hour / 10;
+			var n2 = now.Hour % 10;
+			var n3 = now.Minute / 10;
+			var n4 = now.Minute % 10;
+			time = $"{n1}{n2}{n3}{n4}";
 			return new int[] { n1, n2, n3, n4 };
 		}
-		private void ParseTimeString(string time, ref int num1, ref int num2)
-		{
-			if (time.Length == 1)
-			{
-				num1 = 0;
-				num2 = int.Parse(time);
-			}
-			else
-			{
-				num1 = int.Parse(time.Substring(0, 1));
-				num2 = int.Parse(time.Substring(1, 1));
-			}
-		}
+
 		public void CreateNum(int num, int rs, int re, CPoint[] points, int pos)
 		{
 			switch (num)
@@ -539,6 +478,8 @@ namespace ScreenSaverConections
 			var pointsCount = re - rs;
 			var xShift = (_Width + _Space) * pos + _X;
 			var pointsForRect = pointsCount / rects.Length;
+			var pointsForRectVisible = pointsCount / 7;
+			var visibleCount = pointsCount / 7;
 			var sShift = 0;
 			var addPoints = pointsCount - pointsForRect * rects.Length;
 			for (int i = 0; i < rects.Length; i++)
@@ -554,41 +495,42 @@ namespace ScreenSaverConections
 					sShift += 1;
 					addPoints -= 1;
 				}
-				CreatePoints(rectInt, s, e, points, pos, newP);
+				CreatePoints(rectInt, s, e, points, pos, newP, pointsForRectVisible);
 			}
 		}
-		private void CreatePoints(Rectangle rect, int rs, int re, CPoint[] points, int pos, bool newP)
+		private void CreatePoints(Rectangle rect, int rs, int re, CPoint[] points, int pos, bool newP, int visibleCount)
 		{
 			//Program.rectangles.Add(rect);
 			var pointsCount = re - rs;
-			var width = rect.Width / (float)pointsCount;
-			var height = rect.Height / (float)pointsCount;
+			var width = rect.Width / (float)visibleCount;
+			var height = rect.Height / (float)visibleCount;
 			var xPoints = new int[pointsCount];
 			for (int i = 0; i < xPoints.Length; i++)
 			{
-				xPoints[i] = rect.X + (int)(i * width);
+				xPoints[i] = rect.X + (int)(i * width) % rect.Width;
 			}
 			xPoints.Shuffle();
 			for (int i = rs; i < re; i++)
 			{
-				//var pRect = new Rectangle(rect.X + (int)((i - rs) * width), rect.Y, (int)width, rect.Height);
-				//var pRect = new Rectangle(rect.X + (int)((i - rs) * width), rect.Y + (int)((i - rs) * height), (int)width, (int)height);
-				var pRect = new Rectangle(xPoints[i - rs], rect.Y + (int)((i - rs) * height), (int)width, (int)height);
+				var pi = i - rs;
+				//var pRect = new Rectangle(rect.X + (int)(pi * width) % rect.Width, rect.Y, (int)width, rect.Height);
+				//var pRect = new Rectangle(rect.X + (int)(pi * width) % rect.Width, rect.Y + (int)(pi * height) % rect.Height, (int)width, (int)height);
+				var pRect = new Rectangle(xPoints[pi], rect.Y + (int)(pi * height) % rect.Height, (int)width, (int)height);
 				//Program.rectangles.Add(pRect);
 				//pRect = rect;
 				if (newP)
 				{
 					points[i] = CreatePoint(pRect, points, true, pos);
+					if (pi > visibleCount) points[i].Alpha = 0;
 				}
 				else
 				{
 					var x = _Rnd.Next(pRect.Width) + pRect.X;
 					var y = _Rnd.Next(pRect.Height) + pRect.Y;
-					if (points[i] != null)
-					{
-						points[i].SetStartPos(x, y);
-					}
+					points[i]?.SetStartPos(x, y);
 				}
+				if (points[i] != null)
+					points[i].Visible = pi <= visibleCount;
 			}
 		}
 

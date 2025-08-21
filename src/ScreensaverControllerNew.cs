@@ -109,16 +109,18 @@ namespace ScreenSaverConections
 
 		public void SetHighQuality() { }
 
-		public void DrawLine(System.Drawing.Color color, float lineWidth, PointF pt1, PointF pt2)
+		public void DrawLine(System.Drawing.Color color, float lineWidth, PointF pt1, PointF pt2) =>
+			DrawLine(color, lineWidth, pt1.X, pt1.Y, pt2.X, pt2.Y);
+		public void DrawLine(System.Drawing.Color color, float lineWidth, float x1, float y1, float x2, float y2)
 		{
 			UpdateColor(color);
-			_gfx.DrawLine(_brush, pt1.X, pt1.Y, pt2.X, pt2.Y, lineWidth);
+			_gfx.DrawLine(_brush, x1, y1, x2, y2, lineWidth);
 		}
 
-		public void FillEllipse(System.Drawing.Color color, float x, float y, float width, float height)
+		public void FillEllipse(System.Drawing.Color color, float x, float y, float radiusX, float radiusY)
 		{
 			UpdateColor(color);
-			_gfx.FillEllipse(_brush, x + width / 2, y + height / 2, width / 2, height / 2);
+			_gfx.FillEllipse(_brush, x, y, radiusX, radiusY);
 		}
 
 		public void FillRectangle(System.Drawing.Color color, System.Drawing.Rectangle rect) =>

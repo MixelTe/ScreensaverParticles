@@ -11,7 +11,7 @@ namespace ScreenSaverConections
 	{
 		public static readonly string KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaverConections";
 		public static Settings Settings = new Settings();
-		public static List<Rectangle> rectangles = new List<Rectangle>();
+		//public static List<Rectangle> rectangles = new List<Rectangle>();  // dev for clock parts
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
@@ -37,16 +37,15 @@ namespace ScreenSaverConections
 				Application.Run(new Form2());
 			}
 		}
+
 		public static void Shuffle<T>(this T[] array)
 		{
 			var rnd = new Random();
-			int n = array.Length;
+			var n = array.Length;
 			while (n > 1)
 			{
-				int k = rnd.Next(n--);
-				T temp = array[n];
-				array[n] = array[k];
-				array[k] = temp;
+				var k = rnd.Next(n--);
+				(array[k], array[n]) = (array[n], array[k]);
 			}
 		}
 	}
