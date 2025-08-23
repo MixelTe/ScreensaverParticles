@@ -1,96 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿namespace ScreenSaverParticles;
 
-namespace ScreenSaverConections
+public partial class Form1 : Form
 {
-	public partial class Form1 : Form
+	private Point _pastMousePos;
+	private bool _firstMouseMove = true;
+	private Size _oldSize;
+	private readonly IMainController _controller;
+
+	public Form1()
 	{
-		private Point _PastMousePos;
-		private bool _FirstMouseMove = true;
-		private Size _OldSize;
-		private readonly IMainController _Controller;
-
-		public Form1()
+		InitializeComponent();
+		Cursor.Hide();
+		var newController = true;
+		if (newController)
 		{
-			InitializeComponent();
-			Cursor.Hide();
-			var newController = true;
-			if (newController)
-			{
-				_Controller = new ScreensaverControllerNew();
-				timer1.Enabled = false;
-			}
-			else
-			{
-				_Controller = new ScreensaverController();
-			}
+			_controller = new ScreensaverControllerNew();
+			timer1.Enabled = false;
 		}
-
-		private void Form1_Load(object sender, EventArgs e)
+		else
 		{
-			_Controller.TargetControl = this;
+			_controller = new ScreensaverController();
+		}
+	}
 
+	private void Form1_Load(object sender, EventArgs e)
+	{
+		_controller.TargetControl = this;
+
+		RecreateGame();
+
+		_controller.Start();
+	}
+	private void Form1_Click(object sender, EventArgs e)
+	{
+		_controller.TogglePaused();
+	}
+	private void Timer1_Tick(object sender, EventArgs e)
+	{
+		if (_oldSize != ClientRectangle.Size)
+		{
 			RecreateGame();
 
-			_Controller.Start();
+			_controller.DrawGame();
 		}
-		private void Form1_Click(object sender, EventArgs e)
+
+		//Debug.WriteLine(_Controller.GetFps());
+		Text = $"fps={_controller.GetFps():#,##0}";
+	}
+	private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		_controller.Stop();
+	}
+	private void RecreateGame()
+	{
+		var rcClient = ClientRectangle;
+
+		_controller.RecreateGame(rcClient);
+
+		_oldSize = rcClient.Size;
+	}
+
+	private void Form1_KeyDown(object sender, KeyEventArgs e)
+	{
+		Close();
+	}
+
+	private void Form1_MouseMove(object sender, MouseEventArgs e)
+	{
+		var mousePos = e.Location;
+		if (_firstMouseMove)
 		{
-			_Controller.TogglePaused();
+			_pastMousePos = mousePos;
+			_firstMouseMove = false;
 		}
-		private void Timer1_Tick(object sender, EventArgs e)
+		else
 		{
-			if (_OldSize != ClientRectangle.Size)
+			if (_pastMousePos != mousePos)
 			{
-				RecreateGame();
-
-				_Controller.DrawGame();
-			}
-
-			//Debug.WriteLine(_Controller.GetFps());
-			Text = $"fps={_Controller.GetFps():#,##0}";
-		}
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			_Controller.Stop();
-		}
-		private void RecreateGame()
-		{
-			var rcClient = ClientRectangle;
-
-			_Controller.RecreateGame(rcClient);
-
-			_OldSize = rcClient.Size;
-		}
-
-		private void Form1_KeyDown(object sender, KeyEventArgs e)
-		{
-			Close();
-		}
-
-		private void Form1_MouseMove(object sender, MouseEventArgs e)
-		{
-			var mousePos = e.Location;
-			if (_FirstMouseMove)
-			{
-				_PastMousePos = mousePos;
-				_FirstMouseMove = false;
-			}
-			else
-			{
-				if (_PastMousePos != mousePos)
-				{
-					Close();
-					_PastMousePos = mousePos;
-				}
+				Close();
+				_pastMousePos = mousePos;
 			}
 		}
 	}

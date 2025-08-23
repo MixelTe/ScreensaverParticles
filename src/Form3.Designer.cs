@@ -1,4 +1,4 @@
-﻿namespace ScreenSaverConections
+﻿namespace ScreenSaverParticles
 {
 	partial class Form3
 	{
@@ -29,67 +29,71 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
-			this.OKbutton = new System.Windows.Forms.Button();
-			this.Cancelbutton = new System.Windows.Forms.Button();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			this.SuspendLayout();
+			OKbutton = new Button();
+			Cancelbutton = new Button();
+			pictureBox1 = new PictureBox();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+			SuspendLayout();
 			// 
 			// OKbutton
 			// 
-			this.OKbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OKbutton.Location = new System.Drawing.Point(197, 206);
-			this.OKbutton.Name = "OKbutton";
-			this.OKbutton.Size = new System.Drawing.Size(75, 23);
-			this.OKbutton.TabIndex = 0;
-			this.OKbutton.Text = "OK";
-			this.OKbutton.UseVisualStyleBackColor = true;
-			this.OKbutton.Click += new System.EventHandler(this.OKbutton_Click);
+			OKbutton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			OKbutton.Location = new Point(230, 238);
+			OKbutton.Margin = new Padding(4, 3, 4, 3);
+			OKbutton.Name = "OKbutton";
+			OKbutton.Size = new Size(88, 27);
+			OKbutton.TabIndex = 0;
+			OKbutton.Text = "OK";
+			OKbutton.UseVisualStyleBackColor = true;
+			OKbutton.Click += OKbutton_Click;
 			// 
 			// Cancelbutton
 			// 
-			this.Cancelbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Cancelbutton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.Cancelbutton.Location = new System.Drawing.Point(12, 206);
-			this.Cancelbutton.Name = "Cancelbutton";
-			this.Cancelbutton.Size = new System.Drawing.Size(75, 23);
-			this.Cancelbutton.TabIndex = 1;
-			this.Cancelbutton.Text = "Cancel";
-			this.Cancelbutton.UseVisualStyleBackColor = true;
+			Cancelbutton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			Cancelbutton.DialogResult = DialogResult.Cancel;
+			Cancelbutton.Location = new Point(14, 238);
+			Cancelbutton.Margin = new Padding(4, 3, 4, 3);
+			Cancelbutton.Name = "Cancelbutton";
+			Cancelbutton.Size = new Size(88, 27);
+			Cancelbutton.TabIndex = 1;
+			Cancelbutton.Text = "Cancel";
+			Cancelbutton.UseVisualStyleBackColor = true;
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictureBox1.Location = new System.Drawing.Point(13, 13);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(259, 170);
-			this.pictureBox1.TabIndex = 2;
-			this.pictureBox1.TabStop = false;
-			this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
-			this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
-			this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
+			pictureBox1.BorderStyle = BorderStyle.FixedSingle;
+			pictureBox1.Location = new Point(15, 15);
+			pictureBox1.Margin = new Padding(4, 3, 4, 3);
+			pictureBox1.Name = "pictureBox1";
+			pictureBox1.Size = new Size(302, 196);
+			pictureBox1.TabIndex = 2;
+			pictureBox1.TabStop = false;
+			pictureBox1.MouseDown += PictureBox1_MouseDown;
+			pictureBox1.MouseMove += PictureBox1_MouseMove;
+			pictureBox1.MouseUp += PictureBox1_MouseUp;
 			// 
 			// Form3
 			// 
-			this.AcceptButton = this.OKbutton;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.Cancelbutton;
-			this.ClientSize = new System.Drawing.Size(284, 241);
-			this.Controls.Add(this.pictureBox1);
-			this.Controls.Add(this.Cancelbutton);
-			this.Controls.Add(this.OKbutton);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "Form3";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Screensaver: points color";
-			this.Load += new System.EventHandler(this.Form3_Load);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			this.ResumeLayout(false);
+			AcceptButton = OKbutton;
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			CancelButton = Cancelbutton;
+			ClientSize = new Size(331, 278);
+			Controls.Add(pictureBox1);
+			Controls.Add(Cancelbutton);
+			Controls.Add(OKbutton);
+			FormBorderStyle = FormBorderStyle.FixedDialog;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "Form3";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Screensaver: points color";
+			Load += Form3_Load;
+			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+			ResumeLayout(false);
 
 		}
 

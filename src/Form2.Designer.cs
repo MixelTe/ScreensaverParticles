@@ -1,4 +1,4 @@
-﻿namespace ScreenSaverConections
+﻿namespace ScreenSaverParticles
 {
 	partial class Form2
 	{
@@ -28,638 +28,560 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
+			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
-			this.DensityUnD = new System.Windows.Forms.NumericUpDown();
-			this.DensityLbl = new System.Windows.Forms.Label();
-			this.OkBtn = new System.Windows.Forms.Button();
-			this.ResetBtn = new System.Windows.Forms.Button();
-			this.PictureBoxGitHub = new System.Windows.Forms.PictureBox();
-			this.toolTipGitHub = new System.Windows.Forms.ToolTip(this.components);
-			this.BackgroundColorLbl = new System.Windows.Forms.Label();
-			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-			this.BackgroundColorPB = new System.Windows.Forms.PictureBox();
-			this.PointsGB = new System.Windows.Forms.GroupBox();
-			this.PointColorPB = new System.Windows.Forms.PictureBox();
-			this.PointColorLbl = new System.Windows.Forms.Label();
-			this.ChaoticUnD = new System.Windows.Forms.NumericUpDown();
-			this.ChaoticLbl = new System.Windows.Forms.Label();
-			this.RotateSpeedUnD = new System.Windows.Forms.NumericUpDown();
-			this.RotateSpeedLbl = new System.Windows.Forms.Label();
-			this.SpeedUnD = new System.Windows.Forms.NumericUpDown();
-			this.SpeedLbl = new System.Windows.Forms.Label();
-			this.PointRadiusUnD = new System.Windows.Forms.NumericUpDown();
-			this.PointRadiusLbl = new System.Windows.Forms.Label();
-			this.DrawPointsCB = new System.Windows.Forms.CheckBox();
-			this.ConnectionsGB = new System.Windows.Forms.GroupBox();
-			this.ConnectionsColorPB = new System.Windows.Forms.PictureBox();
-			this.ConnectionsColorLbl = new System.Windows.Forms.Label();
-			this.ConnectionsAlphaUnd = new System.Windows.Forms.NumericUpDown();
-			this.ConnectionsAlphaLbl = new System.Windows.Forms.Label();
-			this.LineWidthUnD = new System.Windows.Forms.NumericUpDown();
-			this.LineWidthLbl = new System.Windows.Forms.Label();
-			this.ShadingUnD = new System.Windows.Forms.NumericUpDown();
-			this.ShadingLbl = new System.Windows.Forms.Label();
-			this.DistanceUnD = new System.Windows.Forms.NumericUpDown();
-			this.DistanceLbl = new System.Windows.Forms.Label();
-			this.DrawConCB = new System.Windows.Forms.CheckBox();
-			this.ClockModeCB = new System.Windows.Forms.CheckBox();
-			this.ClockSizeUnD = new System.Windows.Forms.NumericUpDown();
-			this.ClockSizeLbl = new System.Windows.Forms.Label();
-			this.ClockModeGB = new System.Windows.Forms.GroupBox();
-			((System.ComponentModel.ISupportInitialize)(this.DensityUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.PictureBoxGitHub)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.BackgroundColorPB)).BeginInit();
-			this.PointsGB.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.PointColorPB)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ChaoticUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.RotateSpeedUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.SpeedUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.PointRadiusUnD)).BeginInit();
-			this.ConnectionsGB.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ConnectionsColorPB)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ConnectionsAlphaUnd)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.LineWidthUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ClockSizeUnD)).BeginInit();
-			this.ClockModeGB.SuspendLayout();
-			this.SuspendLayout();
+			DensityUnD = new NumericUpDown();
+			DensityLbl = new Label();
+			OkBtn = new Button();
+			ResetBtn = new Button();
+			PictureBoxGitHub = new PictureBox();
+			toolTipGitHub = new ToolTip(components);
+			BackgroundColorLbl = new Label();
+			colorDialog1 = new ColorDialog();
+			BackgroundColorPB = new PictureBox();
+			PointsGB = new GroupBox();
+			PointColorPB = new PictureBox();
+			PointColorLbl = new Label();
+			ChaoticUnD = new NumericUpDown();
+			ChaoticLbl = new Label();
+			RotateSpeedUnD = new NumericUpDown();
+			RotateSpeedLbl = new Label();
+			SpeedUnD = new NumericUpDown();
+			SpeedLbl = new Label();
+			PointRadiusUnD = new NumericUpDown();
+			PointRadiusLbl = new Label();
+			DrawPointsCB = new CheckBox();
+			ConnectionsGB = new GroupBox();
+			ConnectionsColorPB = new PictureBox();
+			ConnectionsColorLbl = new Label();
+			ConnectionsAlphaUnd = new NumericUpDown();
+			ConnectionsAlphaLbl = new Label();
+			LineWidthUnD = new NumericUpDown();
+			LineWidthLbl = new Label();
+			ShadingUnD = new NumericUpDown();
+			ShadingLbl = new Label();
+			DistanceUnD = new NumericUpDown();
+			DistanceLbl = new Label();
+			DrawConCB = new CheckBox();
+			ClockModeCB = new CheckBox();
+			ClockSizeUnD = new NumericUpDown();
+			ClockSizeLbl = new Label();
+			ClockModeGB = new GroupBox();
+			((System.ComponentModel.ISupportInitialize)DensityUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)PictureBoxGitHub).BeginInit();
+			((System.ComponentModel.ISupportInitialize)BackgroundColorPB).BeginInit();
+			PointsGB.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)PointColorPB).BeginInit();
+			((System.ComponentModel.ISupportInitialize)ChaoticUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)RotateSpeedUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)SpeedUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)PointRadiusUnD).BeginInit();
+			ConnectionsGB.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)ConnectionsColorPB).BeginInit();
+			((System.ComponentModel.ISupportInitialize)ConnectionsAlphaUnd).BeginInit();
+			((System.ComponentModel.ISupportInitialize)LineWidthUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)ShadingUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)DistanceUnD).BeginInit();
+			((System.ComponentModel.ISupportInitialize)ClockSizeUnD).BeginInit();
+			ClockModeGB.SuspendLayout();
+			SuspendLayout();
 			// 
 			// DensityUnD
 			// 
-			this.DensityUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.DensityUnD.Location = new System.Drawing.Point(361, 12);
-			this.DensityUnD.Maximum = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-			this.DensityUnD.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.DensityUnD.Name = "DensityUnD";
-			this.DensityUnD.Size = new System.Drawing.Size(95, 20);
-			this.DensityUnD.TabIndex = 0;
-			this.DensityUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.DensityUnD.ValueChanged += new System.EventHandler(this.DensityUnD_ValueChanged);
+			DensityUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			DensityUnD.Location = new Point(421, 14);
+			DensityUnD.Margin = new Padding(4, 3, 4, 3);
+			DensityUnD.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
+			DensityUnD.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			DensityUnD.Name = "DensityUnD";
+			DensityUnD.Size = new Size(111, 23);
+			DensityUnD.TabIndex = 0;
+			DensityUnD.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			DensityUnD.ValueChanged += DensityUnD_ValueChanged;
 			// 
 			// DensityLbl
 			// 
-			this.DensityLbl.AutoSize = true;
-			this.DensityLbl.Location = new System.Drawing.Point(24, 19);
-			this.DensityLbl.Name = "DensityLbl";
-			this.DensityLbl.Size = new System.Drawing.Size(42, 13);
-			this.DensityLbl.TabIndex = 1;
-			this.DensityLbl.Text = "Density";
+			DensityLbl.AutoSize = true;
+			DensityLbl.Location = new Point(28, 22);
+			DensityLbl.Margin = new Padding(4, 0, 4, 0);
+			DensityLbl.Name = "DensityLbl";
+			DensityLbl.Size = new Size(81, 15);
+			DensityLbl.TabIndex = 1;
+			DensityLbl.Text = "Points density";
 			// 
 			// OkBtn
 			// 
-			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OkBtn.Location = new System.Drawing.Point(311, 337);
-			this.OkBtn.Name = "OkBtn";
-			this.OkBtn.Size = new System.Drawing.Size(75, 23);
-			this.OkBtn.TabIndex = 5;
-			this.OkBtn.Text = "OK";
-			this.OkBtn.UseVisualStyleBackColor = true;
-			this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
+			OkBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			OkBtn.Location = new Point(363, 389);
+			OkBtn.Margin = new Padding(4, 3, 4, 3);
+			OkBtn.Name = "OkBtn";
+			OkBtn.Size = new Size(88, 27);
+			OkBtn.TabIndex = 5;
+			OkBtn.Text = "OK";
+			OkBtn.UseVisualStyleBackColor = true;
+			OkBtn.Click += OkBtn_Click;
 			// 
 			// ResetBtn
 			// 
-			this.ResetBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.ResetBtn.Location = new System.Drawing.Point(85, 337);
-			this.ResetBtn.Name = "ResetBtn";
-			this.ResetBtn.Size = new System.Drawing.Size(75, 23);
-			this.ResetBtn.TabIndex = 4;
-			this.ResetBtn.Text = "Reset";
-			this.ResetBtn.UseVisualStyleBackColor = true;
-			this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
+			ResetBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			ResetBtn.Location = new Point(99, 389);
+			ResetBtn.Margin = new Padding(4, 3, 4, 3);
+			ResetBtn.Name = "ResetBtn";
+			ResetBtn.Size = new Size(88, 27);
+			ResetBtn.TabIndex = 4;
+			ResetBtn.Text = "Reset";
+			ResetBtn.UseVisualStyleBackColor = true;
+			ResetBtn.Click += ResetBtn_Click;
 			// 
 			// PictureBoxGitHub
 			// 
-			this.PictureBoxGitHub.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.PictureBoxGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.PictureBoxGitHub.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxGitHub.Image")));
-			this.PictureBoxGitHub.InitialImage = null;
-			this.PictureBoxGitHub.Location = new System.Drawing.Point(222, 337);
-			this.PictureBoxGitHub.Name = "PictureBoxGitHub";
-			this.PictureBoxGitHub.Size = new System.Drawing.Size(23, 23);
-			this.PictureBoxGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-			this.PictureBoxGitHub.TabIndex = 4;
-			this.PictureBoxGitHub.TabStop = false;
-			this.toolTipGitHub.SetToolTip(this.PictureBoxGitHub, "Source Code");
-			this.PictureBoxGitHub.Click += new System.EventHandler(this.PictureBoxGitHub_Click);
+			PictureBoxGitHub.Anchor = AnchorStyles.Bottom;
+			PictureBoxGitHub.Cursor = Cursors.Hand;
+			PictureBoxGitHub.Image = (Image)resources.GetObject("PictureBoxGitHub.Image");
+			PictureBoxGitHub.InitialImage = null;
+			PictureBoxGitHub.Location = new Point(259, 389);
+			PictureBoxGitHub.Margin = new Padding(4, 3, 4, 3);
+			PictureBoxGitHub.Name = "PictureBoxGitHub";
+			PictureBoxGitHub.Size = new Size(27, 27);
+			PictureBoxGitHub.SizeMode = PictureBoxSizeMode.Zoom;
+			PictureBoxGitHub.TabIndex = 4;
+			PictureBoxGitHub.TabStop = false;
+			toolTipGitHub.SetToolTip(PictureBoxGitHub, "Source Code");
+			PictureBoxGitHub.Click += PictureBoxGitHub_Click;
 			// 
 			// toolTipGitHub
 			// 
-			this.toolTipGitHub.AutoPopDelay = 5000;
-			this.toolTipGitHub.InitialDelay = 200;
-			this.toolTipGitHub.ReshowDelay = 100;
+			toolTipGitHub.AutoPopDelay = 5000;
+			toolTipGitHub.InitialDelay = 200;
+			toolTipGitHub.ReshowDelay = 100;
 			// 
 			// BackgroundColorLbl
 			// 
-			this.BackgroundColorLbl.AutoSize = true;
-			this.BackgroundColorLbl.Location = new System.Drawing.Point(24, 42);
-			this.BackgroundColorLbl.Name = "BackgroundColorLbl";
-			this.BackgroundColorLbl.Size = new System.Drawing.Size(91, 13);
-			this.BackgroundColorLbl.TabIndex = 5;
-			this.BackgroundColorLbl.Text = "Background color";
+			BackgroundColorLbl.AutoSize = true;
+			BackgroundColorLbl.Location = new Point(28, 48);
+			BackgroundColorLbl.Margin = new Padding(4, 0, 4, 0);
+			BackgroundColorLbl.Name = "BackgroundColorLbl";
+			BackgroundColorLbl.Size = new Size(101, 15);
+			BackgroundColorLbl.TabIndex = 5;
+			BackgroundColorLbl.Text = "Background color";
 			// 
 			// colorDialog1
 			// 
-			this.colorDialog1.FullOpen = true;
+			colorDialog1.FullOpen = true;
 			// 
 			// BackgroundColorPB
 			// 
-			this.BackgroundColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BackgroundColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.BackgroundColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.BackgroundColorPB.Location = new System.Drawing.Point(361, 38);
-			this.BackgroundColorPB.Name = "BackgroundColorPB";
-			this.BackgroundColorPB.Size = new System.Drawing.Size(95, 17);
-			this.BackgroundColorPB.TabIndex = 7;
-			this.BackgroundColorPB.TabStop = false;
-			this.BackgroundColorPB.Click += new System.EventHandler(this.BackgroundColorPB_Click);
+			BackgroundColorPB.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			BackgroundColorPB.BorderStyle = BorderStyle.FixedSingle;
+			BackgroundColorPB.Cursor = Cursors.Hand;
+			BackgroundColorPB.Location = new Point(421, 44);
+			BackgroundColorPB.Margin = new Padding(4, 3, 4, 3);
+			BackgroundColorPB.Name = "BackgroundColorPB";
+			BackgroundColorPB.Size = new Size(110, 19);
+			BackgroundColorPB.TabIndex = 7;
+			BackgroundColorPB.TabStop = false;
+			BackgroundColorPB.Click += BackgroundColorPB_Click;
 			// 
 			// PointsGB
 			// 
-			this.PointsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.PointsGB.Controls.Add(this.PointColorPB);
-			this.PointsGB.Controls.Add(this.PointColorLbl);
-			this.PointsGB.Controls.Add(this.ChaoticUnD);
-			this.PointsGB.Controls.Add(this.ChaoticLbl);
-			this.PointsGB.Controls.Add(this.RotateSpeedUnD);
-			this.PointsGB.Controls.Add(this.RotateSpeedLbl);
-			this.PointsGB.Controls.Add(this.SpeedUnD);
-			this.PointsGB.Controls.Add(this.SpeedLbl);
-			this.PointsGB.Controls.Add(this.PointRadiusUnD);
-			this.PointsGB.Controls.Add(this.PointRadiusLbl);
-			this.PointsGB.Controls.Add(this.DrawPointsCB);
-			this.PointsGB.Location = new System.Drawing.Point(12, 145);
-			this.PointsGB.Name = "PointsGB";
-			this.PointsGB.Size = new System.Drawing.Size(220, 176);
-			this.PointsGB.TabIndex = 2;
-			this.PointsGB.TabStop = false;
-			this.PointsGB.Text = "Points";
+			PointsGB.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			PointsGB.Controls.Add(PointColorPB);
+			PointsGB.Controls.Add(PointColorLbl);
+			PointsGB.Controls.Add(ChaoticUnD);
+			PointsGB.Controls.Add(ChaoticLbl);
+			PointsGB.Controls.Add(RotateSpeedUnD);
+			PointsGB.Controls.Add(RotateSpeedLbl);
+			PointsGB.Controls.Add(SpeedUnD);
+			PointsGB.Controls.Add(SpeedLbl);
+			PointsGB.Controls.Add(PointRadiusUnD);
+			PointsGB.Controls.Add(PointRadiusLbl);
+			PointsGB.Controls.Add(DrawPointsCB);
+			PointsGB.Location = new Point(14, 167);
+			PointsGB.Margin = new Padding(4, 3, 4, 3);
+			PointsGB.Name = "PointsGB";
+			PointsGB.Padding = new Padding(4, 3, 4, 3);
+			PointsGB.Size = new Size(257, 203);
+			PointsGB.TabIndex = 2;
+			PointsGB.TabStop = false;
+			PointsGB.Text = "Points";
 			// 
 			// PointColorPB
 			// 
-			this.PointColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.PointColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PointColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.PointColorPB.Location = new System.Drawing.Point(123, 146);
-			this.PointColorPB.Name = "PointColorPB";
-			this.PointColorPB.Size = new System.Drawing.Size(95, 17);
-			this.PointColorPB.TabIndex = 16;
-			this.PointColorPB.TabStop = false;
-			this.PointColorPB.Click += new System.EventHandler(this.PointColorPB_Click);
+			PointColorPB.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			PointColorPB.BorderStyle = BorderStyle.FixedSingle;
+			PointColorPB.Cursor = Cursors.Hand;
+			PointColorPB.Location = new Point(144, 168);
+			PointColorPB.Margin = new Padding(4, 3, 4, 3);
+			PointColorPB.Name = "PointColorPB";
+			PointColorPB.Size = new Size(110, 19);
+			PointColorPB.TabIndex = 16;
+			PointColorPB.TabStop = false;
+			PointColorPB.Click += PointColorPB_Click;
 			// 
 			// PointColorLbl
 			// 
-			this.PointColorLbl.AutoSize = true;
-			this.PointColorLbl.Location = new System.Drawing.Point(10, 146);
-			this.PointColorLbl.Name = "PointColorLbl";
-			this.PointColorLbl.Size = new System.Drawing.Size(31, 13);
-			this.PointColorLbl.TabIndex = 15;
-			this.PointColorLbl.Text = "Color";
+			PointColorLbl.AutoSize = true;
+			PointColorLbl.Location = new Point(12, 168);
+			PointColorLbl.Margin = new Padding(4, 0, 4, 0);
+			PointColorLbl.Name = "PointColorLbl";
+			PointColorLbl.Size = new Size(36, 15);
+			PointColorLbl.TabIndex = 15;
+			PointColorLbl.Text = "Color";
 			// 
 			// ChaoticUnD
 			// 
-			this.ChaoticUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ChaoticUnD.Location = new System.Drawing.Point(123, 119);
-			this.ChaoticUnD.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.ChaoticUnD.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.ChaoticUnD.Name = "ChaoticUnD";
-			this.ChaoticUnD.Size = new System.Drawing.Size(95, 20);
-			this.ChaoticUnD.TabIndex = 4;
-			this.ChaoticUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.ChaoticUnD.ValueChanged += new System.EventHandler(this.ChaoticUnD_ValueChanged);
+			ChaoticUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			ChaoticUnD.Location = new Point(144, 137);
+			ChaoticUnD.Margin = new Padding(4, 3, 4, 3);
+			ChaoticUnD.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+			ChaoticUnD.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			ChaoticUnD.Name = "ChaoticUnD";
+			ChaoticUnD.Size = new Size(111, 23);
+			ChaoticUnD.TabIndex = 4;
+			ChaoticUnD.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			ChaoticUnD.ValueChanged += ChaoticUnD_ValueChanged;
 			// 
 			// ChaoticLbl
 			// 
-			this.ChaoticLbl.AutoSize = true;
-			this.ChaoticLbl.Location = new System.Drawing.Point(10, 121);
-			this.ChaoticLbl.Name = "ChaoticLbl";
-			this.ChaoticLbl.Size = new System.Drawing.Size(43, 13);
-			this.ChaoticLbl.TabIndex = 9;
-			this.ChaoticLbl.Text = "Chaotic";
+			ChaoticLbl.AutoSize = true;
+			ChaoticLbl.Location = new Point(12, 140);
+			ChaoticLbl.Margin = new Padding(4, 0, 4, 0);
+			ChaoticLbl.Name = "ChaoticLbl";
+			ChaoticLbl.Size = new Size(48, 15);
+			ChaoticLbl.TabIndex = 9;
+			ChaoticLbl.Text = "Chaotic";
 			// 
 			// RotateSpeedUnD
 			// 
-			this.RotateSpeedUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.RotateSpeedUnD.DecimalPlaces = 2;
-			this.RotateSpeedUnD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.RotateSpeedUnD.Location = new System.Drawing.Point(123, 93);
-			this.RotateSpeedUnD.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.RotateSpeedUnD.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-			this.RotateSpeedUnD.Name = "RotateSpeedUnD";
-			this.RotateSpeedUnD.Size = new System.Drawing.Size(95, 20);
-			this.RotateSpeedUnD.TabIndex = 3;
-			this.RotateSpeedUnD.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.RotateSpeedUnD.ValueChanged += new System.EventHandler(this.RotateSpeedUnD_ValueChanged);
+			RotateSpeedUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			RotateSpeedUnD.DecimalPlaces = 2;
+			RotateSpeedUnD.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+			RotateSpeedUnD.Location = new Point(144, 107);
+			RotateSpeedUnD.Margin = new Padding(4, 3, 4, 3);
+			RotateSpeedUnD.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+			RotateSpeedUnD.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
+			RotateSpeedUnD.Name = "RotateSpeedUnD";
+			RotateSpeedUnD.Size = new Size(111, 23);
+			RotateSpeedUnD.TabIndex = 3;
+			RotateSpeedUnD.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			RotateSpeedUnD.ValueChanged += RotateSpeedUnD_ValueChanged;
 			// 
 			// RotateSpeedLbl
 			// 
-			this.RotateSpeedLbl.AutoSize = true;
-			this.RotateSpeedLbl.Location = new System.Drawing.Point(10, 95);
-			this.RotateSpeedLbl.Name = "RotateSpeedLbl";
-			this.RotateSpeedLbl.Size = new System.Drawing.Size(71, 13);
-			this.RotateSpeedLbl.TabIndex = 13;
-			this.RotateSpeedLbl.Text = "Rotate speed";
+			RotateSpeedLbl.AutoSize = true;
+			RotateSpeedLbl.Location = new Point(12, 110);
+			RotateSpeedLbl.Margin = new Padding(4, 0, 4, 0);
+			RotateSpeedLbl.Name = "RotateSpeedLbl";
+			RotateSpeedLbl.Size = new Size(75, 15);
+			RotateSpeedLbl.TabIndex = 13;
+			RotateSpeedLbl.Text = "Rotate speed";
 			// 
 			// SpeedUnD
 			// 
-			this.SpeedUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.SpeedUnD.DecimalPlaces = 1;
-			this.SpeedUnD.Location = new System.Drawing.Point(123, 67);
-			this.SpeedUnD.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.SpeedUnD.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-			this.SpeedUnD.Name = "SpeedUnD";
-			this.SpeedUnD.Size = new System.Drawing.Size(95, 20);
-			this.SpeedUnD.TabIndex = 2;
-			this.SpeedUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.SpeedUnD.ValueChanged += new System.EventHandler(this.SpeedUnD_ValueChanged);
+			SpeedUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			SpeedUnD.DecimalPlaces = 1;
+			SpeedUnD.Location = new Point(144, 77);
+			SpeedUnD.Margin = new Padding(4, 3, 4, 3);
+			SpeedUnD.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+			SpeedUnD.Minimum = new decimal(new int[] { 5, 0, 0, 131072 });
+			SpeedUnD.Name = "SpeedUnD";
+			SpeedUnD.Size = new Size(111, 23);
+			SpeedUnD.TabIndex = 2;
+			SpeedUnD.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			SpeedUnD.ValueChanged += SpeedUnD_ValueChanged;
 			// 
 			// SpeedLbl
 			// 
-			this.SpeedLbl.AutoSize = true;
-			this.SpeedLbl.Location = new System.Drawing.Point(10, 69);
-			this.SpeedLbl.Name = "SpeedLbl";
-			this.SpeedLbl.Size = new System.Drawing.Size(38, 13);
-			this.SpeedLbl.TabIndex = 11;
-			this.SpeedLbl.Text = "Speed";
+			SpeedLbl.AutoSize = true;
+			SpeedLbl.Location = new Point(12, 80);
+			SpeedLbl.Margin = new Padding(4, 0, 4, 0);
+			SpeedLbl.Name = "SpeedLbl";
+			SpeedLbl.Size = new Size(39, 15);
+			SpeedLbl.TabIndex = 11;
+			SpeedLbl.Text = "Speed";
 			// 
 			// PointRadiusUnD
 			// 
-			this.PointRadiusUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.PointRadiusUnD.Location = new System.Drawing.Point(123, 41);
-			this.PointRadiusUnD.Maximum = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-			this.PointRadiusUnD.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.PointRadiusUnD.Name = "PointRadiusUnD";
-			this.PointRadiusUnD.Size = new System.Drawing.Size(95, 20);
-			this.PointRadiusUnD.TabIndex = 1;
-			this.PointRadiusUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.PointRadiusUnD.ValueChanged += new System.EventHandler(this.PointRadiusUnD_ValueChanged);
+			PointRadiusUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			PointRadiusUnD.Location = new Point(144, 47);
+			PointRadiusUnD.Margin = new Padding(4, 3, 4, 3);
+			PointRadiusUnD.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
+			PointRadiusUnD.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			PointRadiusUnD.Name = "PointRadiusUnD";
+			PointRadiusUnD.Size = new Size(111, 23);
+			PointRadiusUnD.TabIndex = 1;
+			PointRadiusUnD.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			PointRadiusUnD.ValueChanged += PointRadiusUnD_ValueChanged;
 			// 
 			// PointRadiusLbl
 			// 
-			this.PointRadiusLbl.AutoSize = true;
-			this.PointRadiusLbl.Location = new System.Drawing.Point(10, 43);
-			this.PointRadiusLbl.Name = "PointRadiusLbl";
-			this.PointRadiusLbl.Size = new System.Drawing.Size(40, 13);
-			this.PointRadiusLbl.TabIndex = 9;
-			this.PointRadiusLbl.Text = "Radius";
+			PointRadiusLbl.AutoSize = true;
+			PointRadiusLbl.Location = new Point(12, 50);
+			PointRadiusLbl.Margin = new Padding(4, 0, 4, 0);
+			PointRadiusLbl.Name = "PointRadiusLbl";
+			PointRadiusLbl.Size = new Size(42, 15);
+			PointRadiusLbl.TabIndex = 9;
+			PointRadiusLbl.Text = "Radius";
 			// 
 			// DrawPointsCB
 			// 
-			this.DrawPointsCB.AutoSize = true;
-			this.DrawPointsCB.Location = new System.Drawing.Point(13, 19);
-			this.DrawPointsCB.Name = "DrawPointsCB";
-			this.DrawPointsCB.Size = new System.Drawing.Size(82, 17);
-			this.DrawPointsCB.TabIndex = 0;
-			this.DrawPointsCB.Text = "Draw points";
-			this.DrawPointsCB.UseVisualStyleBackColor = true;
-			this.DrawPointsCB.CheckedChanged += new System.EventHandler(this.DrawPointsCB_CheckedChanged);
+			DrawPointsCB.AutoSize = true;
+			DrawPointsCB.Location = new Point(15, 22);
+			DrawPointsCB.Margin = new Padding(4, 3, 4, 3);
+			DrawPointsCB.Name = "DrawPointsCB";
+			DrawPointsCB.Size = new Size(89, 19);
+			DrawPointsCB.TabIndex = 0;
+			DrawPointsCB.Text = "Draw points";
+			DrawPointsCB.UseVisualStyleBackColor = true;
+			DrawPointsCB.CheckedChanged += DrawPointsCB_CheckedChanged;
 			// 
 			// ConnectionsGB
 			// 
-			this.ConnectionsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.ConnectionsGB.Controls.Add(this.ConnectionsColorPB);
-			this.ConnectionsGB.Controls.Add(this.ConnectionsColorLbl);
-			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaUnd);
-			this.ConnectionsGB.Controls.Add(this.ConnectionsAlphaLbl);
-			this.ConnectionsGB.Controls.Add(this.LineWidthUnD);
-			this.ConnectionsGB.Controls.Add(this.LineWidthLbl);
-			this.ConnectionsGB.Controls.Add(this.ShadingUnD);
-			this.ConnectionsGB.Controls.Add(this.ShadingLbl);
-			this.ConnectionsGB.Controls.Add(this.DistanceUnD);
-			this.ConnectionsGB.Controls.Add(this.DistanceLbl);
-			this.ConnectionsGB.Controls.Add(this.DrawConCB);
-			this.ConnectionsGB.Location = new System.Drawing.Point(238, 145);
-			this.ConnectionsGB.Name = "ConnectionsGB";
-			this.ConnectionsGB.Size = new System.Drawing.Size(220, 176);
-			this.ConnectionsGB.TabIndex = 3;
-			this.ConnectionsGB.TabStop = false;
-			this.ConnectionsGB.Text = "Connections";
+			ConnectionsGB.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			ConnectionsGB.Controls.Add(ConnectionsColorPB);
+			ConnectionsGB.Controls.Add(ConnectionsColorLbl);
+			ConnectionsGB.Controls.Add(ConnectionsAlphaUnd);
+			ConnectionsGB.Controls.Add(ConnectionsAlphaLbl);
+			ConnectionsGB.Controls.Add(LineWidthUnD);
+			ConnectionsGB.Controls.Add(LineWidthLbl);
+			ConnectionsGB.Controls.Add(ShadingUnD);
+			ConnectionsGB.Controls.Add(ShadingLbl);
+			ConnectionsGB.Controls.Add(DistanceUnD);
+			ConnectionsGB.Controls.Add(DistanceLbl);
+			ConnectionsGB.Controls.Add(DrawConCB);
+			ConnectionsGB.Location = new Point(278, 167);
+			ConnectionsGB.Margin = new Padding(4, 3, 4, 3);
+			ConnectionsGB.Name = "ConnectionsGB";
+			ConnectionsGB.Padding = new Padding(4, 3, 4, 3);
+			ConnectionsGB.Size = new Size(257, 203);
+			ConnectionsGB.TabIndex = 3;
+			ConnectionsGB.TabStop = false;
+			ConnectionsGB.Text = "Connections";
 			// 
 			// ConnectionsColorPB
 			// 
-			this.ConnectionsColorPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ConnectionsColorPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ConnectionsColorPB.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.ConnectionsColorPB.Location = new System.Drawing.Point(123, 146);
-			this.ConnectionsColorPB.Name = "ConnectionsColorPB";
-			this.ConnectionsColorPB.Size = new System.Drawing.Size(95, 17);
-			this.ConnectionsColorPB.TabIndex = 16;
-			this.ConnectionsColorPB.TabStop = false;
-			this.ConnectionsColorPB.Click += new System.EventHandler(this.ConnectionsColorPB_Click);
+			ConnectionsColorPB.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			ConnectionsColorPB.BorderStyle = BorderStyle.FixedSingle;
+			ConnectionsColorPB.Cursor = Cursors.Hand;
+			ConnectionsColorPB.Location = new Point(144, 168);
+			ConnectionsColorPB.Margin = new Padding(4, 3, 4, 3);
+			ConnectionsColorPB.Name = "ConnectionsColorPB";
+			ConnectionsColorPB.Size = new Size(110, 19);
+			ConnectionsColorPB.TabIndex = 16;
+			ConnectionsColorPB.TabStop = false;
+			ConnectionsColorPB.Click += ConnectionsColorPB_Click;
 			// 
 			// ConnectionsColorLbl
 			// 
-			this.ConnectionsColorLbl.AutoSize = true;
-			this.ConnectionsColorLbl.Location = new System.Drawing.Point(10, 146);
-			this.ConnectionsColorLbl.Name = "ConnectionsColorLbl";
-			this.ConnectionsColorLbl.Size = new System.Drawing.Size(31, 13);
-			this.ConnectionsColorLbl.TabIndex = 15;
-			this.ConnectionsColorLbl.Text = "Color";
+			ConnectionsColorLbl.AutoSize = true;
+			ConnectionsColorLbl.Location = new Point(12, 168);
+			ConnectionsColorLbl.Margin = new Padding(4, 0, 4, 0);
+			ConnectionsColorLbl.Name = "ConnectionsColorLbl";
+			ConnectionsColorLbl.Size = new Size(36, 15);
+			ConnectionsColorLbl.TabIndex = 15;
+			ConnectionsColorLbl.Text = "Color";
 			// 
 			// ConnectionsAlphaUnd
 			// 
-			this.ConnectionsAlphaUnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ConnectionsAlphaUnd.DecimalPlaces = 2;
-			this.ConnectionsAlphaUnd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.ConnectionsAlphaUnd.Location = new System.Drawing.Point(123, 119);
-			this.ConnectionsAlphaUnd.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.ConnectionsAlphaUnd.Name = "ConnectionsAlphaUnd";
-			this.ConnectionsAlphaUnd.Size = new System.Drawing.Size(95, 20);
-			this.ConnectionsAlphaUnd.TabIndex = 4;
-			this.ConnectionsAlphaUnd.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.ConnectionsAlphaUnd.ValueChanged += new System.EventHandler(this.ConnectionsAlphaUnd_ValueChanged);
+			ConnectionsAlphaUnd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			ConnectionsAlphaUnd.DecimalPlaces = 2;
+			ConnectionsAlphaUnd.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+			ConnectionsAlphaUnd.Location = new Point(144, 137);
+			ConnectionsAlphaUnd.Margin = new Padding(4, 3, 4, 3);
+			ConnectionsAlphaUnd.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+			ConnectionsAlphaUnd.Name = "ConnectionsAlphaUnd";
+			ConnectionsAlphaUnd.Size = new Size(111, 23);
+			ConnectionsAlphaUnd.TabIndex = 4;
+			ConnectionsAlphaUnd.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			ConnectionsAlphaUnd.ValueChanged += ConnectionsAlphaUnd_ValueChanged;
 			// 
 			// ConnectionsAlphaLbl
 			// 
-			this.ConnectionsAlphaLbl.AutoSize = true;
-			this.ConnectionsAlphaLbl.Location = new System.Drawing.Point(10, 121);
-			this.ConnectionsAlphaLbl.Name = "ConnectionsAlphaLbl";
-			this.ConnectionsAlphaLbl.Size = new System.Drawing.Size(60, 13);
-			this.ConnectionsAlphaLbl.TabIndex = 9;
-			this.ConnectionsAlphaLbl.Text = "Color alpha";
+			ConnectionsAlphaLbl.AutoSize = true;
+			ConnectionsAlphaLbl.Location = new Point(12, 140);
+			ConnectionsAlphaLbl.Margin = new Padding(4, 0, 4, 0);
+			ConnectionsAlphaLbl.Name = "ConnectionsAlphaLbl";
+			ConnectionsAlphaLbl.Size = new Size(68, 15);
+			ConnectionsAlphaLbl.TabIndex = 9;
+			ConnectionsAlphaLbl.Text = "Color alpha";
 			// 
 			// LineWidthUnD
 			// 
-			this.LineWidthUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.LineWidthUnD.Location = new System.Drawing.Point(123, 93);
-			this.LineWidthUnD.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.LineWidthUnD.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.LineWidthUnD.Name = "LineWidthUnD";
-			this.LineWidthUnD.Size = new System.Drawing.Size(95, 20);
-			this.LineWidthUnD.TabIndex = 3;
-			this.LineWidthUnD.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.LineWidthUnD.ValueChanged += new System.EventHandler(this.LineWidthUnD_ValueChanged);
+			LineWidthUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			LineWidthUnD.Location = new Point(144, 107);
+			LineWidthUnD.Margin = new Padding(4, 3, 4, 3);
+			LineWidthUnD.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+			LineWidthUnD.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			LineWidthUnD.Name = "LineWidthUnD";
+			LineWidthUnD.Size = new Size(111, 23);
+			LineWidthUnD.TabIndex = 3;
+			LineWidthUnD.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			LineWidthUnD.ValueChanged += LineWidthUnD_ValueChanged;
 			// 
 			// LineWidthLbl
 			// 
-			this.LineWidthLbl.AutoSize = true;
-			this.LineWidthLbl.Location = new System.Drawing.Point(10, 95);
-			this.LineWidthLbl.Name = "LineWidthLbl";
-			this.LineWidthLbl.Size = new System.Drawing.Size(55, 13);
-			this.LineWidthLbl.TabIndex = 13;
-			this.LineWidthLbl.Text = "Line width";
+			LineWidthLbl.AutoSize = true;
+			LineWidthLbl.Location = new Point(12, 110);
+			LineWidthLbl.Margin = new Padding(4, 0, 4, 0);
+			LineWidthLbl.Name = "LineWidthLbl";
+			LineWidthLbl.Size = new Size(62, 15);
+			LineWidthLbl.TabIndex = 13;
+			LineWidthLbl.Text = "Line width";
 			// 
 			// ShadingUnD
 			// 
-			this.ShadingUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ShadingUnD.InterceptArrowKeys = false;
-			this.ShadingUnD.Location = new System.Drawing.Point(123, 67);
-			this.ShadingUnD.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.ShadingUnD.Name = "ShadingUnD";
-			this.ShadingUnD.Size = new System.Drawing.Size(95, 20);
-			this.ShadingUnD.TabIndex = 2;
-			this.ShadingUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.ShadingUnD.ValueChanged += new System.EventHandler(this.ShadingUnD_ValueChanged);
+			ShadingUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			ShadingUnD.InterceptArrowKeys = false;
+			ShadingUnD.Location = new Point(144, 77);
+			ShadingUnD.Margin = new Padding(4, 3, 4, 3);
+			ShadingUnD.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+			ShadingUnD.Name = "ShadingUnD";
+			ShadingUnD.Size = new Size(111, 23);
+			ShadingUnD.TabIndex = 2;
+			ShadingUnD.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			ShadingUnD.ValueChanged += ShadingUnD_ValueChanged;
 			// 
 			// ShadingLbl
 			// 
-			this.ShadingLbl.AutoSize = true;
-			this.ShadingLbl.Location = new System.Drawing.Point(10, 69);
-			this.ShadingLbl.Name = "ShadingLbl";
-			this.ShadingLbl.Size = new System.Drawing.Size(69, 13);
-			this.ShadingLbl.TabIndex = 11;
-			this.ShadingLbl.Text = "Shading start";
+			ShadingLbl.AutoSize = true;
+			ShadingLbl.Location = new Point(12, 80);
+			ShadingLbl.Margin = new Padding(4, 0, 4, 0);
+			ShadingLbl.Name = "ShadingLbl";
+			ShadingLbl.Size = new Size(76, 15);
+			ShadingLbl.TabIndex = 11;
+			ShadingLbl.Text = "Shading start";
 			// 
 			// DistanceUnD
 			// 
-			this.DistanceUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.DistanceUnD.Location = new System.Drawing.Point(123, 41);
-			this.DistanceUnD.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-			this.DistanceUnD.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.DistanceUnD.Name = "DistanceUnD";
-			this.DistanceUnD.Size = new System.Drawing.Size(95, 20);
-			this.DistanceUnD.TabIndex = 1;
-			this.DistanceUnD.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.DistanceUnD.ValueChanged += new System.EventHandler(this.DistanceUnD_ValueChanged);
+			DistanceUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			DistanceUnD.Location = new Point(144, 47);
+			DistanceUnD.Margin = new Padding(4, 3, 4, 3);
+			DistanceUnD.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+			DistanceUnD.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+			DistanceUnD.Name = "DistanceUnD";
+			DistanceUnD.Size = new Size(111, 23);
+			DistanceUnD.TabIndex = 1;
+			DistanceUnD.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			DistanceUnD.ValueChanged += DistanceUnD_ValueChanged;
 			// 
 			// DistanceLbl
 			// 
-			this.DistanceLbl.AutoSize = true;
-			this.DistanceLbl.Location = new System.Drawing.Point(10, 43);
-			this.DistanceLbl.Name = "DistanceLbl";
-			this.DistanceLbl.Size = new System.Drawing.Size(59, 13);
-			this.DistanceLbl.TabIndex = 9;
-			this.DistanceLbl.Text = "Max length";
+			DistanceLbl.AutoSize = true;
+			DistanceLbl.Location = new Point(12, 50);
+			DistanceLbl.Margin = new Padding(4, 0, 4, 0);
+			DistanceLbl.Name = "DistanceLbl";
+			DistanceLbl.Size = new Size(67, 15);
+			DistanceLbl.TabIndex = 9;
+			DistanceLbl.Text = "Max length";
 			// 
 			// DrawConCB
 			// 
-			this.DrawConCB.AutoSize = true;
-			this.DrawConCB.Location = new System.Drawing.Point(13, 19);
-			this.DrawConCB.Name = "DrawConCB";
-			this.DrawConCB.Size = new System.Drawing.Size(112, 17);
-			this.DrawConCB.TabIndex = 0;
-			this.DrawConCB.Text = "Draw connections";
-			this.DrawConCB.UseVisualStyleBackColor = true;
-			this.DrawConCB.CheckedChanged += new System.EventHandler(this.DrawConCB_CheckedChanged);
+			DrawConCB.AutoSize = true;
+			DrawConCB.Location = new Point(15, 22);
+			DrawConCB.Margin = new Padding(4, 3, 4, 3);
+			DrawConCB.Name = "DrawConCB";
+			DrawConCB.Size = new Size(121, 19);
+			DrawConCB.TabIndex = 0;
+			DrawConCB.Text = "Draw connections";
+			DrawConCB.UseVisualStyleBackColor = true;
+			DrawConCB.CheckedChanged += DrawConCB_CheckedChanged;
 			// 
 			// ClockModeCB
 			// 
-			this.ClockModeCB.AutoSize = true;
-			this.ClockModeCB.Location = new System.Drawing.Point(13, 19);
-			this.ClockModeCB.Name = "ClockModeCB";
-			this.ClockModeCB.Size = new System.Drawing.Size(82, 17);
-			this.ClockModeCB.TabIndex = 0;
-			this.ClockModeCB.Text = "Clock mode";
-			this.ClockModeCB.UseVisualStyleBackColor = true;
-			this.ClockModeCB.CheckedChanged += new System.EventHandler(this.ClockModeCB_CheckedChanged);
+			ClockModeCB.AutoSize = true;
+			ClockModeCB.Location = new Point(15, 22);
+			ClockModeCB.Margin = new Padding(4, 3, 4, 3);
+			ClockModeCB.Name = "ClockModeCB";
+			ClockModeCB.Size = new Size(90, 19);
+			ClockModeCB.TabIndex = 0;
+			ClockModeCB.Text = "Clock mode";
+			ClockModeCB.UseVisualStyleBackColor = true;
+			ClockModeCB.CheckedChanged += ClockModeCB_CheckedChanged;
 			// 
 			// ClockSizeUnD
 			// 
-			this.ClockSizeUnD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.ClockSizeUnD.DecimalPlaces = 2;
-			this.ClockSizeUnD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-			this.ClockSizeUnD.Location = new System.Drawing.Point(349, 42);
-			this.ClockSizeUnD.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.ClockSizeUnD.Name = "ClockSizeUnD";
-			this.ClockSizeUnD.Size = new System.Drawing.Size(95, 20);
-			this.ClockSizeUnD.TabIndex = 1;
-			this.ClockSizeUnD.ValueChanged += new System.EventHandler(this.ClockSizeUnD_ValueChanged);
+			ClockSizeUnD.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			ClockSizeUnD.DecimalPlaces = 2;
+			ClockSizeUnD.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+			ClockSizeUnD.Location = new Point(407, 48);
+			ClockSizeUnD.Margin = new Padding(4, 3, 4, 3);
+			ClockSizeUnD.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+			ClockSizeUnD.Name = "ClockSizeUnD";
+			ClockSizeUnD.Size = new Size(111, 23);
+			ClockSizeUnD.TabIndex = 1;
+			ClockSizeUnD.ValueChanged += ClockSizeUnD_ValueChanged;
 			// 
 			// ClockSizeLbl
 			// 
-			this.ClockSizeLbl.AutoSize = true;
-			this.ClockSizeLbl.Location = new System.Drawing.Point(10, 44);
-			this.ClockSizeLbl.Name = "ClockSizeLbl";
-			this.ClockSizeLbl.Size = new System.Drawing.Size(55, 13);
-			this.ClockSizeLbl.TabIndex = 21;
-			this.ClockSizeLbl.Text = "Clock size";
+			ClockSizeLbl.AutoSize = true;
+			ClockSizeLbl.Location = new Point(12, 51);
+			ClockSizeLbl.Margin = new Padding(4, 0, 4, 0);
+			ClockSizeLbl.Name = "ClockSizeLbl";
+			ClockSizeLbl.Size = new Size(59, 15);
+			ClockSizeLbl.TabIndex = 21;
+			ClockSizeLbl.Text = "Clock size";
 			// 
 			// ClockModeGB
 			// 
-			this.ClockModeGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ClockModeGB.Controls.Add(this.ClockModeCB);
-			this.ClockModeGB.Controls.Add(this.ClockSizeUnD);
-			this.ClockModeGB.Controls.Add(this.ClockSizeLbl);
-			this.ClockModeGB.Location = new System.Drawing.Point(12, 63);
-			this.ClockModeGB.Name = "ClockModeGB";
-			this.ClockModeGB.Size = new System.Drawing.Size(446, 76);
-			this.ClockModeGB.TabIndex = 1;
-			this.ClockModeGB.TabStop = false;
-			this.ClockModeGB.Text = "Clock mode";
+			ClockModeGB.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			ClockModeGB.Controls.Add(ClockModeCB);
+			ClockModeGB.Controls.Add(ClockSizeUnD);
+			ClockModeGB.Controls.Add(ClockSizeLbl);
+			ClockModeGB.Location = new Point(14, 73);
+			ClockModeGB.Margin = new Padding(4, 3, 4, 3);
+			ClockModeGB.Name = "ClockModeGB";
+			ClockModeGB.Padding = new Padding(4, 3, 4, 3);
+			ClockModeGB.Size = new Size(520, 88);
+			ClockModeGB.TabIndex = 1;
+			ClockModeGB.TabStop = false;
+			ClockModeGB.Text = "Clock mode";
 			// 
 			// Form2
 			// 
-			this.AcceptButton = this.OkBtn;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(468, 372);
-			this.Controls.Add(this.ClockModeGB);
-			this.Controls.Add(this.ConnectionsGB);
-			this.Controls.Add(this.PointsGB);
-			this.Controls.Add(this.BackgroundColorPB);
-			this.Controls.Add(this.BackgroundColorLbl);
-			this.Controls.Add(this.DensityUnD);
-			this.Controls.Add(this.DensityLbl);
-			this.Controls.Add(this.PictureBoxGitHub);
-			this.Controls.Add(this.ResetBtn);
-			this.Controls.Add(this.OkBtn);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "Form2";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Screensaver";
-			((System.ComponentModel.ISupportInitialize)(this.DensityUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.PictureBoxGitHub)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.BackgroundColorPB)).EndInit();
-			this.PointsGB.ResumeLayout(false);
-			this.PointsGB.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.PointColorPB)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.ChaoticUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.RotateSpeedUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.SpeedUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.PointRadiusUnD)).EndInit();
-			this.ConnectionsGB.ResumeLayout(false);
-			this.ConnectionsGB.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ConnectionsColorPB)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.ConnectionsAlphaUnd)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.LineWidthUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.ShadingUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.DistanceUnD)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.ClockSizeUnD)).EndInit();
-			this.ClockModeGB.ResumeLayout(false);
-			this.ClockModeGB.PerformLayout();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+			AcceptButton = OkBtn;
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(546, 429);
+			Controls.Add(ClockModeGB);
+			Controls.Add(ConnectionsGB);
+			Controls.Add(PointsGB);
+			Controls.Add(BackgroundColorPB);
+			Controls.Add(BackgroundColorLbl);
+			Controls.Add(DensityUnD);
+			Controls.Add(DensityLbl);
+			Controls.Add(PictureBoxGitHub);
+			Controls.Add(ResetBtn);
+			Controls.Add(OkBtn);
+			FormBorderStyle = FormBorderStyle.FixedDialog;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "Form2";
+			StartPosition = FormStartPosition.CenterScreen;
+			Text = "Screensaver Particles";
+			((System.ComponentModel.ISupportInitialize)DensityUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)PictureBoxGitHub).EndInit();
+			((System.ComponentModel.ISupportInitialize)BackgroundColorPB).EndInit();
+			PointsGB.ResumeLayout(false);
+			PointsGB.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)PointColorPB).EndInit();
+			((System.ComponentModel.ISupportInitialize)ChaoticUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)RotateSpeedUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)SpeedUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)PointRadiusUnD).EndInit();
+			ConnectionsGB.ResumeLayout(false);
+			ConnectionsGB.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)ConnectionsColorPB).EndInit();
+			((System.ComponentModel.ISupportInitialize)ConnectionsAlphaUnd).EndInit();
+			((System.ComponentModel.ISupportInitialize)LineWidthUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)ShadingUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)DistanceUnD).EndInit();
+			((System.ComponentModel.ISupportInitialize)ClockSizeUnD).EndInit();
+			ClockModeGB.ResumeLayout(false);
+			ClockModeGB.PerformLayout();
+			ResumeLayout(false);
+			PerformLayout();
 
 		}
 

@@ -1,4 +1,4 @@
-﻿namespace ScreenSaverConections
+﻿namespace ScreenSaverParticles
 {
 	partial class Form1
 	{
@@ -28,33 +28,34 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
+			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.SuspendLayout();
+			timer1 = new System.Windows.Forms.Timer(components);
+			SuspendLayout();
 			// 
 			// timer1
 			// 
-			this.timer1.Enabled = true;
-			this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+			timer1.Enabled = true;
+			timer1.Tick += Timer1_Tick;
 			// 
 			// Form1
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Black;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "Form1";
-			this.Text = "Screensaver";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-			this.Load += new System.EventHandler(this.Form1_Load);
-			this.Click += new System.EventHandler(this.Form1_Click);
-			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
-			this.ResumeLayout(false);
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.Black;
+			ClientSize = new Size(933, 519);
+			FormBorderStyle = FormBorderStyle.None;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "Form1";
+			Text = "Screensaver";
+			WindowState = FormWindowState.Maximized;
+			FormClosing += Form1_FormClosing;
+			Load += Form1_Load;
+			Click += Form1_Click;
+			KeyDown += Form1_KeyDown;
+			MouseMove += Form1_MouseMove;
+			ResumeLayout(false);
 
 		}
 
