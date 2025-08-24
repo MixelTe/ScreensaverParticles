@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ScreenSaverParticles": {
+      "commandName": "Project",
+      "commandLineArgs": "/s"
+    }
+  }
+}

@@ -6,7 +6,16 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <Title>Screensaver Particles</Title>
+    <Authors>Mixel Te</Authors>
+    <AssemblyVersion>1.3</AssemblyVersion>
+    <Configurations>Debug;Release;Debug s</Configurations>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GameOverlay.Net" Version="4.3.1" />
