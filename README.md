@@ -1,6 +1,6 @@
-### [Download v1.3 (Windows)](https://github.com/MixelTe/ScreensaverParticles/releases/download/v1.3/ScreenSaverParticles.scr)
-### [Download v1.3 (Windows x86)](https://github.com/MixelTe/ScreensaverParticles/releases/download/v1.3/ScreenSaverParticles_x86.scr)
 # Screensaver Particles
+
+### [Download v1.3.1 (Windows)](https://github.com/MixelTe/ScreensaverParticles/releases/download/v1.3.1/ScreenSaverParticles.scr)
 
 ![](./docs/demo.gif)
 ![](./docs/screenrecord.gif)

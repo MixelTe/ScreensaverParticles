@@ -62,7 +62,7 @@ class CPoint : IDisposable
 
 		if (Bound)
 		{
-			var speed = _settings.DEV_Presentation_BoundSpeed / Program.SizeMul;
+			var speed = _settings.DEV_Presentation_BoundSpeed / _settings.ClockSize / Program.SizeMul;
 			var speedX = speed * (_xStart - X) / _maxDistanceWhenBound;
 			var speedY = speed * (_yStart - Y) / _maxDistanceWhenBound;
 			X += speedX;

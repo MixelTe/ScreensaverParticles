@@ -16,8 +16,8 @@ class PointsCreator
 		_settings = settings;
 		_widthScr = width;
 		_heightScr = height;
-		_space = (int)(_settings.DistanceMax * Program.SizeMul);
-		var clockMaxWidth = (int)Math.Round(width * _settings.ClockSize - _space * 3);
+		_space = (int)(_settings.DistanceMax * Program.SizeMul * _settings.ClockSize);
+		var clockMaxWidth = Math.Max((int)Math.Round(width * _settings.ClockSize - _space * 3), 2);
 		var clockMaxHeight = (int)Math.Round(height * _settings.ClockSize);
 		int clockWidth, clockHeight;
 		if (clockMaxHeight * 2 > clockMaxWidth)
@@ -264,6 +264,7 @@ class PointsCreator
 	private void CreatePoints(Rectangle rect, int rs, int re, CPoint[] points, int pos, bool newP, int visibleCount)
 	{
 		//Program.rectangles.Add(rect);
+		if (rect.Width <= 0) return;
 		var pointsCount = re - rs;
 		var width = rect.Width / (float)visibleCount;
 		var height = rect.Height / (float)visibleCount;
